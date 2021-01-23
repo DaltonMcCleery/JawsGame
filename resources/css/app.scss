@@ -8,9 +8,44 @@ $brody: #020609;
 svg#jaws-logo {
     width: 150px;
     height: 50px;
-
     #path0 {
         fill: transparent !important;
+    }
+}
+
+#index-hero {
+    background-size: cover !important;
+    position: relative;
+    overflow: hidden;
+
+    &::Before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(33, 33, 33, .6);
+        z-index: 1;
+    }
+
+    .hero-body {
+        z-index: 2;
+        text-align: center;
+    }
+
+    #homepage-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.65);
+        overflow: hidden;
     }
 }
 
@@ -26,7 +61,6 @@ svg#jaws-logo {
     bottom: 0;
     left: 0;
     width: 100%;
-
 
     &.shark {
         background-color: lighten($red, 25%);
