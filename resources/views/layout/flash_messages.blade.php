@@ -1,6 +1,6 @@
 @if(Session::has('success'))
     <section class="hero is-success">
-        <div class="hero-body" align="center">
+        <div class="hero-body" style="text-align: center">
             <div class="container">
                 <h2 class="subtitle">
                     {{ Session::get('success') }}
@@ -10,7 +10,7 @@
     </section>
 @elseif (Session::has('info'))
     <section class="hero is-info">
-        <div class="hero-body" align="center">
+        <div class="hero-body" style="text-align: center">
             <div class="container">
                 <h2 class="subtitle">
                     {{ Session::get('info') }}
@@ -20,7 +20,7 @@
     </section>
 @elseif (Session::has('warn'))
     <section class="hero is-warning">
-        <div class="hero-body" align="center">
+        <div class="hero-body" style="text-align: center">
             <div class="container">
                 <h2 class="subtitle">
                     {{ Session::get('warn') }}
@@ -30,7 +30,7 @@
     </section>
 @elseif (Session::has('error'))
     <section class="hero is-danger">
-        <div class="hero-body" align="center">
+        <div class="hero-body" style="text-align: center">
             <div class="container">
                 <h2 class="subtitle">
                     {{ Session::get('error') }}
@@ -40,7 +40,7 @@
     </section>
 @elseif (Session::has('general'))
     <section class="hero">
-        <div class="hero-body" align="center">
+        <div class="hero-body" style="text-align: center">
             <div class="container">
                 <h2 class="subtitle">
                     {{ Session::get('general') }}
