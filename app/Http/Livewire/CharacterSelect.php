@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Events\Characters\characterSelection;
-use App\Events\Characters\syncCharacterSelection;
 use App\Models\Game;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Events\Characters\syncCharacterSelection;
 
 class CharacterSelect extends Component
 {
@@ -159,12 +158,14 @@ class CharacterSelect extends Component
 
         $this->deSelect($username, $model);
 
-        broadcast(new syncCharacterSelection($this->session_id, [
-            'shark' => $this->shark,
-            'brody' => $this->brody,
-            'hooper' => $this->hooper,
-            'quint' => $this->quint,
-        ]));
+        if (count($this->getErrorBag()->get('character-error')) === 0) {
+            broadcast(new syncCharacterSelection($this->session_id, [
+                'shark'  => $this->shark,
+                'brody'  => $this->brody,
+                'hooper' => $this->hooper,
+                'quint'  => $this->quint,
+            ]));
+        }
     }
 
     public function syncSelectedCharacters($data) {
