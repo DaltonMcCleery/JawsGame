@@ -1,5 +1,6 @@
 <?php
 
+use App\Broadcasting\GameChannel;
 use App\Broadcasting\LobbyChannel;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::routes();
 Broadcast::channel('lobby.{session}', LobbyChannel::class);
+Broadcast::channel('game.{session}', GameChannel::class);
