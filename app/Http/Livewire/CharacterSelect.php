@@ -48,9 +48,9 @@ class CharacterSelect extends Component
         if ($skip !== 'shark' && $this->shark === $username) {
             // de-select
             $this->shark = null;
-//            ($this->game)->update([
-//                'shark' => $user->id
-//            ]);
+            ($this->game)->Shark->update([
+                'user_id' => null
+            ]);
         }
         if ($skip !== 'brody' && $this->brody === $username) {
             // de-select
@@ -88,9 +88,15 @@ class CharacterSelect extends Component
                 if ($this->shark === $username) {
                     // de-select
                     $this->shark = null;
+                    ($this->game)->Shark->update([
+                        'user_id' => null
+                    ]);
                 } else {
                     if ($this->shark === null) {
                         $this->shark = $username;
+                        ($this->game)->Shark->update([
+                            'user_id' => $user_id
+                        ]);
                     } else {
                         // already selected
                         $this->addError('character-error', 'Character already selected!');
