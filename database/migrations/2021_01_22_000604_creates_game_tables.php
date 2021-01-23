@@ -17,7 +17,7 @@ class CreatesGameTables extends Migration
 
         Schema::create('shark', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->integer('health')->default(10);
+            $table->integer('health')->default(18);
             $table->integer('swimmers_ate')->default(0);
             $table->integer('barrels')->default(0);
             $table->unsignedBigInteger('user_id')->references('id')->on('users');;
@@ -83,11 +83,11 @@ class CreatesGameTables extends Migration
             $table->unsignedBigInteger('shark_id')->nullable()->references('id')->on('shark');
             $table->unsignedBigInteger('boat_id')->nullable()->references('id')->on('boat');
             $table->unsignedBigInteger('brody')->nullable()->references('id')->on('users');
-            $table->integer('brody_health')->default(10);
+            $table->integer('brody_health')->default(6);
             $table->unsignedBigInteger('hooper')->nullable()->references('id')->on('users');
-            $table->integer('hooper_health')->default(10);
+            $table->integer('hooper_health')->default(6);
             $table->unsignedBigInteger('quint')->nullable()->references('id')->on('users');
-            $table->integer('quint_health')->default(10);
+            $table->integer('quint_health')->default(6);
             $table->timestamps();
         });
 
