@@ -1,6 +1,8 @@
 const mix = require('laravel-mix');
-const tailwindcss = require('tailwindcss');
-require('laravel-mix-purgecss');
+require('laravel-mix-polyfill');
+
+// All output files/directories will be placed in the `/public` directory
+mix.setPublicPath('public');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,12 +15,17 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix.js('resources/js/app.js', 'public/dist/js')
-    .sass('resources/css/app.scss', 'public/dist/css')
-    .options({
-        processCssUrls: false,
-        postCss: [ tailwindcss('./tailwind.config.js') ],
-    })
-    .purgeCss()
-    .version()
+mix.js('resources/js/app.js', 'dist/js')
+    .sass('resources/css/app.scss', 'dist/css')
 ;
+
+if (mix.inProduction()) {
+    // Minify and use polyfills in production
+    mix.version();
+    mix.sourceMaps();
+    mix.polyfill({
+        enabled: true,
+        useBuiltIns: 'usage',
+        targets: {firefox: '50', ie: 11}
+    });
+}
