@@ -1,6 +1,6 @@
 @import "~bulma/bulma";
 
-$red = #e40403;
+$red: #e40403;
 
 svg#jaws-logo {
     width: 150px;
@@ -9,4 +9,10 @@ svg#jaws-logo {
     #path0 {
         fill: transparent !important;
     }
+}
+
+#chat-window {
+    position: sticky;
+    width: 100%;
+    top: 0.75rem;
 }

@@ -1,4 +1,4 @@
-<article class="panel is-dark">
+<article id="chat-window" class="panel is-dark">
     <p class="panel-heading">
         <span class="mb-2 is-flex is-flex-direction-row is-justify-content-space-between">
             <span>Chat ({{ count($users) }} Users)</span>
