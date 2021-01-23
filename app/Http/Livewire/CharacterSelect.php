@@ -30,6 +30,10 @@ class CharacterSelect extends Component
     }
 
     public function startGame() {
+        ($this->game)->update([
+            'status' => 'started'
+        ]);
+
         broadcast(new startGame(Auth::user(), $this->session_id));
     }
 
