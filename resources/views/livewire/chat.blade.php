@@ -35,7 +35,7 @@
 
 </article>
 
-@section('scripts')
+@push('scripts')
     <script>
         const lobbyChatWindow = document.getElementById('lobbyChat');
         Livewire.on('scrollChatMessages', function() {
@@ -59,12 +59,5 @@
             .listen('syncLobbyChat', (data) => {
                 Livewire.emit('syncChatMessages', data.messages);
             })
-            // .listen('closeLobby', (data) => {
-            //     // Host has chosen to close the Lobby/Game
-            // })
-            .listen('startGame', (data) => {
-                // Redirect the User to the Game's page
-                window.location.href = '/play/game/{{ $session_id }}';
-            });
     </script>
-@endsection
+@endpush

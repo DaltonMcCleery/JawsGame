@@ -26,6 +26,6 @@
 
         <script src="{{ mix('dist/js/app.js') }}"></script>
         @livewireScripts
-        @yield('scripts')
+        @stack('scripts')
     </body>
 </html>
