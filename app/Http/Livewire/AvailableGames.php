@@ -3,10 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Models\Boat;
+use App\Models\Shark;
+use Livewire\Component;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Livewire\Component;
 
 class AvailableGames extends Component
 {
@@ -35,7 +37,9 @@ class AvailableGames extends Component
         Game::create([
             'session_id'    => $session_id,
             'game_id'       => $this->game_id,
-            'host_id'       => Auth::user()->id
+            'host_id'       => Auth::user()->id,
+            'shark_id'      => (Shark::create())->id,
+            'boat_id'       => (Boat::create())->id
         ]);
 
         return redirect('/play/lobby/'.$session_id);
