@@ -40,7 +40,9 @@
         const lobbyChatWindow = document.getElementById('lobbyChat');
         Livewire.on('scrollChatMessages', function() {
             var messages = lobbyChatWindow.querySelectorAll('p');
-            (messages[messages.length - 1]).scrollIntoView()
+            if (messages.length > 1) {
+                (messages[messages.length - 1]).scrollIntoView()
+            }
         })
 
         Echo.join('lobby.{{ $session_id }}')
