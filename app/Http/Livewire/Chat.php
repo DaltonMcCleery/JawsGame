@@ -12,6 +12,7 @@ class Chat extends Component
 {
     public $users = [];
 
+    public $game;
     public $host_id;
     public $session_id;
 
@@ -27,6 +28,7 @@ class Chat extends Component
     ];
 
     public function mount(Game $game) {
+        $this->game = $game;
         $this->session_id = $game->session_id;
         $this->host_id = $game->Host->id;
     }
@@ -44,6 +46,8 @@ class Chat extends Component
     public function userJoiningChatLobby($user) {
         // Add user
         $this->users[] = $user;
+        $this->updateLobbySessions();
+
         broadcast(new syncLobbyChat($this->session_id, $this->lobbyMessages));
     }
 
@@ -54,6 +58,16 @@ class Chat extends Component
                 unset($this->users[$key]);
             }
         }
+
+        $this->updateLobbySessions();
+    }
+
+    private function updateLobbySessions() {
+        ($this->game)->update([
+            'current_sessions' => count($this->users)
+        ]);
+
+        $this->game->refresh();
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
