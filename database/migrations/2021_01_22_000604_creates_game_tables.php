@@ -20,7 +20,7 @@ class CreatesGameTables extends Migration
             $table->integer('health')->default(18);
             $table->integer('swimmers_ate')->default(0);
             $table->integer('barrels')->default(0);
-            $table->unsignedBigInteger('user_id')->references('id')->on('users');;
+            $table->unsignedBigInteger('user_id')->nullable()->references('id')->on('users');;
             $table->timestamps();
         });
 
@@ -51,14 +51,14 @@ class CreatesGameTables extends Migration
 
         Schema::create('boat', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->integer('tile_1_health');
-            $table->integer('tile_2_health');
-            $table->integer('tile_3_health');
-            $table->integer('tile_4_health');
-            $table->integer('tile_5_health');
-            $table->integer('tile_6_health');
-            $table->integer('tile_7_health');
-            $table->integer('tile_8_health');
+            $table->integer('tile_1_health')->default(1);
+            $table->integer('tile_2_health')->default(1);
+            $table->integer('tile_3_health')->default(1);
+            $table->integer('tile_4_health')->default(1);
+            $table->integer('tile_5_health')->default(1);
+            $table->integer('tile_6_health')->default(1);
+            $table->integer('tile_7_health')->default(1);
+            $table->integer('tile_8_health')->default(1);
             $table->integer('brody_target')->nullable();
             $table->integer('brody_position')->default(0);
             $table->integer('hooper_target')->nullable();
