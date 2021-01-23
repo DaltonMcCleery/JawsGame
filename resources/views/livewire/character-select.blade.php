@@ -5,19 +5,18 @@
         <div class="column is-full-mobile is-half-desktop" wire:click="userSelectedCharacter('shark')">
             <div class="card" @isset($shark) style="border: 3px solid #e40403" @endisset>
                 <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                    <figure class="image is-16by9">
+                        <img src="{{ asset('characters/jaws.jpg') }}" alt="Jaws Shark">
                     </figure>
+                    @isset($shark)
+                        <article class="message character-selected shark">
+                            <div class="message-body">
+                                <p><strong>Selected By: {{ $shark }}</strong></p>
+                            </div>
+                        </article>
+                    @endif
                 </div>
                 <div class="card-content">
-                    @isset($shark)
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="is-6"><strong>Selected By: {{ $shark }}</strong></p>
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="content">
                         The Shark
                     </div>
@@ -27,21 +26,20 @@
 
         {{-- BRODY --}}
         <div class="column is-full-mobile is-half-desktop" wire:click="userSelectedCharacter('brody')">
-            <div class="card" @isset($brody) style="border: 3px solid blue" @endisset>
+            <div class="card" @isset($brody) style="border: 3px solid #020609" @endisset>
                 <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                    <figure class="image is-16by9">
+                        <img src="{{ asset('characters/brody.jpg') }}" alt="Brody">
                     </figure>
+                    @isset($brody)
+                        <article class="message character-selected brody">
+                            <div class="message-body">
+                                <p><strong>Selected By: {{ $brody }}</strong></p>
+                            </div>
+                        </article>
+                    @endif
                 </div>
                 <div class="card-content">
-                    @isset($brody)
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="is-6"><strong>Selected By: {{ $brody }}</strong></p>
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="content">
                         Brody
                     </div>
@@ -51,21 +49,20 @@
 
         {{-- HOOPER --}}
         <div class="column is-full-mobile is-half-desktop" wire:click="userSelectedCharacter('hooper')">
-            <div class="card" @isset($hooper) style="border: 3px solid yellow" @endisset>
+            <div class="card" @isset($hooper) style="border: 3px solid #6b9cd1" @endisset>
                 <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                    <figure class="image is-16by9">
+                        <img src="{{ asset('characters/hooper.jpg') }}" alt="Hooper">
                     </figure>
+                    @isset($hooper)
+                        <article class="message character-selected hooper">
+                            <div class="message-body">
+                                <p><strong>Selected By: {{ $hooper }}</strong></p>
+                            </div>
+                        </article>
+                    @endif
                 </div>
                 <div class="card-content">
-                    @isset($hooper)
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="is-6"><strong>Selected By: {{ $hooper }}</strong></p>
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="content">
                         Hooper
                     </div>
@@ -75,21 +72,20 @@
 
         {{-- QUINT --}}
         <div class="column is-full-mobile is-half-desktop" wire:click="userSelectedCharacter('quint')">
-            <div class="card" @isset($quint) style="border: 3px solid green" @endisset>
+            <div class="card" @isset($quint) style="border: 3px solid #85b65b" @endisset>
                 <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                    <figure class="image is-16by9">
+                        <img src="{{ asset('characters/quint.jpg') }}" alt="Quint">
                     </figure>
+                    @isset($quint)
+                        <article class="message character-selected quint">
+                            <div class="message-body">
+                                <p><strong>Selected By: {{ $quint }}</strong></p>
+                            </div>
+                        </article>
+                    @endif
                 </div>
                 <div class="card-content">
-                    @isset($quint)
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="is-6"><strong>Selected By: {{ $quint }}</strong></p>
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="content">
                         Quint
                     </div>
@@ -105,7 +101,7 @@
             </div>
         @enderror
 
-        @if($game->Host->id === Auth::user()->id)
+        @if($game->Host->id === Auth::user()->id && $shark !== null)
             <div class="column is-full">
                 <button class="button is-success" style="width: 100%">Start Game</button>
             </div>
