@@ -48,4 +48,11 @@ class Game extends Model
     public function Quint() {
         return $this->hasOne('App\Models\User', 'id', 'quint');
     }
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['Host', 'Shark', 'Brody', 'Hooper', 'Quint'];
 }
