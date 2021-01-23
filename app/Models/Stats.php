@@ -16,7 +16,7 @@ class Stats extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'games_won',
+        'user_id', 'games_played', 'games_won',
         'won_as_shark', 'won_as_brody', 'won_as_hooper', 'won_as_quint',
         'times_picked_shark', 'times_picked_brody', 'times_picked_hooper', 'times_picked_quint'
     ];

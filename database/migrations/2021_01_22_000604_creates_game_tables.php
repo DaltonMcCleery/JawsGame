@@ -27,6 +27,7 @@ class CreatesGameTables extends Migration
         Schema::create('stats', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->integer('games_won')->default(0);
+            $table->integer('games_played')->default(0);
             $table->integer('won_as_shark')->default(0);
             $table->integer('won_as_brody')->default(0);
             $table->integer('won_as_hooper')->default(0);
