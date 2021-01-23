@@ -103,7 +103,7 @@
 
         @if($game->Host->id === Auth::user()->id && $shark !== null)
             <div class="column is-full">
-                <button class="button is-success" style="width: 100%">Start Game</button>
+                <button class="button is-success" style="width: 100%" wire:click="startGame">Start Game</button>
             </div>
         @endif
     </div>
@@ -123,7 +123,7 @@
             .listen('Characters.syncCharacterSelection', (data) => {
                 Livewire.emit('syncSelectedCharacters', data.characters);
             })
-            .listen('startGame', (data) => {
+            .listen('Lobby.startGame', (data) => {
                 // Redirect the User to the Game's page
                 window.location.href = '/play/game/{{ $session_id }}';
             });

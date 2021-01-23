@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\Lobby\startGame;
 use App\Models\Game;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,10 @@ class CharacterSelect extends Component
     public function mount(Game $game) {
         $this->game = $game;
         $this->session_id = $game->session_id;
+    }
+
+    public function startGame() {
+        broadcast(new startGame(Auth::user(), $this->session_id));
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
