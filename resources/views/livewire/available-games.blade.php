@@ -3,11 +3,11 @@
 
         <h2 class="subtitle has-text-centered">{{ count($games) }} Games Found</h2>
         <div class="is-flex is-justify-content-center is-flex-direction-column">
-            <button class="button is-dark mb-4" wire:click="loadGames">Refresh</button>
+            <button class="button is-dark @auth mb-2 @else mb-4 @endauth" wire:click="loadGames">Refresh</button>
 
             @auth
                 @if(Auth::user()->role === 'ADMIN')
-                    <div class="field is-grouped">
+                    <div class="field is-grouped mb-4">
                         <p class="control is-expanded">
                             <input class="input" type="text" placeholder="Game Password (optional)" wire:model="game_id">
                         </p>
