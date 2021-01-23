@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LobbyController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,7 @@ Route::middleware('players')->group(function () {
 
     // ---> PROFILE
     Route::prefix('profile')->group(function () {
-        Route::get('/', 'ProfileController@index')->name('user.profile');
-        Route::get('/update', 'ProfileController@updateProfile')->name('user.profile.update');
+        Route::get('/', [ProfileController::class, 'index'])->name('user.profile');
     });
 });
 
