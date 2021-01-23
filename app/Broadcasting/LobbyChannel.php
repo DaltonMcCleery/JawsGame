@@ -2,7 +2,7 @@
 
 namespace App\Broadcasting;
 
-use App\User;
+use App\Models\User;
 
 class LobbyChannel
 {
@@ -19,7 +19,7 @@ class LobbyChannel
     /**
      * Add a User to a Lobby Broadcast Channel
      *
-     * @param  \App\User $user
+     * @param  User $user
      * @return User
      */
     public function join(User $user)
