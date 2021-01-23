@@ -1,5 +1,10 @@
-/* purgecss start ignore */
-@tailwind base;
-@tailwind components;
-/* purgecss end ignore */
-@tailwind utilities;
+@import "~bulma/bulma";
+
+svg#jaws-logo {
+    width: 150px;
+    height: 50px;
+
+    #path0 {
+        fill: transparent !important;
+    }
+}
