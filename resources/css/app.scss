@@ -1,6 +1,9 @@
 @import "~bulma/bulma";
 
 $red: #e40403;
+$quint: #85b65b;
+$hooper: #6b9cd1;
+$brody: #020609;
 
 svg#jaws-logo {
     width: 150px;
@@ -15,4 +18,46 @@ svg#jaws-logo {
     position: sticky;
     width: 100%;
     top: 0.75rem;
+}
+
+.character-selected {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+
+    &.shark {
+        background-color: lighten($red, 25%);
+
+        .message-body {
+            border: none !important;
+            color: white;
+        }
+    }
+    &.brody {
+        background-color: lighten($brody, 25%);
+
+        .message-body {
+            border: none !important;
+            color: white;
+        }
+    }
+    &.hooper {
+        background-color: lighten($hooper, 25%);
+
+        .message-body {
+            border: none !important;
+            color: $brody;
+        }
+    }
+    &.quint {
+        background-color: lighten($quint, 25%);
+
+        .message-body {
+            border: none !important;
+            color: $brody;
+        }
+    }
 }
