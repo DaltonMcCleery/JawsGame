@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Lobby;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,23 +10,23 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class syncLobbyChat implements ShouldBroadcast
+class startGame implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
     public $session_id;
-    public $messages;
 
     /**
      * Create a new event instance.
      *
+     * @param $user
      * @param $session_id
-     * @param $messages
      */
-    public function __construct($session_id, $messages)
+    public function __construct($user, $session_id)
     {
+        $this->user = $user;
         $this->session_id = $session_id;
-        $this->messages = $messages;
     }
 
     /**

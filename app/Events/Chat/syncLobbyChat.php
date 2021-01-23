@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Chat;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,26 +10,23 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class lobbyChat implements ShouldBroadcast
+class syncLobbyChat implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $session_id;
-    public $username;
-    public $message;
+    public $messages;
 
     /**
      * Create a new event instance.
      *
      * @param $session_id
-     * @param $username
-     * @param $message
+     * @param $messages
      */
-    public function __construct($session_id, $username, $message)
+    public function __construct($session_id, $messages)
     {
         $this->session_id = $session_id;
-        $this->username = $username;
-        $this->message = $message;
+        $this->messages = $messages;
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Game;
 use Livewire\Component;
-use App\Events\lobbyChat;
-use App\Events\syncLobbyChat;
+use App\Events\Chat\lobbyChat;
+use App\Events\Chat\syncLobbyChat;
 use Illuminate\Support\Facades\Auth;
 
 class Chat extends Component
@@ -25,7 +26,7 @@ class Chat extends Component
         'syncChatMessages'
     ];
 
-    public function mount($game) {
+    public function mount(Game $game) {
         $this->session_id = $game->session_id;
         $this->host_id = $game->Host->id;
     }
@@ -63,7 +64,7 @@ class Chat extends Component
             broadcast(new lobbyChat($this->session_id, Auth::user()->username, $this->message));
         }
 
-        $this->reset('message');
+        $this->reset(['message']);
     }
 
     public function newLobbyMessage($message) {

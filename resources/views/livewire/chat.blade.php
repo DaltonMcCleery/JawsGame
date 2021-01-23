@@ -53,10 +53,10 @@
             .leaving((user) => {
                 Livewire.emit('userLeavingChatLobby', user);
             })
-            .listen('lobbyChat', (data) => {
+            .listen('Chat.lobbyChat', (data) => {
                 Livewire.emit('newLobbyMessage', data);
             })
-            .listen('syncLobbyChat', (data) => {
+            .listen('Chat.syncLobbyChat', (data) => {
                 Livewire.emit('syncChatMessages', data.messages);
             })
     </script>
