@@ -37,7 +37,7 @@
                                     @if(!$game->Brody) <span class="tag is-light">Brody</span> @endif
                                     @if(!$game->Hooper) <span class="tag is-light">Hooper</span> @endif
                                     @if(!$game->Quint) <span class="tag is-light">Quint</span> @endif
-                                    @if(!$game->Shark) <span class="tag is-dark">Shark</span> @endif
+                                    @if(!$game->Shark->user_id) <span class="tag is-dark">Shark</span> @endif
                                 </p>
                             </div>
                             <nav class="level is-mobile">
@@ -55,7 +55,7 @@
                                             <p class="help is-danger" style="position: absolute; bottom: 10px;">{{ $message }}</p>
                                         @enderror
                                     @else
-                                        <a href="#" class="button is-success">Join</a>
+                                        <button class="button is-success" wire:click="joinGame('{{ $game->id }}')">Join</button>
                                     @endisset
                                 </div>
                             </nav>

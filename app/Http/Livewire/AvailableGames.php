@@ -51,6 +51,9 @@ class AvailableGames extends Component
         if ($game->game_id !== null && $this->joining_game_id === $game->game_id) {
             // Join game
             return redirect('/play/lobby/'.$game->session_id);
+        } elseif ($game->game_id === null) {
+            // Join game
+            return redirect('/play/lobby/'.$game->session_id);
         }
 
         $this->addError('joining_game_id', 'Invalid Game Password');
