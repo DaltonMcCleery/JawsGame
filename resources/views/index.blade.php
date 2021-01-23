@@ -17,5 +17,3 @@
     <livewire:available-games />
 
 @endsection
-@section('scripts')
-@endsection
