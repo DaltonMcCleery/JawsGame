@@ -6,7 +6,7 @@
         </span>
 
         @foreach($users as $user)
-            @if($host_id === $user['id'])
+            @if($game->Host->id === $user['id'])
                 <span class="tag is-info is-light">{{ $user['username'] }} (Host)</span>
             @else
                 <span class="tag is-light">{{ $user['username'] }}</span>

@@ -13,7 +13,6 @@ class Chat extends Component
     public $users = [];
 
     public $game;
-    public $host_id;
     public $session_id;
 
     public $message = null;
@@ -30,7 +29,6 @@ class Chat extends Component
     public function mount(Game $game) {
         $this->game = $game;
         $this->session_id = $game->session_id;
-        $this->host_id = $game->Host->id;
     }
 
     public function leaveLobby() {
