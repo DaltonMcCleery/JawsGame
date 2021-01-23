@@ -1,6 +1,10 @@
 <article class="panel is-dark">
     <p class="panel-heading">
-        <span class="mb-2" style="display: block">Chat ({{ count($users) }} Users)</span>
+        <span class="mb-2 is-flex is-flex-direction-row is-justify-content-space-between">
+            <span>Chat ({{ count($users) }} Users)</span>
+            <a href="/" class="tag is-danger">Leave Game <button class="delete is-small"></button></a>
+        </span>
+
         @foreach($users as $user)
             @if($host_id === $user['id'])
                 <span class="tag is-info is-light">{{ $user['username'] }} (Host)</span>
@@ -55,10 +59,9 @@
             .listen('syncLobbyChat', (data) => {
                 Livewire.emit('syncChatMessages', data.messages);
             })
-            .listen('closeLobby', (data) => {
-                // Host has chosen to close the Lobby/Game
-                // this.leaveLobby(this.current_ninja);
-            })
+            // .listen('closeLobby', (data) => {
+            //     // Host has chosen to close the Lobby/Game
+            // })
             .listen('startGame', (data) => {
                 // Redirect the User to the Game's page
                 window.location.href = '/play/game/{{ $session_id }}';
