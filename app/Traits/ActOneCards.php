@@ -8,14 +8,16 @@ trait ActOneCards {
 
     public function parseEventCard($card, $gameState) {
         if ($card['type'] === 'Event') {
+            $swimmer_placements = $this->calculateSwimmerPlacement($card, $gameState);
+
             return array_merge(
                 [
                     'current_event_title' => $card['title'],
                     'current_event_description' => $card['action'],
                     'current_event_swimmers' => $card['description']
                 ],
-                $this->calculateSwimmerPlacement($card, $gameState),
-                $this->determineExtraActions($card['action'], $gameState)
+                $swimmer_placements,
+                $this->determineExtraActions($card['token'], $gameState, $swimmer_placements)
             );
         }
 
@@ -23,7 +25,8 @@ trait ActOneCards {
     }
 
     /**
-     * @param $description
+     * @param $card
+     * @param $gameState
      * @return int[]
      */
     private function calculateSwimmerPlacement($card, $gameState) {
@@ -82,8 +85,92 @@ trait ActOneCards {
         return $swimmers;
     }
 
-    private function determineExtraActions($action, $gameState) {
-        // Todo
-        return [];
+    /**
+     * @param $token
+     * @param $gameState
+     * @param $swimmer_placements
+     * @return null[]
+     */
+    private function determineExtraActions($token, $gameState, $swimmer_placements) {
+        $possibleChanges = [];
+
+        switch ($token) {
+            case 'event-1-card':
+                // "If the Shark moves though a boat, they may knock the boat's captain into the water"
+                $possibleChanges['captain_down'] = 1;
+                break;
+            case 'event-2-card':
+                // "Any one Crew Member may take one extra action this round"
+                $possibleChanges['extra_crew_move'] = 1;
+                break;
+            case 'event-3-card':
+                // "Barrels cannot be dropped at or picked up from either Dock this round"
+                $possibleChanges['free_docks'] = 'locked';
+                break;
+            case 'event-4-card':
+                // "Remove all Swimmers at any one Beach and close that Beach"
+                $beaches = $this->sortBeachesBySwimmers($gameState, $swimmer_placements);
+                $possibleChanges['closed_beach'] = $beaches[0];
+                $possibleChanges[$beaches[0]] = 0;
+                break;
+            case 'event-5-card':
+                // "The Shark gets one extra action this round"
+                $possibleChanges['shark_moves'] = 4;
+                break;
+            case 'event-6-card':
+                // "Open all Beaches. Beaches cannot be closed this round."
+                $possibleChanges['closed_beach'] = 'none';
+                break;
+            case 'event-7-card':
+                // "Place Michael at the open Beach with the fewest Swimmers"
+                $beaches = $this->sortBeachesBySwimmers($gameState, $swimmer_placements);
+                $possibleChanges['michael_position'] = $beaches[count($beaches) - 1];
+                break;
+            case 'event-8-card':
+                // "Dropping a Barrel at a Dock, or picking up Barrels at a Dock are free actions this round"
+                $possibleChanges['free_docks'] = 'true';
+                break;
+            case 'event-9-card':
+                // "Hooper may take one extra action this round"
+                $possibleChanges['hooper_moves'] = 5;
+                break;
+            case 'event-10-card':
+                // "Quint may take one extra action this round"
+                $possibleChanges['quint_moves'] = 5;
+                break;
+            case 'event-12-card':
+                // "Move all Crew Members to the Beach with the most Swimmers"
+                $possibleChanges['crew_relocation'] = 1;
+                break;
+            case 'event-16-card':
+                // "Brody may immediately move to any space on the island"
+                $possibleChanges['brody_relocation'] = 1;
+                break;
+        }
+
+        return $possibleChanges;
+    }
+
+    /**
+     * @param $gameState
+     * @param $new_swimmers
+     * @return string[]
+     */
+    private function sortBeachesBySwimmers($gameState, $new_swimmers) {
+        $Nkey = $gameState['North_Beach_Swimmers'] + $new_swimmers['North_Beach_Swimmers'];
+        $Ekey = $gameState['East_Beach_Swimmers'] + $new_swimmers['East_Beach_Swimmers'];
+        $Skey = $gameState['South_Beach_Swimmers'] + $new_swimmers['South_Beach_Swimmers'];
+        $Wkey = $gameState['West_Beach_Swimmers'] + $new_swimmers['West_Beach_Swimmers'];
+
+        $beaches = [
+            $Nkey => 'North_Beach',
+            $Ekey => 'East_Beach',
+            $Skey => 'South_Beach',
+            $Wkey => 'West_Beach',
+        ];
+
+        rsort($beaches);
+
+        return $beaches;
     }
 }

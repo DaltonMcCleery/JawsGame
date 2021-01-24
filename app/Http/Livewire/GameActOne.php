@@ -176,6 +176,14 @@ class GameActOne extends Component
                 'brody_moves' => $data['brody_moves'] ?? 4,
                 'brody_position' => $data['brody_position'] ?? $this->gameState['brody_position'],
                 'shark_moves' => $data['shark_moves'] ?? 3,
+                // Extra Actions
+                'captain_down' => $data['captain_down'] ?? 0,
+                'closed_beach' => $data['closed_beach'] ?? 'none',
+                'extra_crew_move' => $data['extra_crew_move'] ?? 0,
+                'free_docks' => $data['free_docks'] ?? 'false',
+                'brody_relocation' => $data['brody_relocation'] ?? 0,
+                'crew_relocation' => $data['crew_relocation'] ?? 0,
+                'michael_position' => $data['michael_position'] ?? null,
                 // Beach Swimmers
                 'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
                 'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],
