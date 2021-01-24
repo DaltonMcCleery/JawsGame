@@ -8,16 +8,14 @@
         @endforeach
     </div>
 
-    <div class="notification is-info" style="flex-basis: 100%;">
+    <div class="notification is-link" style="flex-basis: 100%;">
         Current Player's Turn: <strong>{{ $activePlayer }}</strong><br/>
         {{ $currentMove }}
     </div>
 
     @error('action-error')
-        <div class="column is-full mb-2">
-            <article class="message is-danger">
-                <div class="message-body">{{ $message }}</div>
-            </article>
+        <div class="notification is-danger" style="flex-basis: 100%;">
+            {{ $message }}
         </div>
     @enderror
 
