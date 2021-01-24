@@ -1,13 +1,5 @@
 <div id="act-1" wire:init="loadStartingActOneState">
 
-    <div class="notification is-dark" style="flex-basis: 100%;">
-        @foreach($gameState as $key => $value)
-            <p>
-                <strong>{{ $key }}</strong> => {{ $value }}
-            </p>
-        @endforeach
-    </div>
-
     <div class="notification is-link">
         Current Player's Turn: <strong>{{ $activePlayer }}</strong><br/>
         {{ $currentMove }}
@@ -15,7 +7,7 @@
 
     <div class="notification">
         Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}</strong><br/>
-        <progress class="progress is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
+        <progress class="progress is-medium is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
     </div>
 
     @error('action-error')
