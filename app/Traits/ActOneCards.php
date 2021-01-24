@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Traits;
+
+use App\Models\Card;
+
+trait ActOneCards {
+
+    public function parseEventCard($card) {
+        if ($card['type'] === 'Event') {
+            return array_merge(
+                [
+                    'current_event_title' => $card['title'],
+                    'current_event_description' => $card['action'],
+                    'current_event_swimmers' => $card['description']
+                ],
+                $this->calculateSwimmerPlacement($card['action']),
+                $this->calculateSwimmerPlacement($card['description'])
+            );
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $description
+     * @return int[]
+     */
+    private function calculateSwimmerPlacement($description) {
+        $swimmers = [
+            'North_Beach_Swimmers' => 0,
+            'East_Beach_Swimmers' => 0,
+            'South_Beach_Swimmers' => 0,
+            'West_Beach_Swimmers' => 0,
+        ];
+
+        $exploded = explode(' ', $description);
+        foreach ($exploded as $beach) {
+            foreach (str_split($beach) as $letter) {
+                switch ($letter) {
+                    case 'N':
+                        $swimmers['North_Beach_Swimmers']++;
+                        break;
+                    case 'E':
+                        $swimmers['East_Beach_Swimmers']++;
+                        break;
+                    case 'S':
+                        $swimmers['South_Beach_Swimmers']++;
+                        break;
+                    case 'W':
+                        $swimmers['West_Beach_Swimmers']++;
+                        break;
+                }
+            }
+        }
+
+        return $swimmers;
+    }
+
+    private function determineExtraActions($action) {
+        // Todo
+        return [];
+    }
+}

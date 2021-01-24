@@ -5,11 +5,12 @@ namespace App\Http\Livewire;
 use App\Models\Game;
 use Livewire\Component;
 use App\Traits\ActOneRules;
+use App\Traits\ActOneCards;
 use Illuminate\Support\Facades\Auth;
 
 class GameActOne extends Component
 {
-    use ActOneRules;
+    use ActOneRules, ActOneCards;
 
     public $game;
     public $gameState;
@@ -27,7 +28,7 @@ class GameActOne extends Component
      */
     public $actionHistory = [];
 
-    protected $listeners = ['refreshActOneState'];
+    protected $listeners = ['refreshActOneState', 'playEventCard'];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
@@ -119,7 +120,8 @@ class GameActOne extends Component
         $this->emitTo('game-wrapper', 'setGameState', [
             'shark_position' => $position,
             'current_description' => 'Playing Event Card...',
-            'current_phase' => 'Event'
+            'current_phase' => 'Event',
+            'play_card' => 'Event'
         ]);
     }
 
@@ -150,8 +152,30 @@ class GameActOne extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function playEventCard() {
+    public function playEventCard($card) {
+        $data = $this->parseEventCard($card);
 
+        if (!$data) {
+            $this->addError('action-error', 'Unable to parse Event Card');
+        } else {
+            // Perform necessary Game updates
+            $this->emitTo('game-wrapper', 'setGameState', [
+                // Event Details
+                'current_event_title' => $data['current_event_title'],
+                'current_event_description' => $data['current_event_description'],
+                'current_event_swimmers' => $data['current_event_swimmers'],
+                // Beach Swimmers
+                'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
+                'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],
+                'South_Beach_Swimmers' => $this->gameState['South_Beach_Swimmers'] + $data['South_Beach_Swimmers'],
+                'West_Beach_Swimmers' => $this->gameState['West_Beach_Swimmers'] + $data['West_Beach_Swimmers'],
+                // Event Phase is auto-followed by Shark Phase
+                'active_player' => $this->game->Shark->User->username,
+                'active_character' => 'shark',
+                'current_description' => 'Waiting on Shark to finalize their move',
+                'current_phase' => 'Shark'
+            ]);
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
