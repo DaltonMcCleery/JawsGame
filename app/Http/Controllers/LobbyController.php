@@ -6,6 +6,7 @@ use App\Events\Lobby\closeLobby;
 use App\Events\Chat\lobbyChat;
 use App\Events\Lobby\startGame;
 use App\Events\Lobby\joinLobby;
+use App\Models\Card;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +56,14 @@ class LobbyController extends Controller
             ->where('session_id', $session_id)
             ->first();
 
-        if ($game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
-            return view('game', ['game' => $game]);
+        if ($game && $game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
+            return view('game', [
+                'game' => $game,
+                'event_cards' => Card::where('type', 'Event')->get(),
+                'shark_ability_cards' => Card::where('type', 'Shark Ability')->get(),
+                'resurface_cards' => Card::where('type', 'Resurface')->get(),
+                'crew_cards' => Card::where('type', 'Crew')->get()
+            ]);
         } else {
             // Invalid Game
             return redirect('/')->with('error', 'That game is full or invalid!');

@@ -11,6 +11,9 @@ class GameWrapper extends Component
     public $game;
     public $act = 1;
 
+    public $cards = [];
+    public $usedCards = [];
+
     public $gameState = [];
 
     protected $listeners = [
@@ -18,8 +21,22 @@ class GameWrapper extends Component
         'resetGameState'
     ];
 
-    public function mount(Game $game) {
+    /**
+     * @param $game
+     * @param $event_cards
+     * @param $shark_ability_cards
+     * @param $resurface_cards
+     * @param $crew_cards
+     */
+    public function mount($game, $event_cards, $shark_ability_cards, $resurface_cards, $crew_cards) {
         $this->game = $game;
+
+        $this->cards = [
+            'Event' => $event_cards,
+            'Shark Ability' => $shark_ability_cards,
+            'Resurface' => $resurface_cards,
+            'Crew' => $crew_cards
+        ];
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
