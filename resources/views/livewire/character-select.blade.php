@@ -49,21 +49,23 @@
                     @endif
                 </div>
                 <div class="card-content">
-                    <h2 class="is-size-4">Brody</h2>
-                    <p class="mb-2">
-                        <strong>Act I</strong><br/>
-                        Brody moves around Amity Island to rescue Swimmers, deliver Barrels to the Docks, help locate
-                        the Shark, and Close Beaches.
-                    </p>
-                    <p class="mb-2">
-                        Brody may use his <strong>Binoculars</strong> <small>(Once per round)</small> at any one of the
-                        four Beach Spaces.<br/> If the Shark is at that Beach, they are shown to the rest of the Crew
-                        for the remaining of the round.
-                    </p>
-                    <p>
-                        Brody may <strong>Close a Beach</strong> if he is at either the Mayor's Office or Amity PD.
-                        space and the Beach has NO Swimmers.
-                    </p>
+                    <div class="content">
+                        <h2 class="is-size-4">Brody</h2>
+                        <p class="mb-2">
+                            <strong>Act I</strong><br/>
+                            Brody moves around Amity Island to rescue Swimmers, deliver Barrels to the Docks, help locate
+                            the Shark, and Close Beaches.
+                        </p>
+                        <p class="mb-2">
+                            Brody may use his <strong>Binoculars</strong> <small>(Once per round)</small> at any one of the
+                            four Beach Spaces.<br/> If the Shark is at that Beach, they are shown to the rest of the Crew
+                            for the remaining of the round.
+                        </p>
+                        <p>
+                            Brody may <strong>Close a Beach</strong> if he is at either the Mayor's Office or Amity PD.
+                            space and the Beach has NO Swimmers.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
