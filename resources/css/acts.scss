@@ -45,7 +45,7 @@
             }
             &.Space_4 {
                 bottom: 90px;
-                left: 90px;
+                right: 90px;
             }
             &.Space_5 {
                 top: 230px;
@@ -78,6 +78,180 @@
             &.West_Beach {
                 bottom: 130px;
                 left: 170px;
+            }
+        }
+
+        #brody-position {
+            position: absolute;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                background: $brody;
+                z-index: 10;
+            }
+
+            &.Space_5 {
+                top: 330px;
+                left: 335px;
+            }
+            &.Space_6 {
+                top: 160px;
+                right: 445px;
+            }
+            &.Space_7 {
+                bottom: 250px;
+                left: 350px;
+            }
+            &.Space_8 {
+                bottom: 305px;
+                right: 200px;
+            }
+            &.East_Beach {
+                top: 255px;
+                right: 350px;
+            }
+            &.South_Beach {
+                bottom: 245px;
+                right: 490px;
+            }
+            &.North_Beach {
+                top: 230px;
+                left: 416px;
+            }
+            &.West_Beach {
+                bottom: 250px;
+                left: 200px;
+            }
+            &.Shop {
+                bottom: 400px;
+                left: 575px;
+            }
+        }
+
+        #hooper-position {
+            position: absolute;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                background: $hooper;
+                z-index: 10;
+            }
+
+            &.Space_1 {
+                top: 100px;
+                left: 190px;
+            }
+            &.Space_2 {
+                top: 100px;
+                right: 190px;
+            }
+            &.Space_3 {
+                bottom: 55px;
+                left: 145px;
+            }
+            &.Space_4 {
+                bottom: 55px;
+                right: 145px;
+            }
+            &.Space_5 {
+                top: 325px;
+                left: 200px;
+            }
+            &.Space_6 {
+                top: 55px;
+                right: 515px;
+            }
+            &.Space_7 {
+                bottom: 172px;
+                left: 475px;
+            }
+            &.Space_8 {
+                bottom: 325px;
+                right: 80px;
+            }
+            &.East_Beach {
+                top: 275px;
+                right: 200px;
+            }
+            &.South_Beach {
+                bottom: 155px;
+                right: 570px;
+            }
+            &.North_Beach {
+                top: 120px;
+                left: 490px;
+            }
+            &.West_Beach {
+                bottom: 330px;
+                left: 70px;
+            }
+        }
+
+        #quint-position {
+            position: absolute;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                background: $quint;
+                z-index: 10;
+            }
+
+            &.Space_1 {
+                top: 175px;
+                left: 100px;
+            }
+            &.Space_2 {
+                top: 160px;
+                right: 100px;
+            }
+            &.Space_3 {
+                bottom: 150px;
+                left: 35px;
+            }
+            &.Space_4 {
+                bottom: 175px;
+                right: 45px;
+            }
+            &.Space_5 {
+                top: 290px;
+                left: 237px;
+            }
+            &.Space_6 {
+                top: 65px;
+                right: 415px;
+            }
+            &.Space_7 {
+                bottom: 182px;
+                left: 395px;
+            }
+            &.Space_8 {
+                bottom: 205px;
+                right: 120px;
+            }
+            &.East_Beach {
+                top: 145px;
+                right: 285px;
+            }
+            &.South_Beach {
+                bottom: 170px;
+                right: 450px;
+            }
+            &.North_Beach {
+                top: 110px;
+                left: 390px;
+            }
+            &.West_Beach {
+                bottom: 250px;
+                left: 105px;
             }
         }
     }

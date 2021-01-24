@@ -27,6 +27,18 @@
         @if(isset($gameState['shark_position']) && (($game->Shark->User->username === Auth::user()->username) || $showShark))
             <span id="shark-position" class="{{ $gameState['shark_position'] }}"></span>
         @endif
+
+        @if(isset($gameState['brody_position']))
+            <span id="brody-position" class="{{ $gameState['brody_position'] }}"></span>
+        @endif
+
+        @if(isset($gameState['hooper_position']))
+            <span id="hooper-position" class="{{ $gameState['hooper_position'] }}"></span>
+        @endif
+
+        @if(isset($gameState['quint_position']))
+            <span id="quint-position" class="{{ $gameState['quint_position'] }}"></span>
+        @endif
     </div>
 
     <map name="act_1_map" class="@if($activePlayer !== Auth::user()->username) disabled @endif">
@@ -61,7 +73,7 @@
               coords="1065,331,1098,399,1094,461,1058,575,1004,663,956,704,898,717,808,532,704,500,635,453,714,360,741,378,791,374,803,357,864,331" shape="poly">
 
         {{-- Shop --}}
-        <area alt="Shop" title="Shop" onclick="console.log('Shop!')"
+        <area alt="Shop" title="Shop" wire:click="attemptAction('Shop')"
               coords="407,398,470,334,534,277,553,289,566,282,573,295,636,318,630,340,603,391,536,468,463,443,467,427" shape="poly">
     </map>
 </div>
