@@ -51,7 +51,8 @@ class LobbyController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function play($session_id) {
-        $game = Game::where('session_id', $session_id)
+        $game = Game::with(['Host', 'Shark', 'Brody', 'Hooper', 'Quint', 'Boat'])
+            ->where('session_id', $session_id)
             ->first();
 
         if ($game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
