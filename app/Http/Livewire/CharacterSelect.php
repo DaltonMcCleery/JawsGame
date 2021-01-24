@@ -34,6 +34,56 @@ class CharacterSelect extends Component
             'status' => 'started'
         ]);
 
+        // Ensure all 3 Crew Characters have a Player (even if the same)
+        $brody = $this->game->Brody;
+        $hooper = $this->game->Hooper;
+        $quint = $this->game->Quint;
+
+        if ($brody === null) {
+            // Fill player with whoever is playing Hooper
+            if ($hooper === null) {
+                // Fill both with whoever is playing Quint
+                ($this->game)->update([
+                    'brody' => $quint->id,
+                    'hooper' => $quint->id
+                ]);
+            } else {
+                ($this->game)->update([
+                    'brody' => $hooper->id
+                ]);
+            }
+        }
+
+        if ($hooper === null) {
+            // Fill player with whoever is playing Brody
+            if ($brody === null) {
+                // Fill both with whoever is playing Quint
+                ($this->game)->update([
+                    'brody' => $quint->id,
+                    'hooper' => $quint->id
+                ]);
+            } else {
+                ($this->game)->update([
+                    'hooper' => $brody->id
+                ]);
+            }
+        }
+
+        if ($quint === null) {
+            // Fill player with whoever is playing Brody
+            if ($brody === null) {
+                // Fill both with whoever is playing Hooper
+                ($this->game)->update([
+                    'brody' => $hooper->id,
+                    'quint' => $hooper->id
+                ]);
+            } else {
+                ($this->game)->update([
+                    'quint' => $brody->id
+                ]);
+            }
+        }
+
         broadcast(new startGame(Auth::user(), $this->session_id));
     }
 
