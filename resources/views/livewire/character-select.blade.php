@@ -150,7 +150,7 @@
             </div>
         @enderror
 
-        @if($game->Host->id === Auth::user()->id && $shark !== null)
+        @if($game->Host->id === Auth::user()->id && $shark !== null && $game->current_sessions > 1)
             <div class="column is-full">
                 <button class="button is-success" style="width: 100%" wire:click="startGame">Start Game</button>
             </div>
