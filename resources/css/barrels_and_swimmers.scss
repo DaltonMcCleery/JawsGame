@@ -1,0 +1,150 @@
+// Barrels
+#shop-barrels {
+    position: absolute;
+    bottom: 396px;
+    left: 543px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: saddlebrown;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+#space-5-barrels {
+    position: absolute;
+    top: 280px;
+    left: 300px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: saddlebrown;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+#space-8-barrels {
+    position: absolute;
+    bottom: 232px;
+    right: 125px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: saddlebrown;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+// ------------------------------------------------------------------------------------------------------------------ //
+
+// Swimmers
+#north-swimmers {
+    position: absolute;
+    top: 180px;
+    left: 425px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: orange;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+#east-swimmers {
+    position: absolute;
+    top: 245px;
+    right: 260px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: orange;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+#south-swimmers {
+    position: absolute;
+    bottom: 160px;
+    right: 500px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: orange;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
+
+#west-swimmers {
+    position: absolute;
+    bottom: 200px;
+    left: 125px;
+
+    &::before {
+        content: attr(title);
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: orange;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
+}
