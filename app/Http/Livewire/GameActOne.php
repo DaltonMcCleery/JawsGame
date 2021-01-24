@@ -47,6 +47,7 @@ class GameActOne extends Component
         $this->activePlayer = $this->game->Shark->User->username;
 
         $this->emitTo('game-wrapper', 'setGameState', [
+            // Starting Positions & Equipped Barrels
             'quint_barrels' => 2,
             'quint_position' => 'Space_8',
             'hooper_barrels' => 0,
@@ -54,7 +55,16 @@ class GameActOne extends Component
             'brody_barrels' => 0,
             'brody_position' => 'Space_7',
             'shark_barrels' => 0,
-            'shark_position' => null
+            'shark_position' => null,
+            // Barrels
+            'shop_barrels' => 6,
+            'space_5_barrels' => 0,
+            'space_8_barrels' => 0,
+            // Beach Swimmers
+            'North_Beach_Swimmers' => 0,
+            'East_Beach_Swimmers' => 0,
+            'South_Beach_Swimmers' => 0,
+            'West_Beach_Swimmers' => 0
         ]);
     }
 
