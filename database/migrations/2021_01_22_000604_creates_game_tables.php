@@ -45,7 +45,7 @@ class CreatesGameTables extends Migration
             $table->string('type');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('token')->unique();
             $table->text('action')->nullable();
             $table->timestamps();

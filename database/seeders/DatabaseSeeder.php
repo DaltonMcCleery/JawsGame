@@ -30,5 +30,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'USER',
             'password' => Hash::make('password'),
         ]);
+
+        $this->call([
+            EventCardSeeder::class,
+            SharkAbilityCardSeeder::class
+        ]);
     }
 }
