@@ -18,6 +18,13 @@
 
     .notification {
         flex-basis: 100% !important;
+
+        .tabs a {
+            text-decoration: none;
+            &:hover {
+                cursor: inherit;
+            }
+        }
     }
 
     .image {

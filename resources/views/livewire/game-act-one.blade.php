@@ -1,11 +1,31 @@
 <div id="act-1" wire:init="loadStartingActOneState">
 
-    <div class="notification is-link">
+    <div class="notification">
+        <div class="tabs is-toggle is-fullwidth">
+            <ul>
+                <li class="@if($currentPhase === 'Event') is-active @endif">
+                    <a disabled>
+                        <span>Event Phase</span>
+                    </a>
+                </li>
+                <li class="@if($currentPhase === 'Shark') is-active @endif">
+                    <a disabled>
+                        <span>Shark Phase</span>
+                    </a>
+                </li>
+                <li class="@if($currentPhase === 'Crew') is-active @endif">
+                    <a disabled>
+                        <span>Crew Phase</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
         Current Player's Turn: <strong>{{ $activePlayer }}</strong><br/>
         {{ $currentMove }}
-    </div>
 
-    <div class="notification">
+        <br/><br/>
+
         Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}</strong><br/>
         <progress class="progress is-medium is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
     </div>
