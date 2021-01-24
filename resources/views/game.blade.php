@@ -1,6 +1,6 @@
 @extends('wrapper')
 @section('content')
 
-    <h1>The Game</h1>
+    <livewire:game-wrapper :game="$game"/>
 
 @endsection
