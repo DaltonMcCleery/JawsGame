@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\Game\newGameState;
 use App\Models\Game;
 use Livewire\Component;
 
@@ -13,7 +14,8 @@ class GameWrapper extends Component
     public $gameState = [];
 
     protected $listeners = [
-        'setGameState'
+        'setGameState',
+        'resetGameState'
     ];
 
     public function mount(Game $game) {
@@ -26,6 +28,19 @@ class GameWrapper extends Component
         foreach ($newState as $key => $value) {
             $this->gameState[$key] = $value;
         }
+
+        if ($this->act === 1) {
+            $this->emit('refreshActOneState', $this->gameState);
+        }
+        elseif ($this->act === 2) {
+            $this->emit('refreshActTwoState', $this->gameState);
+        }
+
+        broadcast(new newGameState($this->game->session_id, $this->gameState));
+    }
+
+    public function resetGameState(array $newState) {
+        $this->gameState = $newState;
 
         if ($this->act === 1) {
             $this->emit('refreshActOneState', $this->gameState);

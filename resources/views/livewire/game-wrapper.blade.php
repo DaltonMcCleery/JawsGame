@@ -23,3 +23,12 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        Echo.join('game.{{ $game->session_id }}')
+            .listen('Game.newGameState', (data) => {
+                Livewire.emit('resetGameState', data.gameState);
+            })
+    </script>
+@endpush
