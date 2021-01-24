@@ -11,7 +11,7 @@
                     @isset($shark)
                         <article class="message character-selected shark">
                             <div class="message-body">
-                                <p><strong>Selected By: {{ $shark }}</strong></p>
+                                <p><strong>{{ $shark }}</strong></p>
                             </div>
                         </article>
                     @endif
@@ -34,7 +34,7 @@
                     @isset($brody)
                         <article class="message character-selected brody">
                             <div class="message-body">
-                                <p><strong>Selected By: {{ $brody }}</strong></p>
+                                <p><strong>{{ $brody }}</strong></p>
                             </div>
                         </article>
                     @endif
@@ -57,7 +57,7 @@
                     @isset($hooper)
                         <article class="message character-selected hooper">
                             <div class="message-body">
-                                <p><strong>Selected By: {{ $hooper }}</strong></p>
+                                <p><strong>{{ $hooper }}</strong></p>
                             </div>
                         </article>
                     @endif
@@ -80,7 +80,7 @@
                     @isset($quint)
                         <article class="message character-selected quint">
                             <div class="message-body">
-                                <p><strong>Selected By: {{ $quint }}</strong></p>
+                                <p><strong>{{ $quint }}</strong></p>
                             </div>
                         </article>
                     @endif
