@@ -91,7 +91,7 @@ class EventCardSeeder extends Seeder
                 'image' => '',
                 'title' => 'Shark Alert!',
                 'description' => 'SS E',
-                'action' => 'If the Shark\'s Swimmer Track is at 3 or lwoer, also place: N E W'
+                'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: N E W'
             ],
             [
                 'image' => '',
