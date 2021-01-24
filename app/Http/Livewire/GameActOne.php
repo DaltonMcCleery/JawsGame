@@ -64,7 +64,11 @@ class GameActOne extends Component
             'North_Beach_Swimmers' => 0,
             'East_Beach_Swimmers' => 0,
             'South_Beach_Swimmers' => 0,
-            'West_Beach_Swimmers' => 0
+            'West_Beach_Swimmers' => 0,
+            // Shark starting elements
+            'shark_barrels' => 0,
+            'shark_position' => null,
+            'swimmers_eaten' => 0
         ]);
     }
 

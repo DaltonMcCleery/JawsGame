@@ -8,13 +8,18 @@
         @endforeach
     </div>
 
-    <div class="notification is-link" style="flex-basis: 100%;">
+    <div class="notification is-link">
         Current Player's Turn: <strong>{{ $activePlayer }}</strong><br/>
         {{ $currentMove }}
     </div>
 
+    <div class="notification">
+        Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}</strong><br/>
+        <progress class="progress is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
+    </div>
+
     @error('action-error')
-        <div class="notification is-danger" style="flex-basis: 100%;">
+        <div class="notification is-danger">
             {{ $message }}
         </div>
     @enderror
