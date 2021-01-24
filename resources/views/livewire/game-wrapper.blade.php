@@ -10,13 +10,13 @@
     </div>
     <div class="columns">
         <div class="column is-3">
-            <h1>Brody Card</h1>
+            <h1>Brody @if($game->Brody->username === Auth::user()->username) <small>(You)</small>@endif</h1>
         </div>
         <div class="column is-3">
-            <h1>Hooper Card</h1>
+            <h1>Hooper @if($game->Hooper->username === Auth::user()->username) <small>(You)</small>@endif</h1>
         </div>
         <div class="column is-3">
-            <h1>Quint Card</h1>
+            <h1>Quint @if($game->Quint->username === Auth::user()->username) <small>(You)</small>@endif</h1>
         </div>
         <div class="column is-3">
             <livewire:chat :game="$game"/>
