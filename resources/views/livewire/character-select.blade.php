@@ -18,7 +18,16 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        The Shark
+                        <h2 class="is-size-4">The Shark</h2>
+                        <p class="mb-2">
+                            <strong>Act I</strong><br/>
+                            The Shark swims around the waters of Amity Island eating Swimmers at Beaches and avoiding detection
+                            and barrels from the Crew.
+                        </p>
+                        <p>
+                            The more Swimmers the Shark eats in Act I, the more abilities they gain in Act II and the less
+                            abilities the Crew gets.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -40,9 +49,21 @@
                     @endif
                 </div>
                 <div class="card-content">
-                    <div class="content">
-                        Brody
-                    </div>
+                    <h2 class="is-size-4">Brody</h2>
+                    <p class="mb-2">
+                        <strong>Act I</strong><br/>
+                        Brody moves around Amity Island to rescue Swimmers, deliver Barrels to the Docks, help locate
+                        the Shark, and Close Beaches.
+                    </p>
+                    <p class="mb-2">
+                        Brody may use his <strong>Binoculars</strong> <small>(Once per round)</small> at any one of the
+                        four Beach Spaces.<br/> If the Shark is at that Beach, they are shown to the rest of the Crew
+                        for the remaining of the round.
+                    </p>
+                    <p>
+                        Brody may <strong>Close a Beach</strong> if he is at either the Mayor's Office or Amity PD.
+                        space and the Beach has NO Swimmers.
+                    </p>
                 </div>
             </div>
         </div>
@@ -64,7 +85,19 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        Hooper
+                        <h2 class="is-size-4">Hooper</h2>
+                        <p class="mb-2">
+                            <strong>Act I</strong><br/>
+                            Hooper pilots his speed boat in the water around Amity Island to help locate the Shark, deliver
+                            Barrels to Quint, and rescue Swimmers.
+                        </p>
+                        <p>
+                            Hooper can use his <strong>Fish Finder</strong> <small>(Once per round)</small> to locate the
+                            Shark nearby. If the Shark is in the same space as Hooper, the Shark is revealed to the rest
+                            of the Crew for the rest of the round. If the Shark is in an adjacent space, the possible spaces
+                            are shown to the rest of the Crew. If the Shark is neither in the same space or an adjacent space,
+                            nothing is shown.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -87,7 +120,21 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        Quint
+                        <h2 class="is-size-4">Quint</h2>
+                        <p class="mb-2">
+                            <strong>Act I</strong><br/>
+                            Quint pilots the <em>Orca</em> in the water around Amity Island to rescue Swimmers and launch
+                            Barrels into the water, hoping to hit the Shark.
+                        </p>
+                        <p>
+                            Quint may <strong>Launch a Barrel</strong> <small>(Once per round)</small> into the water with
+                            a Harpoon gun from his <em>Orca</em>. He may launch it into the same space he is in or an adjacent space.
+                            If the Shark is in the space that the Barrel is launched, they are hit and the Barrel is now
+                            attached to them for the remaining of Act I. If two Barrels are attached to the Shark, Act I is over.
+                            <br/>
+                            If the Shark is NOT in the space with the launched Barrel, that Barrel remains in the water
+                            and becomes a <strong>Motion Sensor</strong> that will trigger if a Shark moves through that space.
+                        </p>
                     </div>
                 </div>
             </div>
