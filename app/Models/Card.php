@@ -12,6 +12,6 @@ class Card
      * @var array
      */
     protected $fillable = [
-        'type', 'image', 'description', 'token', 'action'
+        'type', 'title', 'image', 'description', 'token', 'action'
     ];
 }

@@ -43,6 +43,7 @@ class CreatesGameTables extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('type');
+            $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->text('description');
             $table->string('token')->unique();
