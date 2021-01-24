@@ -21,6 +21,12 @@
             </ul>
         </div>
 
+        @isset($gameState['current_event_description'])
+            <strong>{{ $gameState['current_event_title'] }}</strong> {{ $gameState['current_event_swimmers'] }}<br/>
+            {{ $gameState['current_event_description'] }}
+            <br/><br/>
+        @endif
+
         Current Player's Turn: <strong>{{ $gameState['active_player'] ?? null }}</strong><br/>
         {{ $gameState['current_description'] ?? null }}
 

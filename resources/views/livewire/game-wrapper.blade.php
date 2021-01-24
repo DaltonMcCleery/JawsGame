@@ -46,5 +46,8 @@
             .listen('Game.newGameState', (data) => {
                 Livewire.emit('resetGameState', data.gameState);
             })
+            .listen('Game.newGameCards', (data) => {
+                Livewire.emit('resetGameCards', data);
+            })
     </script>
 @endpush

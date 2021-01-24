@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Events\Game\newGameState;
 use App\Models\Game;
 use Livewire\Component;
+use App\Events\Game\newGameState;
+use App\Events\Game\newGameCards;
 
 class GameWrapper extends Component
 {
@@ -18,17 +19,18 @@ class GameWrapper extends Component
 
     protected $listeners = [
         'setGameState',
-        'resetGameState'
+        'resetGameState',
+        'resetGameCards'
     ];
 
     /**
-     * @param $game
+     * @param Game $game
      * @param $event_cards
      * @param $shark_ability_cards
      * @param $resurface_cards
      * @param $crew_cards
      */
-    public function mount($game, $event_cards, $shark_ability_cards, $resurface_cards, $crew_cards) {
+    public function mount(Game $game, $event_cards, $shark_ability_cards, $resurface_cards, $crew_cards) {
         $this->game = $game;
 
         $this->cards = [
@@ -42,8 +44,13 @@ class GameWrapper extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function setGameState(array $newState) {
+        $play_card = null;
         foreach ($newState as $key => $value) {
-            $this->gameState[$key] = $value;
+            if ($key === 'play_card') {
+                $play_card = $value;
+            } else {
+                $this->gameState[$key] = $value;
+            }
         }
 
         if ($this->act === 1) {
@@ -54,6 +61,10 @@ class GameWrapper extends Component
         }
 
         broadcast(new newGameState($this->game->session_id, $this->gameState));
+
+        if ($play_card) {
+            $this->useCard($play_card);
+        }
     }
 
     public function resetGameState(array $newState) {
@@ -69,6 +80,34 @@ class GameWrapper extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
+    public function useCard($type) {
+        // Get a new collection instance of possible Cards by the given Type and select a random one to be broadcast
+        $possible_cards = collect($this->cards[$type]);
+        $card = ($possible_cards->random(1))[0];
+
+        $remaining_cards = $possible_cards->filter(function ($item) use ($card) {
+            return $item != $card;
+        })->toArray();
+
+        $this->cards[$type] = $remaining_cards;
+        $this->usedCards[$type][] = $card;
+
+        broadcast(new newGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
+    }
+
+    public function resetGameCards($data) {
+        $this->cards = $data['cards'];
+        $this->usedCards = $data['usedCards'];
+
+        if ($this->act === 1) {
+            $this->emit('playEventCard', $data['card']);
+        }
+        elseif ($this->act === 2) {
+            $this->emit('playCard', $data['card']);
+        }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
 
     public function render()
     {
