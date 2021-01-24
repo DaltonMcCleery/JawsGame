@@ -125,17 +125,21 @@ class GameActOne extends Component
     }
 
     public function attemptAction($space) {
-        if ($this->isValidAction($this->activeCharacter, $this->currentSelectedAction, $this->gameState)) {
-            // Do it
-            $this->setActionState($this->currentSelectedAction, $space);
+        if ($this->activePlayer === Auth::user()->username) {
+            if ($this->isValidAction($this->activeCharacter, $this->currentSelectedAction, $this->gameState)) {
+                // Do it
+                $this->setActionState($this->currentSelectedAction, $space);
 
-            if ($this->currentSelectedAction === 'Starting Position') {
-                // Move on to actual play
-                $this->setSharkStartingPosition($space);
+                if ($this->currentSelectedAction === 'Starting Position') {
+                    // Move on to actual play
+                    $this->setSharkStartingPosition($space);
+                }
+            } else {
+                // fail
+                $this->addError('action-error', 'Invalid Move');
             }
         } else {
-            // fail
-            $this->addError('action-error', 'Invalid Move');
+            $this->addError('action-error', 'Not your turn');
         }
     }
 
