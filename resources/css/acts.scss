@@ -1,0 +1,11 @@
+#act-1, #act-2 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    map area {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
