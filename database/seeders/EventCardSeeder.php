@@ -103,7 +103,7 @@ class EventCardSeeder extends Seeder
                 'image' => '',
                 'title' => 'Shark Alert!',
                 'description' => 'N EE',
-                'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: NSW'
+                'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: N S W'
             ],
             [
                 'image' => '',
@@ -116,6 +116,7 @@ class EventCardSeeder extends Seeder
         foreach ($cards as $key => $card) {
              Card::create([
                 'type' => 'Event',
+                'title' => $card['title'],
                 'image' => $card['image'],
                 'description' => $card['description'],
                 'token' => 'event-'.($key+1).'-card',
