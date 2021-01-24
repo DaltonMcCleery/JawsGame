@@ -13,16 +13,9 @@ class GameActOne extends Component
 
     public $game;
     public $gameState;
+
     public $showShark = false;
-
-    public $currentMove = 'Waiting on Shark to pick a starting place';
     public $currentSelectedAction = 'Starting Position';
-
-    /**
-     * @var string Current Active Character who is completing their turn
-     */
-    public $activeCharacter = 'shark';
-    public $activePlayer = 'N/A';
 
     /**
      * @var array Current Active Character's action history
@@ -44,18 +37,14 @@ class GameActOne extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function loadStartingActOneState() {
-        $this->activePlayer = $this->game->Shark->User->username;
-
         $this->emitTo('game-wrapper', 'setGameState', [
-            // Starting Positions & Equipped Barrels
+            // Crew Starting Positions & Equipped Barrels
             'quint_barrels' => 2,
             'quint_position' => 'Space_8',
             'hooper_barrels' => 0,
             'hooper_position' => 'Space_5',
             'brody_barrels' => 0,
             'brody_position' => 'Space_7',
-            'shark_barrels' => 0,
-            'shark_position' => null,
             // Barrels
             'shop_barrels' => 6,
             'space_5_barrels' => 0,
@@ -68,7 +57,12 @@ class GameActOne extends Component
             // Shark starting elements
             'shark_barrels' => 0,
             'shark_position' => null,
-            'swimmers_eaten' => 0
+            'swimmers_eaten' => 0,
+            //Act I
+            'active_player' => $this->game->Shark->User->username,
+            'active_character' => 'shark',
+            'current_description' => 'Waiting on Shark to pick a starting place',
+            'current_phase' => null
         ]);
     }
 
@@ -83,34 +77,35 @@ class GameActOne extends Component
             $this->setActionHistory();
         }
 
-        $this->activeCharacter = $character;
-
-        if ($moveDescription) {
-            $this->currentMove = $moveDescription;
-        }
-
         // Find who's playing that Character
+        $active_player = null;
         switch ($character) {
             case 'shark':
-                $this->activePlayer = $this->game->Shark->User->username;
+                $active_player = $this->game->Shark->User->username;
                 break;
 
             case 'brody':
-                $this->activePlayer = $this->game->Brody->username;
+                $active_player = $this->game->Brody->username;
                 break;
 
             case 'hooper':
-                $this->activePlayer = $this->game->Hooper->username;
+                $active_player = $this->game->Hooper->username;
                 break;
 
             case 'quint':
-                $this->activePlayer = $this->game->Quint->username;
+                $active_player = $this->game->Quint->username;
                 break;
         }
+
+        $this->emitTo('game-wrapper', 'setGameState', [
+            'active_character' => $character,
+            'current_description' => $moveDescription ?? 'In progress...',
+            'active_player' => $active_player
+        ]);
     }
 
     public function setActionState($action, $space) {
-        $this->currentActionState[$this->activeCharacter][] = $action.' ('.$space.')';
+        $this->currentActionState[$this->gameState['active_character']][] = $action.' ('.$space.')';
     }
 
     public function setActionHistory() {
@@ -122,15 +117,15 @@ class GameActOne extends Component
 
     public function setSharkStartingPosition($position) {
         $this->emitTo('game-wrapper', 'setGameState', [
-            'shark_position' => $position
+            'shark_position' => $position,
+            'current_description' => 'Playing Event Card...',
+            'current_phase' => 'Event'
         ]);
-
-        $this->setActiveCharacter('shark', 'Waiting on Shark Player\'s turn');
     }
 
     public function attemptAction($space) {
-        if ($this->activePlayer === Auth::user()->username) {
-            if ($this->isValidAction($this->activeCharacter, $this->currentSelectedAction, $this->gameState)) {
+        if ($this->gameState['active_player'] === Auth::user()->username) {
+            if ($this->isValidAction($this->gameState['active_character'], $this->currentSelectedAction, $this->gameState)) {
                 // Do it
                 $this->setActionState($this->currentSelectedAction, $space);
 
@@ -148,9 +143,15 @@ class GameActOne extends Component
     }
 
     public function switchNextAction($character, $action) {
-        if ($this->activePlayer === Auth::user()->username) {
+        if ($this->gameState['active_player'] === Auth::user()->username) {
             $this->currentSelectedAction = $action;
         }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    public function playEventCard() {
+
     }
 
     // -------------------------------------------------------------------------------------------------------------- //

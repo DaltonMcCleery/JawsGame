@@ -3,17 +3,17 @@
     <div class="notification">
         <div class="tabs is-toggle is-fullwidth">
             <ul>
-                <li class="@if($currentPhase === 'Event') is-active @endif">
+                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Event') is-active @endif">
                     <a disabled>
                         <span>Event Phase</span>
                     </a>
                 </li>
-                <li class="@if($currentPhase === 'Shark') is-active @endif">
+                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Shark') is-active @endif">
                     <a disabled>
                         <span>Shark Phase</span>
                     </a>
                 </li>
-                <li class="@if($currentPhase === 'Crew') is-active @endif">
+                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Crew') is-active @endif">
                     <a disabled>
                         <span>Crew Phase</span>
                     </a>
@@ -21,8 +21,8 @@
             </ul>
         </div>
 
-        Current Player's Turn: <strong>{{ $activePlayer }}</strong><br/>
-        {{ $currentMove }}
+        Current Player's Turn: <strong>{{ $gameState['active_player'] ?? null }}</strong><br/>
+        {{ $gameState['current_description'] ?? null }}
 
         <br/><br/>
 
@@ -87,7 +87,7 @@
         @endif
     </div>
 
-    <map name="act_1_map" class="@if($activePlayer !== Auth::user()->username) disabled @endif">
+    <map name="act_1_map" class="@if(isset($gameState['active_player']) && $gameState['active_player'] !== Auth::user()->username) disabled @endif">
         {{-- Outside water spaces --}}
         <area alt="Space 1" title="Space 1" wire:click="attemptAction('Space_1')"
               coords="560,47,559,3,3,4,4,320,133,320,243,203,340,129,443,77" shape="poly">
