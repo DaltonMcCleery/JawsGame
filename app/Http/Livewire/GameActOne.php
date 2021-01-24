@@ -41,10 +41,13 @@ class GameActOne extends Component
         $this->emitTo('game-wrapper', 'setGameState', [
             // Crew Starting Positions & Equipped Barrels
             'quint_barrels' => 2,
+            'quint_moves' => 4,
             'quint_position' => 'Space_8',
             'hooper_barrels' => 0,
+            'hooper_moves' => 4,
             'hooper_position' => 'Space_5',
             'brody_barrels' => 0,
+            'brody_moves' => 4,
             'brody_position' => 'Space_7',
             // Barrels
             'shop_barrels' => 6,
@@ -57,6 +60,7 @@ class GameActOne extends Component
             'West_Beach_Swimmers' => 0,
             // Shark starting elements
             'shark_barrels' => 0,
+            'shark_moves' => 3,
             'shark_position' => null,
             'swimmers_eaten' => 0,
             //Act I
@@ -164,6 +168,14 @@ class GameActOne extends Component
                 'current_event_title' => $data['current_event_title'],
                 'current_event_description' => $data['current_event_description'],
                 'current_event_swimmers' => $data['current_event_swimmers'],
+                // Specific Actions
+                'quint_moves' => $data['quint_moves'] ?? 4,
+                'quint_position' => $data['quint_position'] ?? $this->gameState['quint_position'],
+                'hooper_moves' => $data['hooper_moves'] ?? 4,
+                'hooper_position' => $data['hooper_position'] ?? $this->gameState['hooper_position'],
+                'brody_moves' => $data['brody_moves'] ?? 4,
+                'brody_position' => $data['brody_position'] ?? $this->gameState['brody_position'],
+                'shark_moves' => $data['shark_moves'] ?? 3,
                 // Beach Swimmers
                 'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
                 'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],
