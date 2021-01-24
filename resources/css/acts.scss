@@ -2,10 +2,83 @@
     position: relative;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
-    map area {
-        &:hover {
+    map {
+        area:hover {
             cursor: pointer;
+        }
+
+        &.disabled {
+            area:hover {
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .image {
+        position: relative;
+
+        #shark-position {
+            position: absolute;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                background: $red;
+                z-index: 10;
+            }
+
+            &.Space_1 {
+                top: 90px;
+                left: 90px;
+            }
+            &.Space_2 {
+                top: 90px;
+                right: 90px;
+            }
+            &.Space_3 {
+                bottom: 90px;
+                left: 90px;
+            }
+            &.Space_4 {
+                bottom: 90px;
+                left: 90px;
+            }
+            &.Space_5 {
+                top: 230px;
+                left: 235px;
+            }
+            &.Space_6 {
+                top: 95px;
+                right: 345px;
+            }
+            &.Space_7 {
+                bottom: 130px;
+                left: 300px;
+            }
+            &.Space_8 {
+                bottom: 100px;
+                right: 225px;
+            }
+            &.East_Beach {
+                top: 185px;
+                right: 235px;
+            }
+            &.South_Beach {
+                bottom: 145px;
+                right: 390px;
+            }
+            &.North_Beach {
+                top: 175px;
+                left: 315px;
+            }
+            &.West_Beach {
+                bottom: 130px;
+                left: 170px;
+            }
         }
     }
 }
