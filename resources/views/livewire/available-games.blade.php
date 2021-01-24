@@ -42,21 +42,25 @@
                             </div>
                             <nav class="level is-mobile">
                                 <div class="level-left">
-                                    @isset($game->game_id)
-                                        <div class="field is-grouped">
-                                            <p class="control is-expanded">
-                                                <input class="input @error('joining_game_id') is-danger @enderror" type="text" placeholder="Game Password" wire:model="joining_game_id">
-                                            </p>
-                                            <p class="control">
-                                                <button class="button is-success" wire:click="joinGame('{{ $game->id }}')">Join</button>
-                                            </p>
-                                        </div>
-                                        @error('joining_game_id')
-                                            <p class="help is-danger" style="position: absolute; bottom: 10px;">{{ $message }}</p>
-                                        @enderror
+                                    @auth
+                                        @isset($game->game_id)
+                                            <div class="field is-grouped">
+                                                <p class="control is-expanded">
+                                                    <input class="input @error('joining_game_id') is-danger @enderror" type="text" placeholder="Game Password" wire:model="joining_game_id">
+                                                </p>
+                                                <p class="control">
+                                                    <button class="button is-success" wire:click="joinGame('{{ $game->id }}')">Join</button>
+                                                </p>
+                                            </div>
+                                            @error('joining_game_id')
+                                                <p class="help is-danger" style="position: absolute; bottom: 10px;">{{ $message }}</p>
+                                            @enderror
+                                        @else
+                                            <button class="button is-success" wire:click="joinGame('{{ $game->id }}')">Join</button>
+                                        @endisset
                                     @else
-                                        <button class="button is-success" wire:click="joinGame('{{ $game->id }}')">Join</button>
-                                    @endisset
+                                        <a href="/login" class="button is-danger" style="background-color: #e40403;">Login to Play</a>
+                                    @endauth
                                 </div>
                             </nav>
                         </div>
