@@ -96,4 +96,47 @@ svg#jaws-logo {
     }
 }
 
+.panel-heading {
+    &.shark {
+        background-color: lighten($red, 25%) !important;
+        color: white;
+    }
+    &.brody {
+        background-color: lighten($brody, 25%) !important;
+        color: white;
+    }
+    &.hooper {
+        background-color: lighten($hooper, 25%) !important;
+        color: $brody;
+    }
+    &.quint {
+        background-color: lighten($quint, 25%) !important;
+        color: $brody;
+    }
+}
+
+.panel-block {
+    &.shark {
+        background-color: lighten($red, 50%) !important;
+        color: $brody;
+    }
+    &.brody {
+        background-color: lighten($brody, 50%) !important;
+        color: white;
+    }
+    &.hooper {
+        background-color: lighten($hooper, 50%) !important;
+        color: $brody;
+    }
+    &.quint {
+        background-color: lighten($quint, 50%) !important;
+        color: $brody;
+    }
+
+    &.used {
+        text-decoration: line-through;
+        font-style: italic;
+    }
+}
+
 @import "acts";
