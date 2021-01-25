@@ -121,15 +121,15 @@ svg#jaws-logo {
         color: $brody;
     }
     &.brody {
-        background-color: lighten($brody, 50%) !important;
-        color: white;
+        background-color: lighten($brody, 80%) !important;
+        color: $brody;
     }
     &.hooper {
-        background-color: lighten($hooper, 50%) !important;
+        background-color: lighten($hooper, 30%) !important;
         color: $brody;
     }
     &.quint {
-        background-color: lighten($quint, 50%) !important;
+        background-color: lighten($quint, 30%) !important;
         color: $brody;
     }
 
@@ -137,6 +137,10 @@ svg#jaws-logo {
         text-decoration: line-through;
         font-style: italic;
     }
+}
+
+.panel hr {
+    background-color: $brody;
 }
 
 @import "acts";

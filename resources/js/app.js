@@ -22,7 +22,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: 'jaws-notification-key',
+    key: 'your-pusher-key',
     wsHost: window.location.hostname,
     wsPort: 6001,
     wssPort: 6001,
