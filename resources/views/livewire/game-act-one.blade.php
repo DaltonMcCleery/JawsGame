@@ -34,6 +34,18 @@
 
         Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}</strong><br/>
         <progress class="progress is-medium is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
+
+        @if(count($currentActionState) > 0)
+            <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+                <ul>
+                    @foreach($currentActionState as $action)
+                        <li><a disabled>{{ $action }}</a></li>
+                    @endforeach
+                </ul>
+                <span>{{ $gameState[$gameState['active_character'].'_moves'] - count($currentActionState) }} Actions Remaining</span>
+            </nav>
+            <button class="button is-success" wire:click="confirmTurn">Confirm Turn</button>
+        @endif
     </div>
 
     @error('action-error')
@@ -46,7 +58,7 @@
         <img src="{{ asset('images/act_1_board_1132x750.jpg') }}" alt="Act I Board" usemap="#act_1_map">
 
         {{-- POSITIONS --}}
-        @if(isset($gameState['shark_position']) && (($game->Shark->User->username === Auth::user()->username) || $showShark))
+        @if(isset($gameState['shark_position']) && (($game->Shark->User->username === Auth::user()->username) || $gameState['show_shark']))
             <span id="shark-position" class="{{ $gameState['shark_position'] }}"></span>
         @endif
 
