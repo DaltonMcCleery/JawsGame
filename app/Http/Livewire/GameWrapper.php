@@ -4,12 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Models\Game;
 use Livewire\Component;
+use App\Traits\ActOneActions;
 use App\Events\Game\newGameState;
 use App\Events\Game\newGameCards;
 use Illuminate\Support\Facades\Auth;
 
 class GameWrapper extends Component
 {
+    use ActOneActions;
+
     public $game;
     public $act = 1;
 
@@ -46,11 +49,25 @@ class GameWrapper extends Component
 
     public function setGameState(array $newState) {
         $play_card = null;
+        $previous_character = null;
+
+        if (key_exists('action_history', $newState)) {
+            $previous_character = $this->gameState['active_character'];
+        }
+
         foreach ($newState as $key => $value) {
             if ($key === 'play_card') {
                 $play_card = $value;
             } else {
                 $this->gameState[$key] = $value;
+            }
+        }
+
+        if ($previous_character) {
+            $actions = $this->parseActions($previous_character, $newState['action_history'], $this->gameState);
+            foreach($actions as $key => $action) {
+                // Modify the Game State based on parsed actions
+                $this->gameState[$key] = $action;
             }
         }
 
