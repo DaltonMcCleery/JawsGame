@@ -32,6 +32,7 @@
 
         #shark-position {
             position: absolute;
+            transition: 1s ease;
 
             &::before {
                 content: '';
@@ -94,6 +95,7 @@
 
         #brody-position {
             position: absolute;
+            transition: 1s ease;
 
             &::before {
                 content: '';
@@ -144,6 +146,7 @@
 
         #hooper-position {
             position: absolute;
+            transition: 1s ease;
 
             &::before {
                 content: '';
@@ -206,6 +209,7 @@
 
         #quint-position {
             position: absolute;
+            transition: 1s ease;
 
             &::before {
                 content: '';
