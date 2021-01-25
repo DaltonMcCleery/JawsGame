@@ -15,9 +15,6 @@ class GameActOne extends Component
     public $game;
     public $gameState;
 
-    public $showShark = false;
-    public $currentSelectedAction = 'Starting Position';
-
     /**
      * @var array Current Active Character's action history
      */
@@ -67,7 +64,9 @@ class GameActOne extends Component
             'active_player' => $this->game->Shark->User->username,
             'active_character' => 'shark',
             'current_description' => 'Waiting on Shark to pick a starting place',
-            'current_phase' => null
+            'current_phase' => null,
+            'current_selected_action' => 'Starting Position',
+            'show_shark' => false
         ]);
     }
 
@@ -110,11 +109,11 @@ class GameActOne extends Component
     }
 
     public function setActionState($action, $space) {
-        $this->currentActionState[$this->gameState['active_character']][] = $action.' ('.$space.')';
+        $this->currentActionState[] = $action.' ('.$space.')';
     }
 
     public function setActionHistory() {
-        $this->actionHistory[] = $this->currentActionState;
+        $this->actionHistory[] = [$this->gameState['active_character'] => $this->currentActionState];
         $this->reset('currentActionState');
     }
 
@@ -131,15 +130,15 @@ class GameActOne extends Component
 
     public function attemptAction($space) {
         if ($this->gameState['active_player'] === Auth::user()->username) {
-            if ($this->isValidAction($this->gameState['active_character'], $this->currentSelectedAction, $this->gameState)) {
+            if ($this->gameState['current_selected_action'] === 'Starting Position') {
+                // Move on to actual play
+                $this->setSharkStartingPosition($space);
+            }
+            elseif ($this->isValidAction($this->gameState['active_character'], $this->gameState['current_selected_action'], $space, $this->currentActionState, $this->gameState)) {
                 // Do it
-                $this->setActionState($this->currentSelectedAction, $space);
-
-                if ($this->currentSelectedAction === 'Starting Position') {
-                    // Move on to actual play
-                    $this->setSharkStartingPosition($space);
-                }
-            } else {
+                $this->setActionState($this->gameState['current_selected_action'], $space);
+            }
+            else {
                 // fail
                 $this->addError('action-error', 'Invalid Move');
             }
@@ -148,10 +147,8 @@ class GameActOne extends Component
         }
     }
 
-    public function switchNextAction($character, $action) {
-        if ($this->gameState['active_player'] === Auth::user()->username) {
-            $this->currentSelectedAction = $action;
-        }
+    public function confirmTurn() {
+        // TODO
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
