@@ -6,23 +6,23 @@
         <span class="is-active">Remaining Actions: {{ $gameState['hooper_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif</span>
     </p>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') hooper @endif"
        wire:click="switchNextAction('Move 1 Space')">
         Move 1 Spaces
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 2 Spaces') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 2 Spaces') hooper @endif"
        wire:click="switchNextAction('Move 2 Spaces')">
         Move 2 Spaces
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Rescue 1 Swimmer') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Rescue 1 Swimmer') hooper @endif"
        wire:click="switchNextAction('Rescue 1 Swimmer')">
         Rescue 1 Swimmer
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Pick up any or all Barrels') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Pick up any or all Barrels') hooper @endif"
        wire:click="switchNextAction('Pick up any or all Barrels')">
         Pick up any or all Barrels
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Give all Barrels to Quint') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Give all Barrels to Quint') hooper @endif"
        wire:click="switchNextAction('Give all Barrels to Quint')">
         Give all Barrels to Quint
     </a>
