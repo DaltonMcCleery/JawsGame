@@ -118,6 +118,14 @@ trait ActOneRules {
             'Space_5',
             'Space_7'
         ],
+        'Shop' => [
+            'Space_5',
+            'Space_6',
+            'Space_7',
+            'Space_8',
+            'North_Beach',
+            'South_Beach'
+        ],
     ];
 
     /**
