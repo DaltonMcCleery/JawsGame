@@ -20,11 +20,6 @@ class GameActOne extends Component
      */
     public $currentActionState = [];
 
-    /**
-     * @var array Complete Act I action history by Character, in order of completion
-     */
-    public $actionHistory = [];
-
     protected $listeners = ['refreshActOneState', 'playEventCard'];
 
     public function mount(Game $game, array $gameState) {
@@ -47,9 +42,9 @@ class GameActOne extends Component
             'brody_moves' => 4,
             'brody_position' => 'Space_7',
             // Barrels
-            'shop_barrels' => 6,
-            'space_5_barrels' => 0,
-            'space_8_barrels' => 0,
+            'Shop_barrels' => 6,
+            'Space_5_barrels' => 0,
+            'Space_8_barrels' => 0,
             // Beach Swimmers
             'North_Beach_Swimmers' => 0,
             'East_Beach_Swimmers' => 0,
@@ -66,6 +61,10 @@ class GameActOne extends Component
             'current_description' => 'Waiting on Shark to pick a starting place',
             'current_phase' => null,
             'current_selected_action' => 'Starting Position',
+            // Abilities
+            'shark_hidden' => false,
+            'binoculars' => null,
+            'fish_finder' => null,
             'show_shark' => false
         ]);
     }
@@ -77,10 +76,6 @@ class GameActOne extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function setActiveCharacter($character, $moveDescription = null) {
-        if (count($this->currentActionState) > 0) {
-            $this->setActionHistory();
-        }
-
         // Find who's playing that Character
         $active_player = null;
         switch ($character) {
@@ -118,11 +113,6 @@ class GameActOne extends Component
         }
     }
 
-    public function setActionHistory() {
-        $this->actionHistory[] = [$this->gameState['active_character'] => $this->currentActionState];
-        $this->reset('currentActionState');
-    }
-
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function setSharkStartingPosition($position) {
@@ -154,11 +144,30 @@ class GameActOne extends Component
     }
 
     public function confirmTurn() {
-        $this->emitTo('game-wrapper', 'setGameState', [
+        $extra_state = [];
+        $next_phase = '...';
+        $phase_description = 'Waiting on next Phase';
+
+        if ($this->gameState['active_character'] === 'shark') {
+            $next_phase = 'Crew';
+            $phase_description = 'Waiting on Crew';
+        } else {
+            if ($this->gameState['active_character'] !== null) {
+                $next_phase = 'Event';
+                $extra_state['play_card'] = true;
+            }
+        }
+
+        $this->emitTo('game-wrapper', 'setGameState', array_merge($extra_state, [
             'active_character' => null,
-            'current_description' => 'Waiting on Crew',
-            'active_player' => 'N/A'
-        ]);
+            'current_description' => $phase_description,
+            'current_phase' => $next_phase,
+            'active_player' => 'N/A',
+            'action_history' => $this->gameState['action_history'][] = [$this->gameState['active_character'] => $this->currentActionState]
+        ]));
+
+        // Reset current actions list
+        $this->currentActionState = [];
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
@@ -191,6 +200,11 @@ class GameActOne extends Component
                 'brody_relocation' => $data['brody_relocation'] ?? 0,
                 'crew_relocation' => $data['crew_relocation'] ?? 0,
                 'michael_position' => $data['michael_position'] ?? null,
+                // Abilities reset
+                'shark_hidden' => false,
+                'binoculars' => null,
+                'fish_finder' => null,
+                'show_shark' => false,
                 // Beach Swimmers
                 'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
                 'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],
