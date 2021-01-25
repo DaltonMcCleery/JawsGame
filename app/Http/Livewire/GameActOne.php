@@ -55,7 +55,8 @@ class GameActOne extends Component
             'shark_moves' => 3,
             'shark_position' => null,
             'swimmers_eaten' => 0,
-            //Act I
+            'ignore_motion_sensors' => false,
+            // Act I
             'active_player' => $this->game->Shark->User->username,
             'active_character' => 'shark',
             'current_description' => 'Waiting on Shark to pick a starting place',
@@ -217,6 +218,7 @@ class GameActOne extends Component
                 'fish_finder' => null,
                 'show_shark' => false,
                 'shark_nearby' => false,
+                'ignore_motion_sensors' => false,
                 // Beach Swimmers
                 'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
                 'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],

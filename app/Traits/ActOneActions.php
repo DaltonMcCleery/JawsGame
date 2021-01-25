@@ -21,7 +21,25 @@ trait ActOneActions {
             $location = $this->getSpace($action);
 
             // Swimmers
-            if (str_contains($action, 'Eat 1 Swimmer') || str_contains($action, 'Rescue 1 Swimmer')) {
+            if (str_contains($action, 'Eat 1 Swimmer')) {
+                // Check for Michael
+                if (isset($gameState['michael_position']) && $gameState['michael_position'] === ($location.'_Swimmers')) {
+                    $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
+                    $state_changes['swimmers_eaten'] = $gameState['swimmers_eaten'] + 2;
+                    // Reverse changes for continued actions
+                    $gameState[$location.'_Swimmers'] = $state_changes[$location.'_Swimmers'];
+                    $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
+                } else {
+                    // Remove Swimmer from Beach
+                    $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 1;
+                    $state_changes['swimmers_eaten'] = $gameState['swimmers_eaten'] + 1;
+                    // Reverse changes for continued actions
+                    $gameState[$location.'_Swimmers'] = $state_changes[$location.'_Swimmers'];
+                    $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
+                }
+            }
+
+            if (str_contains($action, 'Rescue 1 Swimmer')) {
                 // Check for Michael
                 if (isset($gameState['michael_position']) && $gameState['michael_position'] === ($location.'_Swimmers')) {
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
@@ -75,19 +93,21 @@ trait ActOneActions {
 
             // Shark Abilities
             if (str_contains($action, 'Feeding Frenzy')) {
-                //
+                // Remove Swimmer from Beach
+                $state_changes[$location.'_Swimmers'] = 0;
+                $state_changes['swimmers_eaten'] = $gameState['swimmers_eaten'] + $gameState[$location.'_Swimmers'];
+                // Reverse changes for continued actions
+                $gameState[$location.'_Swimmers'] = 0;
+                $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
             }
 
             if (str_contains($action, 'Evasive Moves')) {
-                //
+                $state_changes['ignore_motion_sensors'] = true;
+                $gameState['ignore_motion_sensors'] = $state_changes['ignore_motion_sensors'];
             }
 
             if (str_contains($action, 'Out of Sight')) {
                 $state_changes['shark_hidden'] = true;
-            }
-
-            if (str_contains($action, 'Speed Burst')) {
-                //
             }
 
             // Crew Abilities
