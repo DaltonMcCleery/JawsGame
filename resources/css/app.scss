@@ -143,4 +143,11 @@ svg#jaws-logo {
     background-color: $brody;
 }
 
+.breadcrumb a {
+    text-decoration: none;
+    &:hover {
+        cursor: inherit;
+    }
+}
+
 @import "acts";
