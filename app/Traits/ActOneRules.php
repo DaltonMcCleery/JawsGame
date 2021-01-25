@@ -181,7 +181,7 @@ trait ActOneRules {
     }
 
     private function isNotOutOfMoves($character, $currentActionState, $gameState): bool {
-        return (count($currentActionState) <= $gameState[$character.'_moves']);
+        return (count($currentActionState) < $gameState[$character.'_moves']);
     }
 
     private function isMoveAdjacent($character, $action, $space, $currentActionState, $gameState): bool {
