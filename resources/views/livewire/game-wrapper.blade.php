@@ -12,23 +12,51 @@
 
     {{-- CHARACTER CARDS --}}
     <div class="columns">
-        <div class="column is-3">
-            <h1>Brody @if($game->Brody->username === Auth::user()->username) <small>(You)</small>@endif</h1>
+        <div class="column is-3-desktop is-12-mobile">
+            @if($act === 1)
+                @include('includes.act_1.shark_card', ['game' => $game, 'gameState' => $gameState])
+            @else
+                @include('includes.act_2.shark_card', ['game' => $game, 'gameState' => $gameState])
+            @endif
         </div>
-        <div class="column is-3">
-            <h1>Hooper @if($game->Hooper->username === Auth::user()->username) <small>(You)</small>@endif</h1>
+
+        <div class="column is-3-desktop is-12-mobile">
+            @if($act === 1)
+                @include('includes.act_1.brody_card', ['game' => $game, 'gameState' => $gameState])
+            @else
+                @include('includes.act_2.brody_card', ['game' => $game, 'gameState' => $gameState])
+            @endif
         </div>
-        <div class="column is-3">
-            <h1>Quint @if($game->Quint->username === Auth::user()->username) <small>(You)</small>@endif</h1>
+
+        <div class="column is-3-desktop is-12-mobile">
+            @if($act === 1)
+                @include('includes.act_1.hooper_card', ['game' => $game, 'gameState' => $gameState])
+            @else
+                @include('includes.act_2.hooper_card', ['game' => $game, 'gameState' => $gameState])
+            @endif
         </div>
-        <div class="column is-3">
+
+        <div class="column is-3-desktop is-12-mobile">
+            @if($act === 1)
+                @include('includes.act_1.quint_card', ['game' => $game, 'gameState' => $gameState])
+            @else
+                @include('includes.act_2.quint_card', ['game' => $game, 'gameState' => $gameState])
+            @endif
+        </div>
+    </div>
+
+    {{-- CHAT --}}
+    <div class="columns mt-4">
+        <div class="column is-3"></div>
+        <div class="column is-6 is-6-desktop is-full-mobile">
             <livewire:chat :game="$game"/>
         </div>
+        <div class="column is-3"></div>
     </div>
 
     {{-- DEBUG --}}
     <div class="columns">
-        <div class="column is-12">
+        <div class="column is-full">
             <div class="notification is-dark">
                 @foreach($gameState as $key => $value)
                     <p>
