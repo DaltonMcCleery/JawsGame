@@ -93,6 +93,12 @@ trait ActOneActions {
             // Crew Abilities
             if (str_contains($action, 'Use Binoculars')) {
                 $state_changes['binoculars'] = $location;
+
+                if (!$gameState['shark_hidden']) {
+                    if ($gameState['shark_position'] === $location) {
+                        $state_changes['show_shark'] = true;
+                    }
+                }
             }
 
             if (str_contains($action, 'Close a Beach')) {
@@ -102,10 +108,23 @@ trait ActOneActions {
 
             if (str_contains($action, 'Use Fish Finder')) {
                 $state_changes['fish_finder'] = $location;
+
+                if (!$gameState['shark_hidden']) {
+                    if ($gameState['shark_position'] === $location) {
+                        $state_changes['show_shark'] = true;
+                    }
+                    elseif (in_array($gameState['shark_position'], $this->adjacentSpaces[$location])) {
+                        $state_changes['shark_nearby'] = true;
+                    }
+                }
             }
 
             if (str_contains($action, 'Launch a Barrel')) {
-                //
+                if ($gameState['shark_position'] === $location) {
+                    $state_changes['show_shark'] = true;
+                    $state_changes['shark_barrels'] = $gameState['shark_barrels'] + 1;
+                    $gameState['shark_barrels'] = $state_changes['shark_barrels'];
+                }
             }
         }
 
@@ -120,4 +139,92 @@ trait ActOneActions {
         $exploded = explode('(', $action);
         return rtrim($exploded[1], ')');
     }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    private $adjacentSpaces = [
+        'Space_1' => [
+            'Space_2',
+            'Space_3',
+            'North_Beach',
+            'Space_5'
+        ],
+        'Space_2' => [
+            'Space_1',
+            'Space_6',
+            'East_Beach',
+            'Space_4'
+        ],
+        'Space_3' => [
+            'Space_1',
+            'Space_4',
+            'West_Beach',
+            'Space_7'
+        ],
+        'Space_4' => [
+            'Space_2',
+            'Space_3',
+            'South_Beach',
+            'Space_8'
+        ],
+        'Space_5' => [
+            'Space_1',
+            'North_Beach',
+            'West_Beach',
+            'Space_7',
+            'Shop'
+        ],
+        'Space_6' => [
+            'Space_2',
+            'North_Beach',
+            'East_Beach',
+            'South_Beach',
+            'Space_8',
+            'Shop'
+        ],
+        'Space_7' => [
+            'Space_3',
+            'South_Beach',
+            'West_Beach',
+            'Space_5',
+            'Shop'
+        ],
+        'Space_8' => [
+            'Space_4',
+            'East_Beach',
+            'South_Beach',
+            'Space_6'
+        ],
+        'North_Beach' => [
+            'Space_1',
+            'Space_5',
+            'Space_6',
+            'Shop'
+        ],
+        'East_Beach' => [
+            'Space_2',
+            'Space_6',
+            'Space_8'
+        ],
+        'South_Beach' => [
+            'Space_4',
+            'Space_6',
+            'Space_7',
+            'Space_8',
+            'Shop'
+        ],
+        'West_Beach' => [
+            'Space_3',
+            'Space_5',
+            'Space_7'
+        ],
+        'Shop' => [
+            'Space_5',
+            'Space_6',
+            'Space_7',
+            'Space_8',
+            'North_Beach',
+            'South_Beach'
+        ],
+    ];
 }

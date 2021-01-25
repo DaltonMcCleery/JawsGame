@@ -65,7 +65,8 @@ class GameActOne extends Component
             'shark_hidden' => false,
             'binoculars' => null,
             'fish_finder' => null,
-            'show_shark' => false
+            'show_shark' => false,
+            'shark_nearby' => false
         ]);
     }
 
@@ -215,6 +216,7 @@ class GameActOne extends Component
                 'binoculars' => null,
                 'fish_finder' => null,
                 'show_shark' => false,
+                'shark_nearby' => false,
                 // Beach Swimmers
                 'North_Beach_Swimmers' => $this->gameState['North_Beach_Swimmers'] + $data['North_Beach_Swimmers'],
                 'East_Beach_Swimmers' => $this->gameState['East_Beach_Swimmers'] + $data['East_Beach_Swimmers'],
