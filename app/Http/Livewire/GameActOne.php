@@ -71,6 +71,21 @@ class GameActOne extends Component
 
     public function refreshActOneState($newState) {
         $this->gameState = $newState;
+
+        if ($this->gameState['shark_moves'] === 0
+            && $this->gameState['brody_moves'] === 0
+            && $this->gameState['hooper_moves'] === 0
+            && $this->gameState['quint_moves'] === 0
+            && $this->gameState['current_phase'] !== 'Event') {
+            // No more moves left, restart phases
+            $this->emitTo('game-wrapper', 'setGameState', [
+                'active_character' => 'shark',
+                'current_description' => 'Playing Event Card...',
+                'current_phase' => 'Event',
+                'active_player' => $this->game->Shark->User->username,
+                'play_card' => 'Event'
+            ]);
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
@@ -98,7 +113,7 @@ class GameActOne extends Component
 
         $this->emitTo('game-wrapper', 'setGameState', [
             'active_character' => $character,
-            'current_description' => $moveDescription ?? 'In progress...',
+            'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
             'active_player' => $active_player
         ]);
     }
@@ -144,27 +159,22 @@ class GameActOne extends Component
     }
 
     public function confirmTurn() {
-        $extra_state = [];
         $next_phase = '...';
         $phase_description = 'Waiting on next Phase';
 
         if ($this->gameState['active_character'] === 'shark') {
             $next_phase = 'Crew';
-            $phase_description = 'Waiting on Crew';
-        } else {
-            if ($this->gameState['active_character'] !== null) {
-                $next_phase = 'Event';
-                $extra_state['play_card'] = true;
-            }
+            $phase_description = 'Waiting on Crew to decide who is next';
         }
 
-        $this->emitTo('game-wrapper', 'setGameState', array_merge($extra_state, [
+        $this->emitTo('game-wrapper', 'setGameState', [
             'active_character' => null,
             'current_description' => $phase_description,
             'current_phase' => $next_phase,
             'active_player' => 'N/A',
+            ($this->gameState['active_character'].'_moves') => 0,
             'action_history' => $this->gameState['action_history'][] = [$this->gameState['active_character'] => $this->currentActionState]
-        ]));
+        ]);
 
         // Reset current actions list
         $this->currentActionState = [];
