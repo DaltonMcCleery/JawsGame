@@ -110,6 +110,12 @@ class GameActOne extends Component
 
     public function setActionState($action, $space) {
         $this->currentActionState[] = $action.' ('.$space.')';
+
+        if (str_contains($action, 'Move')) {
+            $this->emitTo('game-wrapper', 'setGameState', [
+                $this->gameState['active_character'].'_position' => $space
+            ]);
+        }
     }
 
     public function setActionHistory() {
@@ -148,7 +154,11 @@ class GameActOne extends Component
     }
 
     public function confirmTurn() {
-        // TODO
+        $this->emitTo('game-wrapper', 'setGameState', [
+            'active_character' => null,
+            'current_description' => 'Waiting on Crew',
+            'active_player' => 'N/A'
+        ]);
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
