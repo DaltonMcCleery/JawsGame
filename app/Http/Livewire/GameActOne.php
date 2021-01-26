@@ -270,7 +270,8 @@ class GameActOne extends Component
                 'active_player' => $this->game->Shark->User->username,
                 'active_character' => 'shark',
                 'current_description' => 'Waiting on Shark to finalize their move',
-                'current_phase' => 'Shark'
+                'current_phase' => 'Shark',
+                'current_selected_action' => null,
             ]);
         }
     }
