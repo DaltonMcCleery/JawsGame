@@ -21,7 +21,8 @@
 
     <hr/>
 
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Launch a Barrel') quint @endif"
+       wire:click="switchNextAction('Launch a Barrel')">
         Launch a Barrel
     </a>
 </article>

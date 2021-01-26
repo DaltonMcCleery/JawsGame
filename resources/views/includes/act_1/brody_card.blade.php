@@ -25,10 +25,12 @@
 
     <hr/>
 
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Binoculars') brody @endif"
+       wire:click="switchNextAction('Use Binoculars')">
         Binoculars
     </a>
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Close a Beach') brody @endif"
+       wire:click="switchNextAction('Close a Beach')">
         Close a Beach
     </a>
 </article>

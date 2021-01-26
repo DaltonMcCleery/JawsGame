@@ -29,7 +29,8 @@
 
     <hr/>
 
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Fish Finder') hooper @endif"
+       wire:click="switchNextAction('Use Fish Finder')">
         Fish Finder
     </a>
 </article>

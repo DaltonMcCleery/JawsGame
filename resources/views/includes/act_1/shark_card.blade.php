@@ -17,16 +17,20 @@
 
     <hr/>
 
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Feeding Frenzy') shark @endif"
+       wire:click="switchNextAction('Feeding Frenzy')">
         Feeding Frenzy
     </a>
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Evasive Moves') shark @endif"
+       wire:click="switchNextAction('Evasive Moves')">
         Evasive Moves
     </a>
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Out of Sight') shark @endif"
+       wire:click="switchNextAction('Out of Sight')">
         Out of Sight
     </a>
-    <a class="panel-block">
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Speed Burst') shark @endif"
+       wire:click="switchNextAction('Speed Burst')">
         Speed Burst
     </a>
 </article>
