@@ -9,3 +9,9 @@
         @endforeach
     </div>
 @endif
+
+@if(isset($gameState['show_shark']) && $gameState['show_shark'] === true)
+    <div class="notification is-warning">
+        Shark is found!
+    </div>
+@endif
