@@ -134,7 +134,7 @@ trait ActOneActions {
                         $state_changes['show_shark'] = true;
                     }
                     elseif (in_array($gameState['shark_position'], $this->adjacentSpaces[$location])) {
-                        $state_changes['shark_nearby'] = true;
+                        $state_changes['shark_nearby'] = $this->adjacentSpaces[$location];
                     }
                 }
             }
