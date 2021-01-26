@@ -21,20 +21,28 @@
 
     <hr/>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Feeding Frenzy') shark @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Feeding Frenzy') shark @endif"
        wire:click="switchNextAction('Use Feeding Frenzy')">
-        Feeding Frenzy
+        <strong>Feeding Frenzy</strong>
+        <small>Eat All Swimmers at one Beach</small>
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Evasive Moves') shark @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Evasive Moves') shark @endif"
        wire:click="switchNextAction('Use Evasive Moves')">
-        Evasive Moves
+        <strong>Evasive Moves</strong>
+        <small>Does not trigger any Motion Sensors</small>
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Out of Sight') shark @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Out of Sight') shark @endif"
        wire:click="switchNextAction('Use Out of Sight')">
-        Out of Sight
+        <strong>Out of Sight</strong>
+        <small>Undetectable from Binoculars and Fish Finder</small>
     </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Speed Burst') shark @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Speed Burst') shark @endif"
        wire:click="switchNextAction('Use Speed Burst')">
-        Speed Burst
+        <strong>Speed Burst</strong>
+        <small>Move up to 3 Spaces in 1 Action</small>
     </a>
 </article>

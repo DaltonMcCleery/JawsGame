@@ -29,8 +29,10 @@
 
     <hr/>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Fish Finder') hooper @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Fish Finder') hooper @endif"
        wire:click="switchNextAction('Use Fish Finder')">
-        Fish Finder
+        <strong>Fish Finder</strong>
+        <small>Detects if the Shark is in the same Space or in an adjacent Space from you</small>
     </a>
 </article>

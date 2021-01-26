@@ -25,8 +25,10 @@
 
     <hr/>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Launch a Barrel') quint @endif"
+    <a class="panel-block is-flex-direction-column has-text-centered
+       @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Launch a Barrel') quint @endif"
        wire:click="switchNextAction('Launch a Barrel')">
-        Launch a Barrel
+        <strong>Launch a Barrel</strong>
+        <small>Launches a Barrel into an adjacent Space, hoping to hit the Shark</small>
     </a>
 </article>
