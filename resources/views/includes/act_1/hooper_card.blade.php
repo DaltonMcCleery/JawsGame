@@ -10,7 +10,7 @@
         </span>
     </p>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') hooper @endif"
+    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1-2 Spaces') hooper @endif"
        wire:click="switchNextAction('Move 1-2 Spaces')">
         Move 1-2 Spaces
     </a>
