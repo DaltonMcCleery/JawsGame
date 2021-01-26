@@ -50,6 +50,7 @@ class GameActOne extends Component
             'East_Beach_Swimmers' => 0,
             'South_Beach_Swimmers' => 0,
             'West_Beach_Swimmers' => 0,
+            'closed_beach' => 'none',
             // Shark starting elements
             'shark_barrels' => 0,
             'shark_moves' => 3,
