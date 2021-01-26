@@ -143,7 +143,7 @@ trait ActOneActions {
                 if ($gameState['shark_position'] === $location) {
                     $state_changes['show_shark'] = true;
                     $state_changes['shark_barrels'] = $gameState['shark_barrels'] + 1;
-                    $state_changes['quint_barrels'] = $gameState['quint_barrels'] + 1;
+                    $state_changes['quint_barrels'] = $gameState['quint_barrels'] - 1;
                     $gameState['shark_barrels'] = $state_changes['shark_barrels'];
                     $gameState['quint_barrels'] = $state_changes['quint_barrels'];
                 }
