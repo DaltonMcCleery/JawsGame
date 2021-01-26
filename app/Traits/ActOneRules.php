@@ -17,56 +17,39 @@ trait ActOneRules {
     public function isValidAction($character, $action, $space, $currentActionState, $gameState) {
         switch ($character) {
             case 'shark':
-                if (in_array($action, $this->sharkActions)) {
-                    if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
-                        if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
-                            if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                return false;
+                $characterActions = $this->sharkActions;
+                break;
 
             case 'brody':
-                if (in_array($action, $this->brodyActions)) {
-                    if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
-                        if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
-                            if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                return false;
+                $characterActions = $this->brodyActions;
+                break;
 
             case 'hooper':
-                if (in_array($action, $this->hooperActions)) {
-                    if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
-                        if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
-                            if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                return false;
+                $characterActions = $this->hooperActions;
+                break;
 
             case 'quint':
-                if (in_array($action, $this->quintActions)) {
-                    if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
-                        if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
-                            if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
-                                return true;
+                $characterActions = $this->quintActions;
+                break;
+
+            default:
+                $characterActions = null;
+        }
+
+        if ($characterActions !== null) {
+            if (in_array($action, $this->$characterActions)) {
+                if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
+                    if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
+                        if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
+                            if ($this->isSwimmerAction($character, $action, $space, $currentActionState, $gameState)) {
+                                if ($this->isBarrelAction($character, $action, $space, $currentActionState, $gameState)) {
+                                    return true;
+                                }
                             }
                         }
                     }
                 }
-
-                return false;
+            }
         }
 
         return false;
@@ -83,7 +66,14 @@ trait ActOneRules {
             }
             elseif ($character === 'hooper') {
                 // Check if 2 spaces were moved
-                // TODO
+                $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
+                $new_position_adjacent_spaces = $this->adjacentWaterSpaces[$space];
+
+                // See if they have a common Space between them
+                $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
+                if (count($common_spaces) > 1) {
+                    return true;
+                }
             }
 
             return false;
@@ -92,7 +82,7 @@ trait ActOneRules {
         return true;
     }
 
-    public function isAbilityMove($character, $action, $space, $currentActionState, $gameState) {
+    public function isAbilityMove($character, $action, $space, $currentActionState, $gameState): bool {
         // Shark
         if ($character === 'shark') {
             if (str_contains($action, 'Feeding Frenzy')) {
@@ -108,6 +98,7 @@ trait ActOneRules {
             }
 
             if (str_contains($action, 'Evasive Moves')) {
+                // TODO
 
                 return false;
             }
@@ -175,10 +166,109 @@ trait ActOneRules {
             if (str_contains($action, 'Launch a Barrel')) {
                 // Must have a barrel in inventory
                 if ($gameState['quint_barrels'] > 0) {
-                    return true;
+                    // Launched Barrel must be adjacent to character
+                    if (in_array($space, $this->adjacentWaterSpaces[$gameState['quint_position']])) {
+                        return true;
+                    }
                 }
 
                 return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function isSwimmerAction($character, $action, $space, $currentActionState, $gameState): bool {
+        if (str_contains($action, 'Swimmer')) {
+            if ($gameState[$character.'_position'] === $space && in_array($space, $this->beaches)) {
+                if ($gameState[$space.'_Swimmers'] > 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isBarrelAction($character, $action, $space, $currentActionState, $gameState): bool {
+
+        if ($character !== 'shark') {
+            if ($character === 'brody') {
+                // Picking up Barrels at Shop or Docks
+                if (str_contains($action, 'Pick up 1 Barrel')) {
+                    if ($gameState['brody_position'] === $space) {
+                        if (in_array($gameState['brody_position'], $this->docks) || $gameState['brody_position'] === 'Shop') {
+                            if ($gameState[$gameState['brody_position'].'_barrels'] > 0) {
+                                return true;
+                            }
+                        }
+                    }
+
+                    return false;
+                }
+
+                // Dropping Barrels at Docks
+                if (str_contains($action, 'Drop 1 Barrel')) {
+                    if (in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] === $space) {
+                        if ($gameState['brody_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+            }
+
+            if ($character === 'hooper') {
+                // Picking up Barrels at Docks
+                if (str_contains($action, 'Pick up any or all Barrels')) {
+                    if (in_array($gameState['hooper_position'], $this->docks) && $gameState['hooper_position'] === $space) {
+                        if ($gameState[$gameState['hooper_position'].'_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+                    // Pick up barrels from the water
+                    elseif (isset($gameState[$gameState['hooper_position'].'_barrels'])) {
+                        if ($gameState[$gameState['hooper_position'].'_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+
+                // Giving Barrels to Quint
+                if (str_contains($action, 'Give all Barrels to Quint')) {
+                    if ($gameState['hooper_position'] === $gameState['quint_position']) {
+                        if ($gameState['hooper_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+            }
+
+            if ($character === 'quint') {
+                // Picking up Barrels from Docks
+                if (str_contains($action, 'Pick up any or all Barrels')) {
+                    if (in_array($gameState['quint_position'], $this->docks) && $gameState['quint_position'] === $space) {
+                        if ($gameState[$gameState['quint_position'].'_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+                    // Pick up barrels from the water
+                    elseif (isset($gameState[$gameState['quint_position'].'_barrels'])) {
+                        if ($gameState[$gameState['quint_position'].'_barrels'] > 0) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
             }
         }
 
@@ -254,6 +344,73 @@ trait ActOneRules {
     private $hq = [
         'Space_6',
         'Space_7'
+    ];
+
+    private $adjacentWaterSpaces = [
+        'Space_1' => [
+            'Space_2',
+            'Space_3',
+            'North_Beach',
+            'Space_5'
+        ],
+        'Space_2' => [
+            'Space_1',
+            'Space_6',
+            'East_Beach',
+            'Space_4'
+        ],
+        'Space_3' => [
+            'Space_1',
+            'Space_4',
+            'West_Beach',
+            'Space_7'
+        ],
+        'Space_4' => [
+            'Space_2',
+            'Space_3',
+            'South_Beach',
+            'Space_8'
+        ],
+        'Space_5' => [
+            'Space_1',
+            'North_Beach',
+            'West_Beach'
+        ],
+        'Space_6' => [
+            'Space_2',
+            'North_Beach',
+            'East_Beach'
+        ],
+        'Space_7' => [
+            'Space_3',
+            'South_Beach',
+            'West_Beach'
+        ],
+        'Space_8' => [
+            'Space_4',
+            'East_Beach',
+            'South_Beach'
+        ],
+        'North_Beach' => [
+            'Space_1',
+            'Space_5',
+            'Space_6'
+        ],
+        'East_Beach' => [
+            'Space_2',
+            'Space_6',
+            'Space_8'
+        ],
+        'South_Beach' => [
+            'Space_4',
+            'Space_7',
+            'Space_8'
+        ],
+        'West_Beach' => [
+            'Space_3',
+            'Space_5',
+            'Space_7'
+        ]
     ];
 
     private $adjacentSpaces = [
