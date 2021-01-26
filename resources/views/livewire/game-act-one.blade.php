@@ -1,25 +1,7 @@
 <div id="act-1" wire:init="loadStartingActOneState">
 
     <div class="notification">
-        <div class="tabs is-toggle is-fullwidth">
-            <ul>
-                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Event') is-active @endif">
-                    <a disabled>
-                        <span>Event Phase</span>
-                    </a>
-                </li>
-                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Shark') is-active @endif">
-                    <a disabled>
-                        <span>Shark Phase</span>
-                    </a>
-                </li>
-                <li class="@if(isset($gameState['current_phase']) && $gameState['current_phase'] === 'Crew') is-active @endif">
-                    <a disabled>
-                        <span>Crew Phase</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        @include('includes.act_1.phases', ['gameState' => $gameState])
 
         @isset($gameState['current_event_description'])
             Event: <strong>"{{ $gameState['current_event_title'] }}"</strong> ({{ $gameState['current_event_swimmers'] }})<br/>
@@ -29,39 +11,18 @@
 
         Current Player's Turn: <strong>{{ $gameState['active_player'] ?? 'N/A' }} ({{ isset($gameState['active_character']) ? ucfirst($gameState['active_character']) : null }})</strong><br/>
         {{ $gameState['current_description'] ?? null }}
-        @if(isset($gameState['active_player']) && $gameState['active_player'] === 'N/A' && $game->Shark->User->username !== Auth::user()->username)
-            {{-- Crew needs to decide who's next --}}
-            <br/><br/>
-            @if($gameState['brody_moves'] !== 0)
-                <button class="button is-dark" wire:click="setActiveCharacter('brody')">Brody's Turn</button>
-            @endif
-            @if($gameState['hooper_moves'] !== 0)
-                <button class="button is-info" wire:click="setActiveCharacter('hooper')">Hooper's Turn</button>
-            @endif
-            @if($gameState['quint_moves'] !== 0)
-                <button class="button is-success" wire:click="setActiveCharacter('quint')">Quint's Turn</button>
-            @endif
-        @endif
+
+        @include('includes.act_1.crew_turn_picker', ['game' => $game, 'gameState' => $gameState])
 
         <br/><br/>
 
         Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}</strong><br/>
         <progress class="progress is-medium is-danger" value="{{ $gameState['swimmers_eaten'] ?? 0 }}" max="9"></progress>
 
-        @if(count($currentActionState) > 0)
-            <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-                <ul>
-                    @foreach($currentActionState as $action)
-                        <li><a disabled>{{ $action }}</a></li>
-                    @endforeach
-                </ul>
-                <span>{{ $gameState[$gameState['active_character'].'_moves'] - count($currentActionState) }} Actions Remaining</span>
-            </nav>
-
-            <button class="button is-warning" wire:click="undoPreviousAction">Undo Previous Action</button>
-            <button class="button is-success" wire:click="confirmTurn">Confirm Turn</button>
-        @endif
+        @include('includes.act_1.current_action_state', ['currentActionState' => $currentActionState, 'gameState' => $gameState])
     </div>
+
+    @include('includes.act_1.shark_nearby', ['gameState' => $gameState])
 
     @error('action-error')
         <div class="notification is-danger">
