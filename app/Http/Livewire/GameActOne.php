@@ -165,6 +165,29 @@ class GameActOne extends Component
         }
     }
 
+    public function undoPreviousAction() {
+        $lastAction = $this->currentActionState[count($this->currentActionState) - 1];
+        if (str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')) {
+            $this->addError('action-error', 'Cannot Undo Ability');
+        } else {
+            // Undo previous Action state and re-apply action before last (if a Move)
+            unset($this->currentActionState[count($this->currentActionState) - 1]);
+
+            foreach ($this->currentActionState as $prevAction) {
+                if (str_contains($prevAction, 'Move')) {
+                    $exploded = explode('(', $prevAction);
+                    $space = rtrim($exploded[1], ')');
+
+                    $this->emitTo('game-wrapper', 'setGameState', [
+                        $this->gameState['active_character'].'_position' => $space
+                    ]);
+
+                    break;
+                }
+            }
+        }
+    }
+
     public function confirmTurn() {
         $next_phase = '...';
         $phase_description = 'Waiting on next Phase';

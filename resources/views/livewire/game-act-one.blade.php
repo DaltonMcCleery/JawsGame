@@ -57,6 +57,8 @@
                 </ul>
                 <span>{{ $gameState[$gameState['active_character'].'_moves'] - count($currentActionState) }} Actions Remaining</span>
             </nav>
+
+            <button class="button is-warning" wire:click="undoPreviousAction">Undo Previous Action</button>
             <button class="button is-success" wire:click="confirmTurn">Confirm Turn</button>
         @endif
     </div>
