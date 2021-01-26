@@ -88,16 +88,16 @@
         @endif
 
         {{-- BARRELS --}}
-        @if(isset($gameState['shop_barrels']) && $gameState['shop_barrels'] > 0)
-            <span id="shop-barrels" title="{{ $gameState['shop_barrels'] }}"></span>
+        @if(isset($gameState['Shop_barrels']) && $gameState['Shop_barrels'] > 0)
+            <span id="shop-barrels" title="{{ $gameState['Shop_barrels'] }}"></span>
         @endif
 
-        @if(isset($gameState['space_8_barrels']) && $gameState['space_8_barrels'] > 0)
-            <span id="space-8-barrels" title="{{ $gameState['space_8_barrels'] }}"></span>
+        @if(isset($gameState['Space_8_barrels']) && $gameState['Space_8_barrels'] > 0)
+            <span id="space-8-barrels" title="{{ $gameState['Space_8_barrels'] }}"></span>
         @endif
 
-        @if(isset($gameState['space_5_barrels']) && $gameState['space_5_barrels'] > 0)
-            <span id="space-5-barrels" title="{{ $gameState['space_5_barrels'] }}"></span>
+        @if(isset($gameState['Space_5_barrels']) && $gameState['Space_5_barrels'] > 0)
+            <span id="space-5-barrels" title="{{ $gameState['Space_5_barrels'] }}"></span>
         @endif
 
         {{-- Swimmers --}}
