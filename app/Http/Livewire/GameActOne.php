@@ -203,6 +203,14 @@ class GameActOne extends Component
             $phase_description = 'Waiting on Crew to decide who is next';
         }
 
+        // Filter out Ability actions (as they have already happened)
+        foreach ($this->currentActionState as $key => $action) {
+            if (str_contains($action, 'Use') || str_contains($action, 'Launch a Barrel')) {
+                // Remove
+                unset($this->currentActionState[$key]);
+            }
+        }
+
         $this->emitTo('game-wrapper', 'setGameState', [
             'active_character' => null,
             'current_description' => $phase_description,
