@@ -59,7 +59,7 @@
         <div class="column is-full">
             <div class="notification is-dark">
                 @foreach($gameState as $key => $value)
-                    @if($key !== 'action_history')
+                    @if(!is_array($value))
                         <p>
                             <strong>{{ $key }}</strong> => {{ $value }}
                         </p>
