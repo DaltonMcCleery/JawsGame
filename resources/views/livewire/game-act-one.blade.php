@@ -27,7 +27,7 @@
             <br/><br/>
         @endif
 
-        Current Player's Turn: <strong>{{ $gameState['active_player'] ?? null }}</strong><br/>
+        Current Player's Turn: <strong>{{ $gameState['active_player'] ?? 'N/A' }} ({{ isset($gameState['active_character']) ? ucfirst($gameState['active_character']) : null }})</strong><br/>
         {{ $gameState['current_description'] ?? null }}
         @if(isset($gameState['active_player']) && $gameState['active_player'] === 'N/A' && $game->Shark->User->username !== Auth::user()->username)
             {{-- Crew needs to decide who's next --}}
