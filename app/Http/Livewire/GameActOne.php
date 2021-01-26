@@ -67,7 +67,11 @@ class GameActOne extends Component
             'binoculars' => null,
             'fish_finder' => null,
             'show_shark' => false,
-            'shark_nearby' => false
+            'shark_nearby' => false,
+            'used_feeding_frenzy' => false,
+            'used_out_of_sight' => false,
+            'used_speed_burst' => false,
+            'used_evasive_moves' => false
         ]);
     }
 
