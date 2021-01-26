@@ -3,7 +3,11 @@
         The Shark @if($game->Shark->User->username === Auth::user()->username) <small>(You)</small>@endif
     </p>
     <p class="panel-tabs">
-        <span class="is-active">Remaining Actions: {{ $gameState['shark_moves'] ?? 3 }}</span>
+        <span class="is-active">
+            Actions: {{ $gameState['shark_moves'] ?? 3 }}
+            |
+            Barrels: {{ $gameState['shark_barrels'] ?? 0 }}
+        </span>
     </p>
 
     <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') shark @endif"

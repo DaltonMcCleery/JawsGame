@@ -4,7 +4,7 @@
         Possible Locations:
         @foreach($gameState['shark_nearby'] as $location)
             @if($location !== 'Shop')
-                "{{ str_replace('_', ' ', $location) }}"
+                "{{ str_replace('_', ' ', $location) }}"@if(!$loop->last), @endif
             @endif
         @endforeach
     </div>

@@ -3,7 +3,11 @@
         Quint @if($game->Quint->username === Auth::user()->username) <small>(You)</small>@endif
     </p>
     <p class="panel-tabs">
-        <span class="is-active">Remaining Actions: {{ $gameState['quint_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif</span>
+        <span class="is-active">
+            Actions: {{ $gameState['quint_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
+            |
+            Barrels: {{ $gameState['quint_barrels'] ?? 0 }}
+        </span>
     </p>
 
     <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') quint @endif"
