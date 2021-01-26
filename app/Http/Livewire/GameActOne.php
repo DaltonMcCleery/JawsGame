@@ -133,6 +133,12 @@ class GameActOne extends Component
                 $this->gameState['active_character'].'_position' => $space
             ]);
         }
+        elseif (str_contains($action, 'Use') || str_contains($action, 'Launch a Barrel')) {
+            // Take action immediately
+            $this->emitTo('game-wrapper', 'setGameState', [
+                'action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]
+            ]);
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
