@@ -42,16 +42,24 @@ trait ActOneCards {
             foreach (str_split($beach) as $letter) {
                 switch ($letter) {
                     case 'N':
-                        $swimmers['North_Beach_Swimmers']++;
+                        if ($gameState['closed_beach'] !== 'North_Beach') {
+                            $swimmers['North_Beach_Swimmers']++;
+                        }
                         break;
                     case 'E':
-                        $swimmers['East_Beach_Swimmers']++;
+                        if ($gameState['closed_beach'] !== 'East_Beach') {
+                            $swimmers['East_Beach_Swimmers']++;
+                        }
                         break;
                     case 'S':
-                        $swimmers['South_Beach_Swimmers']++;
+                        if ($gameState['closed_beach'] !== 'South_Beach') {
+                            $swimmers['South_Beach_Swimmers']++;
+                        }
                         break;
                     case 'W':
-                        $swimmers['West_Beach_Swimmers']++;
+                        if ($gameState['closed_beach'] !== 'West_Beach') {
+                            $swimmers['West_Beach_Swimmers']++;
+                        }
                         break;
                 }
             }
@@ -65,16 +73,24 @@ trait ActOneCards {
                     foreach (str_split($beach) as $letter) {
                         switch ($letter) {
                             case 'N':
-                                $swimmers['North_Beach_Swimmers']++;
+                                if ($gameState['closed_beach'] !== 'North_Beach') {
+                                    $swimmers['North_Beach_Swimmers']++;
+                                }
                                 break;
                             case 'E':
-                                $swimmers['East_Beach_Swimmers']++;
+                                if ($gameState['closed_beach'] !== 'East_Beach') {
+                                    $swimmers['East_Beach_Swimmers']++;
+                                }
                                 break;
                             case 'S':
-                                $swimmers['South_Beach_Swimmers']++;
+                                if ($gameState['closed_beach'] !== 'South_Beach') {
+                                    $swimmers['South_Beach_Swimmers']++;
+                                }
                                 break;
                             case 'W':
-                                $swimmers['West_Beach_Swimmers']++;
+                                if ($gameState['closed_beach'] !== 'West_Beach') {
+                                    $swimmers['West_Beach_Swimmers']++;
+                                }
                                 break;
                         }
                     }
