@@ -37,7 +37,7 @@ trait ActOneRules {
         }
 
         if ($characterActions !== null) {
-            if (in_array($action, $this->$characterActions)) {
+            if (in_array($action, $characterActions)) {
                 if ($this->isNotOutOfMoves($character, $currentActionState, $gameState)) {
                     if ($this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState)) {
                         if ($this->isAbilityMove($character, $action, $space, $currentActionState, $gameState)) {
@@ -61,22 +61,29 @@ trait ActOneRules {
 
     private function isMoveAdjacent($character, $action, $space, $currentActionState, $gameState): bool {
         if (str_contains($action, 'Move')) {
-            if (in_array($space, $this->adjacentSpaces[$gameState[$character.'_position']])) {
-                return true;
-            }
-            elseif ($character === 'hooper') {
-                // Check if 2 spaces were moved
-                $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
-                $new_position_adjacent_spaces = $this->adjacentWaterSpaces[$space];
-
-                // See if they have a common Space between them
-                $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
-                if (count($common_spaces) > 1) {
+            if ($character === 'brody') {
+                if (in_array($space, $this->adjacentSpaces[$gameState[$character.'_position']])) {
                     return true;
                 }
             }
+            else {
+                // Everyone else is on Water spaces
+                if (in_array($space, $this->adjacentWaterSpaces[$gameState[$character.'_position']])) {
+                    return true;
+                } elseif ($character === 'hooper') {
+                    // Check if 2 spaces were moved
+                    $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
+                    $new_position_adjacent_spaces  = $this->adjacentWaterSpaces[$space];
 
-            return false;
+                    // See if they have a common Space between them
+                    $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
+                    if (count($common_spaces) > 1) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
 
         return true;
@@ -414,30 +421,6 @@ trait ActOneRules {
     ];
 
     private $adjacentSpaces = [
-        'Space_1' => [
-            'Space_2',
-            'Space_3',
-            'North_Beach',
-            'Space_5'
-        ],
-        'Space_2' => [
-            'Space_1',
-            'Space_6',
-            'East_Beach',
-            'Space_4'
-        ],
-        'Space_3' => [
-            'Space_1',
-            'Space_4',
-            'West_Beach',
-            'Space_7'
-        ],
-        'Space_4' => [
-            'Space_2',
-            'Space_3',
-            'South_Beach',
-            'Space_8'
-        ],
         'Space_5' => [
             'Space_1',
             'North_Beach',
