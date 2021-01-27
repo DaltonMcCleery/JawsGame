@@ -133,8 +133,8 @@ trait ActOneActions {
                     if ($gameState['shark_position'] === $location) {
                         $state_changes['show_shark'] = true;
                     }
-                    elseif (in_array($gameState['shark_position'], $this->adjacentSpaces[$location])) {
-                        $state_changes['shark_nearby'] = $this->adjacentSpaces[$location];
+                    elseif (in_array($gameState['shark_position'], $this->possibleAdjacentSpaces[$location])) {
+                        $state_changes['shark_nearby'] = $this->possibleAdjacentSpaces[$location];
                     }
                 }
             }
@@ -164,7 +164,7 @@ trait ActOneActions {
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    private $adjacentSpaces = [
+    private $possibleAdjacentSpaces = [
         'Space_1' => [
             'Space_2',
             'Space_3',
@@ -192,36 +192,27 @@ trait ActOneActions {
         'Space_5' => [
             'Space_1',
             'North_Beach',
-            'West_Beach',
-            'Space_7',
-            'Shop'
+            'West_Beach'
         ],
         'Space_6' => [
             'Space_2',
             'North_Beach',
-            'East_Beach',
-            'South_Beach',
-            'Space_8',
-            'Shop'
+            'East_Beach'
         ],
         'Space_7' => [
             'Space_3',
             'South_Beach',
-            'West_Beach',
-            'Space_5',
-            'Shop'
+            'West_Beach'
         ],
         'Space_8' => [
             'Space_4',
             'East_Beach',
-            'South_Beach',
-            'Space_6'
+            'South_Beach'
         ],
         'North_Beach' => [
             'Space_1',
             'Space_5',
-            'Space_6',
-            'Shop'
+            'Space_6'
         ],
         'East_Beach' => [
             'Space_2',
@@ -230,23 +221,13 @@ trait ActOneActions {
         ],
         'South_Beach' => [
             'Space_4',
-            'Space_6',
             'Space_7',
-            'Space_8',
-            'Shop'
+            'Space_8'
         ],
         'West_Beach' => [
             'Space_3',
             'Space_5',
             'Space_7'
-        ],
-        'Shop' => [
-            'Space_5',
-            'Space_6',
-            'Space_7',
-            'Space_8',
-            'North_Beach',
-            'South_Beach'
-        ],
+        ]
     ];
 }
