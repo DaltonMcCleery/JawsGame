@@ -330,10 +330,10 @@ trait ActOneRules {
         'Starting Position',
         'Move 1 Space',
         'Eat 1 Swimmer',
-        'Feeding Frenzy',
-        'Evasive Moves',
-        'Out of Sight',
-        'Speed Burst'
+        'Ability Feeding Frenzy',
+        'Ability Evasive Moves',
+        'Ability Out of Sight',
+        'Ability Speed Burst'
     ];
 
     private $brodyActions = [
