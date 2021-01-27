@@ -262,8 +262,23 @@ class GameActOne extends Component
         if (!$data) {
             $this->addError('action-error', 'Unable to parse Event Card');
         } else {
+            $closed_beach_data = [];
+            if (isset($this->gameState['closed_beach_open_in'])) {
+                if ($this->gameState['closed_beach_open_in'] === 2) {
+                    // OPening Soon
+                    $closed_beach_data['closed_beach_open_in'] = 1;
+                }
+                elseif ($this->gameState['closed_beach_open_in'] === 1) {
+                    // Open Beach
+                    $closed_beach_data = [
+                        'closed_beach' => null,
+                        'closed_beach_open_in' => null
+                    ];
+                }
+            }
+
             // Perform necessary Game updates
-            $this->emitTo('game-wrapper', 'setGameState', [
+            $this->emitTo('game-wrapper', 'setGameState', array_merge($closed_beach_data, [
                 // Event Details
                 'current_event_title' => $data['current_event_title'],
                 'current_event_description' => $data['current_event_description'],
@@ -302,7 +317,7 @@ class GameActOne extends Component
                 'current_description' => 'Waiting on Shark to finalize their move',
                 'current_phase' => 'Shark',
                 'current_selected_action' => null,
-            ]);
+            ]));
         }
     }
 
