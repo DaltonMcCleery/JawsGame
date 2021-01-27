@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Traits\ActOneActions;
 use Livewire\Component;
 use App\Traits\ActOneRules;
 use App\Traits\ActOneCards;
@@ -10,10 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class GameActOne extends Component
 {
-    use ActOneRules, ActOneCards;
+    use ActOneRules, ActOneCards, ActOneActions;
 
     public $game;
     public $gameState;
+    public $localGameState;
 
     /**
      * @var array Current Active Character's action history
@@ -78,6 +80,7 @@ class GameActOne extends Component
 
     public function refreshActOneState($newState) {
         $this->gameState = $newState;
+        $this->localGameState = $newState;
 
         if ($this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
@@ -128,6 +131,7 @@ class GameActOne extends Component
     public function setActionState($action, $space) {
         $this->currentActionState[] = $action.' ('.$space.')';
 
+        $actions = ['action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]];
         if (str_contains($action, 'Move')) {
             $this->emitTo('game-wrapper', 'setGameState', [
                 $this->gameState['active_character'].'_position' => $space
@@ -135,9 +139,15 @@ class GameActOne extends Component
         }
         elseif (str_contains($action, 'Use') || str_contains($action, 'Launch a Barrel')) {
             // Take action immediately
-            $this->emitTo('game-wrapper', 'setGameState', [
-                'action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]
-            ]);
+            $this->emitTo('game-wrapper', 'setGameState', $actions);
+        }
+        else {
+            // Commit directly to local game state
+            $actions = $this->parseActions($this->gameState['active_character'], $actions['action_history'], $this->gameState);
+            foreach($actions as $key => $action) {
+                // Modify the Game State based on parsed actions
+                $this->localGameState[$key] = $action;
+            }
         }
     }
 
@@ -158,13 +168,33 @@ class GameActOne extends Component
                 // Move on to actual play
                 $this->setSharkStartingPosition($space);
             }
-            elseif ($this->isValidAction($this->gameState['active_character'], $this->gameState['current_selected_action'], $space, $this->currentActionState, $this->gameState)) {
-                // Do it
-                $this->setActionState($this->gameState['current_selected_action'], $space);
-            }
             else {
-                // fail
-                $this->addError('action-error', 'Invalid Move');
+                $errors = $this->isValidAction(
+                    $this->gameState['active_character'],
+                    $this->gameState['current_selected_action'],
+                    $space,
+                    $this->currentActionState,
+                    $this->gameState,
+                    $this->localGameState
+                );
+
+                $error_count = count($errors);
+
+                if ($error_count > 0) {
+                    // fail
+                    $message = '';
+                    foreach ($errors as $key => $error) {
+                        $message.= $error;
+                        if ($key+1 !== $error_count) {
+                            $message.= ', ';
+                        }
+                    }
+
+                    $this->addError('action-error', $message);
+                } else {
+                    // Do it
+                    $this->setActionState($this->gameState['current_selected_action'], $space);
+                }
             }
         } else {
             $this->addError('action-error', 'Not your turn');
