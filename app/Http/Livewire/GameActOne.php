@@ -39,12 +39,15 @@ class GameActOne extends Component
             'quint_barrels' => 2,
             'quint_moves' => 4,
             'quint_position' => 'Space_8',
+            'quint_last_position' => 'Space_8',
             'hooper_barrels' => 0,
             'hooper_moves' => 4,
             'hooper_position' => 'Space_5',
+            'hooper_last_position' => 'Space_5',
             'brody_barrels' => 0,
             'brody_moves' => 4,
             'brody_position' => 'Space_7',
+            'brody_last_position' => 'Space_7',
             // Barrels
             'Shop_barrels' => 6,
             'Space_5_barrels' => 0,
@@ -59,6 +62,7 @@ class GameActOne extends Component
             'shark_barrels' => 0,
             'shark_moves' => 3,
             'shark_position' => null,
+            'shark_last_position' => null,
             'swimmers_eaten' => 0,
             'ignore_motion_sensors' => false,
             // Act I
@@ -129,6 +133,7 @@ class GameActOne extends Component
 
         $this->emitTo('game-wrapper', 'setGameState', [
             'active_character' => $character,
+            ($character.'_last_position') => $this->gameState[$this->gameState['active_character'].'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
             'active_player' => $active_player
         ]);
@@ -138,9 +143,10 @@ class GameActOne extends Component
         $this->currentActionState[] = $action.' ('.$space.')';
 
         $actions = ['action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]];
-        if (str_contains($action, 'Move')) {
+        if (str_contains($action, 'Move') || str_contains($action, 'Speed Burst')) {
             $this->emitTo('game-wrapper', 'setGameState', [
-                $this->gameState['active_character'].'_position' => $space
+                $this->gameState['active_character'].'_position' => $space,
+                $this->gameState['active_character'].'_last_position' => $this->gameState[$this->gameState['active_character'].'_position']
             ]);
         }
         elseif (str_contains($action, 'Use') || str_contains($action, 'Launch a Barrel')) {
@@ -162,6 +168,7 @@ class GameActOne extends Component
     public function setSharkStartingPosition($position) {
         $this->emitTo('game-wrapper', 'setGameState', [
             'shark_position' => $position,
+            'shark_last_position' => $position,
             'current_description' => 'Playing Event Card...',
             'current_phase' => 'Event',
             'play_card' => 'Event'
@@ -209,7 +216,7 @@ class GameActOne extends Component
 
     public function undoPreviousAction() {
         $lastAction = $this->currentActionState[count($this->currentActionState) - 1];
-        if (str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')) {
+        if (str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')  || str_contains($lastAction, 'Ability')) {
             $this->addError('action-error', 'Cannot Undo Ability');
         } else {
             // Undo previous Action state and re-apply action before last (if a Move)
@@ -226,6 +233,13 @@ class GameActOne extends Component
 
                     break;
                 }
+            }
+
+            if (count($this->currentActionState) === 0) {
+                // GO back to last known Space
+                $this->emitTo('game-wrapper', 'setGameState', [
+                    $this->gameState['active_character'].'_position' => $this->gameState[$this->gameState['active_character'].'_last_position']
+                ]);
             }
         }
     }
