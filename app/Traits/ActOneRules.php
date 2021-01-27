@@ -101,6 +101,10 @@ trait ActOneRules {
         // Shark
         if ($character === 'shark') {
             if (str_contains($action, 'Feeding Frenzy')) {
+                // Only can be used once per game
+                if ($gameState['used_feeding_frenzy'] === true) {
+                    return ['Already used Ability'];
+                }
                 // Character must be at a beach
                 if (!in_array($gameState['shark_position'], $this->beaches)) {
                     return ['Cannot use Ability outside of a Beach'];
@@ -108,14 +112,13 @@ trait ActOneRules {
                 if ($gameState['shark_position'] !== $space) {
                     return ['Cannot use Ability on a different Beach'];
                 }
-                // Only can be used once per game
-                if ($gameState['used_feeding_frenzy'] === true) {
-                    return ['Already used Ability'];
-                }
             }
 
             if (str_contains($action, 'Evasive Moves')) {
-                // TODO
+                // Only can be used once per game
+                if ($gameState['used_evasive_moves'] === true) {
+                    return ['Already used Ability'];
+                }
             }
 
             if (str_contains($action, 'Out of Sight')) {
@@ -126,11 +129,23 @@ trait ActOneRules {
             }
 
             if (str_contains($action, 'Speed Burst')) {
+                // Only can be used once per game
+                if ($gameState['used_speed_burst'] === true) {
+                    return ['Already used Ability'];
+                }
+
                 $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['shark_position']];
                 $new_position_adjacent_spaces = $this->adjacentWaterSpaces[$space];
 
                 // Can only move a TOTAL of 3 Spaces in 1 Action
-                $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
+                foreach ($new_position_adjacent_spaces as $possible_spaces) {
+                    $common_spaces = array_intersect($last_position_adjacent_spaces, $this->adjacentWaterSpaces[$possible_spaces]);
+                    if (count($common_spaces) < 1) {
+                        return [];
+                    }
+                }
+
+                return ['Spaces not connected'];
             }
         }
         // Crew
@@ -300,7 +315,9 @@ trait ActOneRules {
         return [];
     }
 
-    private function oncePerRound($action, $currentActionState) {
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    private function oncePerRound($action, $currentActionState): bool {
         $action = $this->getActionWithoutSpace($action);
         foreach ($currentActionState as $pastAction) {
             if ($this->getActionWithoutSpace($pastAction) === $action) {
@@ -312,7 +329,7 @@ trait ActOneRules {
         return false;
     }
 
-    private function getActionWithoutSpace($action) {
+    private function getActionWithoutSpace($action): string {
         $exploded = explode(' (', $action);
         return $exploded[0];
     }
@@ -439,14 +456,12 @@ trait ActOneRules {
 
     private $adjacentSpaces = [
         'Space_5' => [
-            'Space_1',
             'North_Beach',
             'West_Beach',
             'Space_7',
             'Shop'
         ],
         'Space_6' => [
-            'Space_2',
             'North_Beach',
             'East_Beach',
             'South_Beach',
@@ -454,38 +469,32 @@ trait ActOneRules {
             'Shop'
         ],
         'Space_7' => [
-            'Space_3',
             'South_Beach',
             'West_Beach',
             'Space_5',
             'Shop'
         ],
         'Space_8' => [
-            'Space_4',
             'East_Beach',
             'South_Beach',
             'Space_6'
         ],
         'North_Beach' => [
-            'Space_1',
             'Space_5',
             'Space_6',
             'Shop'
         ],
         'East_Beach' => [
-            'Space_2',
             'Space_6',
             'Space_8'
         ],
         'South_Beach' => [
-            'Space_4',
             'Space_6',
             'Space_7',
             'Space_8',
             'Shop'
         ],
         'West_Beach' => [
-            'Space_3',
             'Space_5',
             'Space_7'
         ],
