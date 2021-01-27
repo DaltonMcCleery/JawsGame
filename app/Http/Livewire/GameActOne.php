@@ -17,6 +17,8 @@ class GameActOne extends Component
     public $gameState;
     public $localGameState;
 
+    public $showReplay = false;
+
     /**
      * @var array Current Active Character's action history
      */
@@ -95,6 +97,10 @@ class GameActOne extends Component
                 'active_player' => $this->game->Shark->User->username,
                 'play_card' => 'Event'
             ]);
+        }
+        elseif (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
+            // AUto-end the current Turn and display any Reply settings
+            $this->confirmTurn();
         }
     }
 
@@ -319,6 +325,12 @@ class GameActOne extends Component
                 'current_selected_action' => null,
             ]));
         }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    public function watchReplay() {
+        $this->showReplay = true;
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
