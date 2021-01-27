@@ -39,7 +39,7 @@ trait ActOneRules {
 
         if ($characterActions !== null) {
             if (!in_array($action, $characterActions)) {
-                return ['Invalid Action given'];
+                return ['Invalid Action given: "'.$action.'"'];
             }
 
             return array_merge(
@@ -49,23 +49,6 @@ trait ActOneRules {
                 $this->isSwimmerAction($character, $action, $space, $gameState, $localGameState),
                 $this->isBarrelAction($character, $action, $space, $currentActionState, $gameState)
             );
-//            $errors = $this->isNotOutOfMoves($character, $currentActionState, $gameState);
-//            if (count($errors) === 0) {
-//
-//                $errors = $this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState);
-//                 if (count($errors) === 0) {
-//
-//                     $errors = $this->isAbilityMove($character, $action, $space, $currentActionState, $gameState);
-//                     if (count($errors) === 0) {
-//
-//                         $errors = $this->isSwimmerAction($character, $action, $space, $currentActionState, $gameState);
-//                         if (count($errors) === 0) {
-//
-//                             return $this->isBarrelAction($character, $action, $space, $currentActionState, $gameState);
-//                        }
-//                    }
-//                }
-//            }
         }
 
         return ['Invalid Character'];
@@ -89,17 +72,22 @@ trait ActOneRules {
             else {
                 // Everyone else is on Water spaces
                 if (!in_array($space, $this->adjacentWaterSpaces[$gameState[$character.'_position']])) {
-                    return ['Spaces not adjacent'];
-                } elseif ($character === 'hooper') {
-                    // Check if 2 spaces were moved
-                    $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
-                    $new_position_adjacent_spaces  = $this->adjacentWaterSpaces[$space];
+                    if ($character === 'hooper') {
+                        // Check if 2 spaces were moved
+                        $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
+                        $new_position_adjacent_spaces  = $this->adjacentWaterSpaces[$space];
 
-                    // See if they have a common Space between them
-                    $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
-                    if (count($common_spaces) < 1) {
-                        return ['Spaces not connected'];
+                        // See if they have a common Space between them
+                        $common_spaces = array_intersect($last_position_adjacent_spaces, $new_position_adjacent_spaces);
+                        if (count($common_spaces) < 1) {
+                            return ['Spaces not connected'];
+                        } else {
+                            // Allow it
+                            return [];
+                        }
                     }
+
+                    return ['Spaces not adjacent'];
                 }
 
                 return [];
@@ -116,6 +104,9 @@ trait ActOneRules {
                 // Character must be at a beach
                 if (!in_array($gameState['shark_position'], $this->beaches)) {
                     return ['Cannot use Ability outside of a Beach'];
+                }
+                if ($gameState['shark_position'] !== $space) {
+                    return ['Cannot use Ability on a different Beach'];
                 }
                 // Only can be used once per game
                 if ($gameState['used_feeding_frenzy'] === true) {
@@ -212,7 +203,7 @@ trait ActOneRules {
                 return ['Action must be done at a Beach'];
             }
             if ($localGameState[$space.'_Swimmers'] < 1) {
-                return ['No Swimmers at Beach'];
+                return ['No Swimmers left at Beach'];
             }
         }
 
@@ -228,7 +219,7 @@ trait ActOneRules {
                     if ($gameState['brody_position'] !== $space) {
                         return ['Character must be in the same Space as Action'];
                     }
-                    if (!in_array($gameState['brody_position'], $this->docks) || $gameState['brody_position'] !== 'Shop') {
+                    if (!in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] !== 'Shop') {
                         return ['Must be at a Dock or the Shop'];
                     }
                     if ($gameState[$gameState['brody_position'].'_barrels'] < 1) {
@@ -254,13 +245,14 @@ trait ActOneRules {
                 // Picking up Barrels at Docks
                 if (str_contains($action, 'Pick up any or all Barrels')) {
                     if (!in_array($gameState['hooper_position'], $this->docks)) {
-                        return ['Must be at a Dock'];
-                    }
-                    // Pick up barrels from the water
-                    elseif (isset($gameState[$gameState['hooper_position'].'_barrels'])) {
-                        if ($gameState[$gameState['hooper_position'].'_barrels'] < 1) {
-                            return ['Space has no Barrels'];
+                        // Pick up barrels from the water
+                        if (isset($gameState[$gameState['hooper_position'].'_barrels'])) {
+                            if ($gameState[$gameState['hooper_position'].'_barrels'] < 1) {
+                                return ['Space has no Barrels'];
+                            }
                         }
+
+                        return ['Must be at a Dock'];
                     }
                     if ($gameState['hooper_position'] !== $space) {
                         return ['Character must be in same Space as Action'];
@@ -286,13 +278,14 @@ trait ActOneRules {
             if ($character === 'quint') {
                 // Picking up Barrels from Docks
                 if (str_contains($action, 'Pick up any or all Barrels')) {
-                    if (in_array($gameState['quint_position'], $this->docks)) {
-                        return ['Must be at a Dock'];
-                    }
-                    elseif (isset($gameState[$gameState['quint_position'].'_barrels'])) {
-                        if ($gameState[$gameState['quint_position'].'_barrels'] > 0) {
-                            return ['Space has no Barrels'];
+                    if (!in_array($gameState['quint_position'], $this->docks)) {
+                        if (isset($gameState[$gameState['quint_position'].'_barrels'])) {
+                            if ($gameState[$gameState['quint_position'].'_barrels'] > 0) {
+                                return ['Space has no Barrels'];
+                            }
                         }
+
+                        return ['Must be at a Dock'];
                     }
                     if ($gameState['quint_position'] !== $space) {
                         return ['Character must be in same Space as Action'];
