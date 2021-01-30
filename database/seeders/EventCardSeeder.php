@@ -73,7 +73,7 @@ class EventCardSeeder extends Seeder
                 'image' => '',
                 'title' => 'The USS Indianapolis',
                 'description' => 'SS E WW',
-                'action' => 'Quint mak take one extra action this round'
+                'action' => 'Quint may take one extra action this round'
             ],
             [
                 'image' => '',
