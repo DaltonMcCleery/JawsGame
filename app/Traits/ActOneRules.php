@@ -378,6 +378,7 @@ trait ActOneRules {
 
     private $brodyActions = [
         'Move 1 Space',
+        'Move Relocation',
         'Rescue 1 Swimmer',
         'Pick up 1 Barrel',
         'Drop 1 Barrel',

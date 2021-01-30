@@ -10,6 +10,15 @@
         </span>
     </p>
 
+    @if(isset($gameState['brody_relocation']) && $gameState['brody_relocation'] === 1)
+        <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move Relocation') brody @endif"
+           wire:click="switchNextAction('Move Relocation')">
+            <strong>Relocation</strong>
+        </a>
+
+        <hr/>
+    @endif
+
     <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') brody @endif"
        wire:click="switchNextAction('Move 1 Space')">
         Move 1 Space
