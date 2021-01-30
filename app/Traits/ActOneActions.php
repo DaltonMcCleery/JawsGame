@@ -174,6 +174,10 @@ trait ActOneActions {
         return rtrim($exploded[1], ')');
     }
 
+    private function getAction($action) {
+        return trim((explode('(', $action))[0]);
+    }
+
     // -------------------------------------------------------------------------------------------------------------- //
 
     private $possibleAdjacentSpaces = [
