@@ -214,7 +214,9 @@ trait ActOneRules {
                 }
                 // Launched Barrel must be adjacent to character
                 if (!in_array($space, $this->adjacentWaterSpaces[$gameState['quint_position']])) {
-                    return ['Must Launch a Barrel into an adjacent Water Space'];
+                    if ($gameState['quint_position'] !== $space) {
+                        return ['Must Launch a Barrel into an adjacent Water Space'];
+                    }
                 }
             }
         }
