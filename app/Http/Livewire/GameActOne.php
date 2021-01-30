@@ -15,7 +15,7 @@ class GameActOne extends Component
 
     public $game;
     public $gameState;
-    public $localGameState;
+    public $localGameState = [];
 
     public $showReplay = false;
 
@@ -86,7 +86,11 @@ class GameActOne extends Component
 
     public function refreshActOneState($newState) {
         $this->gameState = $newState;
-        $this->localGameState = $newState;
+
+        if ($newState['active_player'] !== Auth::user()->username || $this->localGameState === [] || $this->gameState['current_phase'] === "Event") {
+            // Refresh local state
+            $this->localGameState = $newState;
+        }
 
         if ($this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
@@ -135,7 +139,8 @@ class GameActOne extends Component
             'active_character' => $character,
             ($character.'_last_position') => $this->gameState[$character.'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
-            'active_player' => $active_player
+            'active_player' => $active_player,
+            'current_selected_action' => null
         ]);
     }
 
