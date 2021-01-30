@@ -133,7 +133,7 @@ class GameActOne extends Component
 
         $this->emitTo('game-wrapper', 'setGameState', [
             'active_character' => $character,
-            ($character.'_last_position') => $this->gameState[$this->gameState['active_character'].'_position'],
+            ($character.'_last_position') => $this->gameState[$character.'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
             'active_player' => $active_player
         ]);
@@ -155,7 +155,7 @@ class GameActOne extends Component
         }
         else {
             // Commit directly to local game state
-            $actions = $this->parseActions($this->gameState['active_character'], $actions['action_history'], $this->gameState);
+            $actions = $this->parseActions($this->gameState['active_character'], $actions['action_history'], $this->localGameState);
             foreach($actions as $key => $action) {
                 // Modify the Game State based on parsed actions
                 $this->localGameState[$key] = $action;
