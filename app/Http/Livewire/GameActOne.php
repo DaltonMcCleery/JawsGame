@@ -312,7 +312,7 @@ class GameActOne extends Component
             }
 
             // Perform necessary Game updates
-            $this->emitTo('game-wrapper', 'setGameState', array_merge($closed_beach_data, [
+            $newGameState = array_merge($closed_beach_data, [
                 // Event Details
                 'current_event_title' => $data['current_event_title'],
                 'current_event_description' => $data['current_event_description'],
@@ -352,7 +352,10 @@ class GameActOne extends Component
                 'current_description' => 'Waiting on Shark to finalize their move',
                 'current_phase' => 'Shark',
                 'current_selected_action' => null,
-            ]));
+            ]);
+
+            $this->localGameState = array_merge($this->localGameState, $newGameState);
+            $this->emitTo('game-wrapper', 'setGameState', $newGameState);
         }
     }
 
