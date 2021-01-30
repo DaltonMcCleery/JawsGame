@@ -145,6 +145,10 @@ class GameWrapper extends Component
         }
     }
 
+    public function getBackUpOnBoat() {
+        $this->emitTo('game-act-one', 'getBackUp');
+    }
+
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function render()

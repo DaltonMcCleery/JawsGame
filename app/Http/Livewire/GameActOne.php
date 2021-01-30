@@ -24,7 +24,7 @@ class GameActOne extends Component
      */
     public $currentActionState = [];
 
-    protected $listeners = ['refreshActOneState', 'playEventCard'];
+    protected $listeners = ['refreshActOneState', 'playEventCard', 'getBackUp'];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
@@ -224,7 +224,11 @@ class GameActOne extends Component
         $lastAction = $this->currentActionState[count($this->currentActionState) - 1];
         if (str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')  || str_contains($lastAction, 'Ability')) {
             $this->addError('action-error', 'Cannot Undo Ability');
-        } else {
+        }
+        elseif (str_contains($lastAction, 'Get Back on the Boat')) {
+            $this->addError('action-error', 'Cannot Undo This Action');
+        }
+        else {
             // Undo previous Action state and re-apply action before last (if a Move)
             unset($this->currentActionState[count($this->currentActionState) - 1]);
 
@@ -280,11 +284,24 @@ class GameActOne extends Component
         $this->currentActionState = [];
     }
 
+    // -------------------------------------------------------------------------------------------------------------- //
+
     public function takeExtraMove() {
         if ($this->gameState['extra_crew_move'] === 1) {
             $this->emitTo('game-wrapper', 'setGameState', [
                 ($this->gameState['active_character'].'_moves') => $this->gameState[$this->gameState['active_character'].'_moves'] + 1
             ]);
+        }
+    }
+
+    public function getBackUp() {
+        $this->currentActionState[] = 'Get Back on the Boat (Part 1)';
+        $this->currentActionState[] = 'Get Back on the Boat (Part 2)';
+
+        foreach ($this->localGameState['in_water'] as $key => $character) {
+            if ($character === $this->gameState['active_character']) {
+                unset($this->localGameState['in_water'][$key]);
+            }
         }
     }
 
@@ -299,7 +316,7 @@ class GameActOne extends Component
             $closed_beach_data = [];
             if (isset($this->gameState['closed_beach_open_in'])) {
                 if ($this->gameState['closed_beach_open_in'] === 2) {
-                    // OPening Soon
+                    // Opening Soon
                     $closed_beach_data['closed_beach_open_in'] = 1;
                 }
                 elseif ($this->gameState['closed_beach_open_in'] === 1) {

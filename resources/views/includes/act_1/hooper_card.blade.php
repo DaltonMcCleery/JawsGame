@@ -12,7 +12,7 @@
 
     @if(isset($gameState['captain_down']) && isset($gameState['in_water']) && $gameState['captain_down'] === true && in_array('hooper', $gameState['in_water']))
         <a class="panel-block"
-           wire:click="getBackUp">
+           wire:click="getBackUpOnBoat">
             <strong>GET BACK ON BOAT</strong>
         </a>
 
