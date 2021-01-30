@@ -288,7 +288,9 @@ class GameActOne extends Component
 
     public function takeExtraMove() {
         if ($this->gameState['extra_crew_move'] === 1) {
+            $this->localGameState[$this->gameState['active_character'].'_moves']++;
             $this->emitTo('game-wrapper', 'setGameState', [
+                'extra_crew_move' => 0,
                 ($this->gameState['active_character'].'_moves') => $this->gameState[$this->gameState['active_character'].'_moves'] + 1
             ]);
         }
