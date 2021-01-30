@@ -134,7 +134,7 @@ trait ActOneActions {
 
             if (str_contains($action, 'Close a Beach')) {
                 $state_changes['closed_beach'] = $location;
-                $state_changes['closed_beach_open_in'] = 2;
+                $state_changes['closed_beach_open_in'] = 3;
             }
 
             if (str_contains($action, 'Use Fish Finder')) {
