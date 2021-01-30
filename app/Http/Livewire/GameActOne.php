@@ -300,9 +300,12 @@ class GameActOne extends Component
         $this->currentActionState[] = 'Get Back on the Boat (Part 1)';
         $this->currentActionState[] = 'Get Back on the Boat (Part 2)';
 
-        foreach ($this->localGameState['in_water'] as $key => $character) {
+        foreach ($this->gameState['in_water'] as $key => $character) {
             if ($character === $this->gameState['active_character']) {
-                unset($this->localGameState['in_water'][$key]);
+                unset($this->gameState['in_water'][$key]);
+                $this->emitTo('game-wrapper', 'setGameState', [
+                    'in_water' => $this->gameState['in_water']
+                ]);
             }
         }
     }
