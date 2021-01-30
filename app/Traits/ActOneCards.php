@@ -134,6 +134,26 @@ trait ActOneCards {
             case 'event-5-card':
                 // "The Shark gets one extra action this round"
                 $possibleChanges['shark_moves'] = 4;
+
+                if ($gameState['Space_5_barrels'] > $gameState['Space_8_barrels']) {
+                    $possibleChanges['hooper_position'] = 'Space_5';
+                    $possibleChanges['brody_position'] = 'Space_5';
+                }
+                elseif ($gameState['Space_8_barrels'] > $gameState['Space_5_barrels']) {
+                    $possibleChanges['hooper_position'] = 'Space_8';
+                    $possibleChanges['brody_position'] = 'Space_8';
+                }
+                elseif (in_array($gameState['hooper_position'], ['Space_5', 'Space_8'])) {
+                    // Move Brody to Hooper
+                    $possibleChanges['brody_position'] = $gameState['hooper_position'];
+                }
+                else {
+                    // Random
+                    $dock = (collect(['Space_5', 'Space_8']))->random(1);
+                    $possibleChanges['hooper_position'] = $dock;
+                    $possibleChanges['brody_position'] = $dock;
+                }
+
                 break;
             case 'event-6-card':
                 // "Open all Beaches. Beaches cannot be closed this round."
