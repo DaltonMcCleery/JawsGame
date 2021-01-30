@@ -327,6 +327,12 @@ class GameActOne extends Component
                     ];
                 }
             }
+            elseif (isset($data['closed_beach'])) {
+                $closed_beach_data = [
+                    'closed_beach' => $data['closed_beach'],
+                    'closed_beach_open_in' => $data['closed_beach_open_in']
+                ];
+            }
 
             // Perform necessary Game updates
             $newGameState = array_merge($closed_beach_data, [

@@ -129,6 +129,7 @@ trait ActOneCards {
                 $beaches = $this->sortBeachesBySwimmers($gameState, $swimmer_placements);
                 $possibleChanges['closed_beach'] = $beaches[0];
                 $possibleChanges[$beaches[0].'_Swimmers'] = 0;
+                $possibleChanges['closed_beach_open_in'] = 3;
                 break;
             case 'event-5-card':
                 // "The Shark gets one extra action this round"
