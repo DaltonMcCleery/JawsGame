@@ -93,7 +93,11 @@ class GameActOne extends Component
             $this->localGameState = $newState;
         }
 
-        if ($this->gameState['shark_moves'] === 0
+        if (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
+            // Auto-end the current Turn and display any Reply settings
+            $this->confirmTurn();
+        }
+        elseif ($this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
             && $this->gameState['hooper_moves'] === 0
             && $this->gameState['quint_moves'] === 0
@@ -104,12 +108,8 @@ class GameActOne extends Component
                 'current_description' => 'Playing Event Card...',
                 'current_phase' => 'Event',
                 'active_player' => $this->game->Shark->User->username,
-                'play_card' => 'Event'
+                'play_event_card' => 'Event'
             ]);
-        }
-        elseif (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
-            // AUto-end the current Turn and display any Reply settings
-            $this->confirmTurn();
         }
     }
 
@@ -177,7 +177,7 @@ class GameActOne extends Component
             'shark_last_position' => $position,
             'current_description' => 'Playing Event Card...',
             'current_phase' => 'Event',
-            'play_card' => 'Event'
+            'play_event_card' => 'Event'
         ]);
     }
 
@@ -264,21 +264,25 @@ class GameActOne extends Component
         }
 
         // Filter out Ability actions (as they have already happened)
+        $force = false;
         foreach ($this->currentActionState as $key => $action) {
             if (str_contains($action, 'Use') || str_contains($action, 'Launch a Barrel')) {
                 // Remove
+                $force = true;
                 unset($this->currentActionState[$key]);
             }
         }
 
-        $this->emitTo('game-wrapper', 'setGameState', [
-            'active_character' => null,
-            'current_description' => $phase_description,
-            'current_phase' => $next_phase,
-            'active_player' => 'N/A',
-            ($this->gameState['active_character'].'_moves') => 0,
-            'action_history' => $this->gameState['action_history'][] = [$this->gameState['active_character'] => $this->currentActionState]
-        ]);
+        if (count($this->currentActionState) > 0 || $force == true) {
+            $this->emitTo('game-wrapper', 'setGameState', [
+                'active_character'                                => null,
+                'current_description'                             => $phase_description,
+                'current_phase'                                   => $next_phase,
+                'active_player'                                   => 'N/A',
+                ($this->gameState['active_character'] . '_moves') => 0,
+                'action_history'                                  => $this->gameState['action_history'][] = [$this->gameState['active_character'] => $this->currentActionState]
+            ]);
+        }
 
         // Reset current actions list
         $this->currentActionState = [];

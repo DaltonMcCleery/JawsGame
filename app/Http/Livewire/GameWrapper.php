@@ -49,6 +49,7 @@ class GameWrapper extends Component
 
     public function setGameState(array $newState) {
         $play_card = null;
+        $card = null;
         $previous_character = null;
 
         if (key_exists('action_history', $newState)) {
@@ -56,10 +57,18 @@ class GameWrapper extends Component
         }
 
         foreach ($newState as $key => $value) {
-            if ($key === 'play_card') {
+            if ($key === 'play_event_card') {
                 $play_card = $value;
+                $card = $this->getCard($value);
+
+                $this->gameState['action_history'][] = ['Card' => $card];
             } else {
-                $this->gameState[$key] = $value;
+                if ($key === 'action_history') {
+                    // Add on
+                    $this->gameState['action_history'][] = $value;
+                } else {
+                    $this->gameState[$key] = $value;
+                }
             }
         }
 
@@ -89,8 +98,8 @@ class GameWrapper extends Component
 
         broadcast(new newGameState($this->game->session_id, $this->gameState));
 
-        if ($play_card) {
-            $this->useCard($play_card);
+        if ($play_card && $card) {
+            broadcast(new newGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
         }
     }
 
@@ -107,7 +116,7 @@ class GameWrapper extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function useCard($type) {
+    public function getCard($type) {
         // Get a new collection instance of possible Cards by the given Type and select a random one to be broadcast
         $possible_cards = collect($this->cards[$type]);
         $card = ($possible_cards->random(1))[0];
@@ -119,7 +128,7 @@ class GameWrapper extends Component
         $this->cards[$type] = $remaining_cards;
         $this->usedCards[$type][] = $card;
 
-        broadcast(new newGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
+        return $card;
     }
 
     public function resetGameCards($data) {
