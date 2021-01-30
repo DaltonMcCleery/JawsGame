@@ -43,7 +43,7 @@ class EventCardSeeder extends Seeder
                 'image' => '',
                 'title' => 'Caught the Wrong Shark',
                 'description' => 'S E W',
-                'action' => 'Move Brody and Hooper to the same Dock (of the Crew\'s choosing). The Shark gets one extra action this round.'
+                'action' => 'Move Brody and Hooper to the same Dock. The Shark gets one extra action this round.'
             ],
             [
                 'image' => '',
