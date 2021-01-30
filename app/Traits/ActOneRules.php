@@ -220,6 +220,9 @@ trait ActOneRules {
             if ($localGameState[$space.'_Swimmers'] < 1) {
                 return ['No Swimmers left at Beach'];
             }
+            if ($localGameState[$space.'_Swimmers'] === 2 && $gameState['michael_position'] === $space && $character !== 'brody') {
+                return ['Only Brody may save Michael'];
+            }
         }
 
         return [];
