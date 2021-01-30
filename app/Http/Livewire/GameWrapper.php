@@ -75,6 +75,10 @@ class GameWrapper extends Component
             // Check for end state
             if ($this->gameState['shark_barrels'] >= 2 || $this->gameState['swimmers_eaten'] >= 9) {
                 $this->gameState['act_1_over'] = true;
+                $this->gameState['shark_moves'] = 0;
+                $this->gameState['brody_moves'] = 0;
+                $this->gameState['hooper_moves'] = 0;
+                $this->gameState['quint_moves'] = 0;
             }
 
             $this->emit('refreshActOneState', $this->gameState);
