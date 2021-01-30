@@ -19,6 +19,11 @@
 @if(isset($gameState['act_1_over']) && $gameState['act_1_over'] === true)
     <div class="notification is-success">
         <h3 class="title is-3">Act I is over.</h3>
-        <button class="button is-info" wire:click="watchReplay">Watch Action Replay</button>
+        <div class="buttons">
+            <button class="button is-info disabled" style="display: block"
+    {{--                wire:click="watchReplay"--}}
+            >Watch Action Replay <small>(Coming Soon)</small></button>
+            <button class="button is-danger is-inverted" wire:click="loadActTwo">Go to Act II</button>
+        </div>
     </div>
 @endif

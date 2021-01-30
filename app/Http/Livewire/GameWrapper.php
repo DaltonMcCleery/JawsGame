@@ -164,6 +164,13 @@ class GameWrapper extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
+    public function loadActTwo() {
+        $this->act = 2;
+        $this->emit('refreshActTwoState', $this->gameState);
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
     public function render()
     {
         return view('livewire.game-wrapper');
