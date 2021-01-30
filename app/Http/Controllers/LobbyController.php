@@ -59,10 +59,10 @@ class LobbyController extends Controller
         if ($game && $game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
             return view('game', [
                 'game' => $game,
-                'event_cards' => Card::where('type', 'Event')->get(),
-                'shark_ability_cards' => Card::where('type', 'Shark Ability')->get(),
-                'resurface_cards' => Card::where('type', 'Resurface')->get(),
-                'crew_cards' => Card::where('type', 'Crew')->get()
+                'event_cards' => Card::where('type', 'Event')->inRandomOrder()->get(),
+                'shark_ability_cards' => Card::where('type', 'Shark Ability')->inRandomOrder()->get(),
+                'resurface_cards' => Card::where('type', 'Resurface')->inRandomOrder()->get(),
+                'crew_cards' => Card::where('type', 'Crew')->inRandomOrder()->get()
             ]);
         } else {
             // Invalid Game
