@@ -33,52 +33,7 @@
     <div class="image">
         <img src="{{ asset('images/act_1_board_1132x750.jpg') }}" alt="Act I Board" usemap="#act_1_map">
 
-        {{-- POSITIONS --}}
-        @if(isset($gameState['shark_position']) && (($game->Shark->User->username === Auth::user()->username) || $gameState['show_shark']))
-            <span id="shark-position" class="{{ $gameState['shark_position'] }}"></span>
-        @endif
-
-        @if(isset($gameState['brody_position']))
-            <span id="brody-position" class="{{ $gameState['brody_position'] }}"></span>
-        @endif
-
-        @if(isset($gameState['hooper_position']))
-            <span id="hooper-position" class="{{ $gameState['hooper_position'] }}"></span>
-        @endif
-
-        @if(isset($gameState['quint_position']))
-            <span id="quint-position" class="{{ $gameState['quint_position'] }}"></span>
-        @endif
-
-        {{-- BARRELS --}}
-        @if(isset($gameState['Shop_barrels']) && $gameState['Shop_barrels'] > 0)
-            <span id="shop-barrels" title="{{ $gameState['Shop_barrels'] }}"></span>
-        @endif
-
-        @if(isset($gameState['Space_8_barrels']) && $gameState['Space_8_barrels'] > 0)
-            <span id="space-8-barrels" title="{{ $gameState['Space_8_barrels'] }}"></span>
-        @endif
-
-        @if(isset($gameState['Space_5_barrels']) && $gameState['Space_5_barrels'] > 0)
-            <span id="space-5-barrels" title="{{ $gameState['Space_5_barrels'] }}"></span>
-        @endif
-
-        {{-- Swimmers --}}
-        @if(isset($gameState['North_Beach_Swimmers']) && $gameState['North_Beach_Swimmers'] > 0)
-            <span id="north-swimmers" title="{{ $gameState['North_Beach_Swimmers'] ?? 0 }}"></span>
-        @endif
-
-        @if(isset($gameState['East_Beach_Swimmers']) && $gameState['East_Beach_Swimmers'] > 0)
-            <span id="east-swimmers" title="{{ $gameState['East_Beach_Swimmers'] ?? 0 }}"></span>
-        @endif
-
-        @if(isset($gameState['South_Beach_Swimmers']) && $gameState['South_Beach_Swimmers'] > 0)
-            <span id="south-swimmers" title="{{ $gameState['South_Beach_Swimmers'] ?? 0 }}"></span>
-        @endif
-
-        @if(isset($gameState['West_Beach_Swimmers']) && $gameState['West_Beach_Swimmers'] > 0)
-            <span id="west-swimmers" title="{{ $gameState['West_Beach_Swimmers'] ?? 0 }}"></span>
-        @endif
+        @include('includes.act_1.pieces', ['gameState' => $gameState])
     </div>
 
     <map name="act_1_map" class="@if(isset($gameState['active_player']) && $gameState['active_player'] !== Auth::user()->username) disabled @endif">

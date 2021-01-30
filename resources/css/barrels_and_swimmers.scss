@@ -1,10 +1,8 @@
 // Barrels
-#shop-barrels {
+.barrels-count {
     position: absolute;
-    bottom: 396px;
-    left: 543px;
-
-    &::before {
+    width: 30px;
+    &::after {
         content: attr(title);
         position: absolute;
         width: 25px;
@@ -17,60 +15,34 @@
         justify-content: center;
         color: white;
         font-size: 12px;
+        top: -13px;
+        right: -15px;
     }
+}
+
+#shop-barrels {
+    bottom: 362px;
+    left: 513px;
 }
 
 #space-5-barrels {
-    position: absolute;
-    top: 280px;
-    left: 300px;
-
-    &::before {
-        content: attr(title);
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: saddlebrown;
-        z-index: 10;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-    }
+    top: 287px;
+    left: 272px;
 }
 
 #space-8-barrels {
-    position: absolute;
-    bottom: 232px;
-    right: 125px;
-
-    &::before {
-        content: attr(title);
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: saddlebrown;
-        z-index: 10;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-    }
+    bottom: 205px;
+    right: 133px;
 }
 
 // ------------------------------------------------------------------------------------------------------------------ //
 
 // Swimmers
-#north-swimmers {
+.swimmers-count {
     position: absolute;
-    top: 180px;
-    left: 425px;
+    width: 30px;
 
-    &::before {
+    &::after {
         content: attr(title);
         position: absolute;
         width: 25px;
@@ -83,68 +55,49 @@
         justify-content: center;
         color: white;
         font-size: 12px;
+        top: -13px;
+        right: -15px;
     }
+}
+
+#north-swimmers {
+    top: 180px;
+    left: 425px;
 }
 
 #east-swimmers {
-    position: absolute;
     top: 245px;
     right: 260px;
-
-    &::before {
-        content: attr(title);
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: orange;
-        z-index: 10;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-    }
 }
 
 #south-swimmers {
-    position: absolute;
     bottom: 160px;
     right: 500px;
-
-    &::before {
-        content: attr(title);
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: orange;
-        z-index: 10;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-    }
 }
 
 #west-swimmers {
-    position: absolute;
     bottom: 200px;
     left: 125px;
+}
 
-    &::before {
-        content: attr(title);
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: orange;
-        z-index: 10;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
+#michael-swimmer {
+    position: absolute;
+    width: 30px;
+
+    &.North_Beach {
+        top: 180px;
+        left: 395px;
+    }
+    &.East_Beach {
+        top: 245px;
+        right: 290px;
+    }
+    &.South_Beach {
+        bottom: 160px;
+        right: 530px;
+    }
+    &.West_Beach {
+        bottom: 200px;
+        left: 95px;
     }
 }
