@@ -160,7 +160,10 @@ trait ActOneCards {
                 break;
             case 'event-12-card':
                 // "Move all Crew Members to the Beach with the most Swimmers"
-                $possibleChanges['crew_relocation'] = 1;
+                $beaches = $this->sortBeachesBySwimmers($gameState, $swimmer_placements);
+                $possibleChanges['brody_position'] = $beaches[0];
+                $possibleChanges['hooper_position'] = $beaches[0];
+                $possibleChanges['quint_position'] = $beaches[0];
                 break;
             case 'event-16-card':
                 // "Brody may immediately move to any space on the island"
