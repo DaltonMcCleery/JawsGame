@@ -14,11 +14,20 @@ trait ActOneActions {
         $state_changes = [];
 
         foreach ($actions[$character] as $action) {
+            $location = $this->getSpace($action);
+
             if (str_contains($action, 'Move')) {
+                if ($character === 'shark' && isset($gameState['captain_down']) && $gameState['captain_down'] === true) {
+                    if ($gameState['hooper_position'] === $location) {
+                        $state_changes['in_water'][] = 'hooper';
+                    }
+                    if ($gameState['quint_position'] === $location) {
+                        $state_changes['in_water'][] = 'quint';
+                    }
+                }
+
                 continue;
             }
-
-            $location = $this->getSpace($action);
 
             // Swimmers
             if (str_contains($action, 'Eat 1 Swimmer')) {

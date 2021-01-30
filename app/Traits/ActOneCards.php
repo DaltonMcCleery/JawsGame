@@ -113,7 +113,8 @@ trait ActOneCards {
         switch ($token) {
             case 'event-1-card':
                 // "If the Shark moves though a boat, they may knock the boat's captain into the water"
-                $possibleChanges['captain_down'] = 1;
+                $possibleChanges['captain_down'] = true;
+                $possibleChanges['in_water'] = [];
                 break;
             case 'event-2-card':
                 // "Any one Crew Member may take one extra action this round"

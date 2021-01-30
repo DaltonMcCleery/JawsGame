@@ -10,10 +10,19 @@
         </span>
     </p>
 
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1-2 Spaces') hooper @endif"
-       wire:click="switchNextAction('Move 1-2 Spaces')">
-        Move 1-2 Spaces
-    </a>
+    @if(isset($gameState['captain_down']) && isset($gameState['in_water']) && $gameState['captain_down'] === true && in_array('hooper', $gameState['in_water']))
+        <a class="panel-block"
+           wire:click="getBackUp">
+            <strong>GET BACK ON BOAT</strong>
+        </a>
+
+        <hr/>
+    @else
+        <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1-2 Spaces') hooper @endif"
+           wire:click="switchNextAction('Move 1-2 Spaces')">
+            Move 1-2 Spaces
+        </a>
+    @endif
     <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'hooper' && $gameState['active_player'] === Auth::user()->username && $game->Hooper->username === Auth::user()->username && $gameState['current_selected_action'] === 'Rescue 1 Swimmer') hooper @endif"
        wire:click="switchNextAction('Rescue 1 Swimmer')">
         Rescue 1 Swimmer
