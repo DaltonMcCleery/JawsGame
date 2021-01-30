@@ -315,27 +315,27 @@ class GameActOne extends Component
         if (!$data) {
             $this->addError('action-error', 'Unable to parse Event Card');
         } else {
-            $closed_beach_data = [];
+            $extra_data = [];
             if (isset($this->gameState['closed_beach_open_in'])) {
-                $closed_beach_data['closed_beach_open_in'] = $this->gameState['closed_beach_open_in'] - 1;
+                $extra_data['closed_beach_open_in'] = $this->gameState['closed_beach_open_in'] - 1;
 
                 if ($this->gameState['closed_beach_open_in'] === 0) {
                     // Open Beach
-                    $closed_beach_data = [
+                    $extra_data = [
                         'closed_beach' => null,
                         'closed_beach_open_in' => null
                     ];
                 }
             }
             elseif (isset($data['closed_beach'])) {
-                $closed_beach_data = [
+                $extra_data = [
                     'closed_beach' => $data['closed_beach'],
                     'closed_beach_open_in' => $data['closed_beach_open_in']
                 ];
             }
 
             // Perform necessary Game updates
-            $newGameState = array_merge($closed_beach_data, [
+            $newGameState = array_merge($extra_data, [
                 // Event Details
                 'current_event_title' => $data['current_event_title'],
                 'current_event_description' => $data['current_event_description'],
@@ -351,6 +351,7 @@ class GameActOne extends Component
                 // Extra Actions
                 'captain_down' => $data['captain_down'] ?? 0,
                 'closed_beach' => $data['closed_beach'] ?? $this->gameState['closed_beach'],
+                'michael_position' => $data['michael_position'] ?? (isset($this->gameState['michael_position']) ? $this->gameState['michael_position'] : null),
                 'extra_crew_move' => $data['extra_crew_move'] ?? 0,
                 'free_docks' => $data['free_docks'] ?? 'false',
                 'brody_relocation' => $data['brody_relocation'] ?? 0,
