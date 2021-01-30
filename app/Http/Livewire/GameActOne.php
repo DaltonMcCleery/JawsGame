@@ -317,11 +317,9 @@ class GameActOne extends Component
         } else {
             $closed_beach_data = [];
             if (isset($this->gameState['closed_beach_open_in'])) {
-                if ($this->gameState['closed_beach_open_in'] === 2) {
-                    // Opening Soon
-                    $closed_beach_data['closed_beach_open_in'] = 1;
-                }
-                elseif ($this->gameState['closed_beach_open_in'] === 1) {
+                $closed_beach_data['closed_beach_open_in'] = $this->gameState['closed_beach_open_in'] - 1;
+
+                if ($this->gameState['closed_beach_open_in'] === 0) {
                     // Open Beach
                     $closed_beach_data = [
                         'closed_beach' => null,
@@ -346,7 +344,7 @@ class GameActOne extends Component
                 'shark_moves' => $data['shark_moves'] ?? 3,
                 // Extra Actions
                 'captain_down' => $data['captain_down'] ?? 0,
-                'closed_beach' => $data['closed_beach'] ?? 'none',
+                'closed_beach' => $data['closed_beach'] ?? $this->gameState['closed_beach'],
                 'extra_crew_move' => $data['extra_crew_move'] ?? 0,
                 'free_docks' => $data['free_docks'] ?? 'false',
                 'brody_relocation' => $data['brody_relocation'] ?? 0,
