@@ -177,6 +177,9 @@ trait ActOneRules {
                 if ($gameState[$space.'_Swimmers'] !== 0) {
                     return ['Beach must be empty to Close'];
                 }
+                if (isset($gameState['locked_closed_beach']) && $gameState['locked_closed_beach'] === true) {
+                    return ['Closing a Beach is locked this round'];
+                }
             }
 
             if (str_contains($action, 'Use Binoculars')) {

@@ -135,7 +135,9 @@ trait ActOneCards {
                 break;
             case 'event-6-card':
                 // "Open all Beaches. Beaches cannot be closed this round."
+                $possibleChanges['locked_closed_beach'] = true;
                 $possibleChanges['closed_beach'] = 'none';
+                $possibleChanges['closed_beach_open_in'] = null;
                 break;
             case 'event-7-card':
                 // "Place Michael at the open Beach with the fewest Swimmers"

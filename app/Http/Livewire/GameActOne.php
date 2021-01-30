@@ -65,6 +65,7 @@ class GameActOne extends Component
             'shark_last_position' => null,
             'swimmers_eaten' => 0,
             'ignore_motion_sensors' => false,
+            'locked_closed_beach' => false,
             // Act I
             'active_player' => $this->game->Shark->User->username,
             'active_character' => 'shark',
@@ -332,6 +333,7 @@ class GameActOne extends Component
                 'brody_relocation' => $data['brody_relocation'] ?? 0,
                 'crew_relocation' => $data['crew_relocation'] ?? 0,
                 'michael_position' => $data['michael_position'] ?? null,
+                'locked_closed_beach' => false,
                 // Abilities reset
                 'shark_hidden' => false,
                 'binoculars' => null,
