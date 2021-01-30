@@ -279,6 +279,14 @@ class GameActOne extends Component
         $this->currentActionState = [];
     }
 
+    public function takeExtraMove() {
+        if ($this->gameState['extra_crew_move'] === 1) {
+            $this->emitTo('game-wrapper', 'setGameState', [
+                ($this->gameState['active_character'].'_moves') => $this->gameState[$this->gameState['active_character'].'_moves'] + 1
+            ]);
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function playEventCard($card) {
