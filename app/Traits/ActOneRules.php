@@ -55,6 +55,16 @@ trait ActOneRules {
     }
 
     private function isNotOutOfMoves($character, $currentActionState, $gameState): array {
+
+        if ($character !== 'shark' && $gameState['free_docks'] === "true") {
+            foreach ($currentActionState as $key => $action) {
+                // Remove any Dock actions temporarily
+                if (str_contains($action, 'Drop 1 Barrel') || str_contains($action, 'Pick up any or all Barrels')) {
+                    unset($currentActionState[$key]);
+                }
+            }
+        }
+
         if (count($currentActionState) >= $gameState[$character.'_moves']) {
             return ['Out of Moves'];
         }
