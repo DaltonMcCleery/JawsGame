@@ -7,12 +7,14 @@
 {{-- Swimmers --}}
 @include('includes.act_1.pieces.swimmers', ['gameState' => $gameState])
 
-@if(isset($gameState['closed_beach']) && isset($gameState['closed_beach_open_in']))
+@if(isset($gameState['closed_beach']) && isset($gameState['closed_beach_open_in']) && $gameState['closed_beach'] !== 'none')
     @if($gameState['closed_beach_open_in'] === 1)
-        <span id="beach-closed" title="Opening Soon" class="opening-soon">
+        <span id="beach-closed" title="Opening Soon" class="{{ $gameState['closed_beach'] }}">
             <img src="{{ asset('images/opening_soon.jpg') }}">
         </span>
     @else
-        <span id="beach-closed" title="Closed" class="closed"></span>
+        <span id="beach-closed" title="Closed" class="{{ $gameState['closed_beach'] }}">
+            <img src="{{ asset('images/beach_closed.jpg') }}">
+        </span>
     @endif
 @endif
