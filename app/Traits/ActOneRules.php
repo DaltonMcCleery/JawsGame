@@ -47,7 +47,7 @@ trait ActOneRules {
                 $this->isMoveAdjacent($character, $action, $space, $currentActionState, $gameState),
                 $this->isAbilityMove($character, $action, $space, $currentActionState, $gameState),
                 $this->isSwimmerAction($character, $action, $space, $gameState, $localGameState),
-                $this->isBarrelAction($character, $action, $space, $currentActionState, $gameState)
+                $this->isBarrelAction($character, $action, $space, $currentActionState, $gameState, $localGameState)
             );
         }
 
@@ -228,7 +228,7 @@ trait ActOneRules {
         return [];
     }
 
-    public function isBarrelAction($character, $action, $space, $currentActionState, $gameState): array {
+    public function isBarrelAction($character, $action, $space, $currentActionState, $gameState, $localGameState): array {
 
         if ($character !== 'shark') {
             if ($character === 'brody') {
@@ -253,8 +253,11 @@ trait ActOneRules {
                     if ($gameState['brody_position'] !== $space) {
                         return ['Character must be in same Space as Action'];
                     }
-                    if ($gameState['brody_barrels'] < 1) {
+                    if ($localGameState['brody_barrels'] < 1) {
                         return ['No Barrels to drop'];
+                    }
+                    if ($gameState['free_docks'] === 'locked') {
+                        return ['Event Card has locked access to dropping Barrels at Docks'];
                     }
                 }
             }
@@ -280,6 +283,9 @@ trait ActOneRules {
                             return ['Space has no Barrels'];
                         }
                     }
+                    if ($gameState['free_docks'] === 'locked') {
+                        return ['Event Card has locked access to dropping Barrels at Docks'];
+                    }
                 }
 
                 // Giving Barrels to Quint
@@ -287,7 +293,7 @@ trait ActOneRules {
                     if ($gameState['hooper_position'] !== $gameState['quint_position']) {
                         return ['Must be in the same Space as Quint'];
                     }
-                    if ($gameState['hooper_barrels'] < 1) {
+                    if ($localGameState['hooper_barrels'] < 1) {
                         return ['No Barrels to give'];
                     }
                 }
@@ -310,6 +316,9 @@ trait ActOneRules {
                     }
                     if ($gameState[$gameState['quint_position'].'_barrels'] < 1) {
                         return ['No Barrels to give'];
+                    }
+                    if ($gameState['free_docks'] === 'locked') {
+                        return ['Event Card has locked access to dropping Barrels at Docks'];
                     }
                 }
             }
