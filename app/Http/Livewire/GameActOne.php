@@ -145,7 +145,7 @@ class GameActOne extends Component
         ]);
     }
 
-    public function setActionState($action, $space) {
+    public function setActionState($action, $space, $replay = false) {
         $this->currentActionState[] = $action.' ('.$space.')';
 
         $actions = ['action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]];
@@ -165,6 +165,10 @@ class GameActOne extends Component
             foreach($actions as $key => $action) {
                 // Modify the Game State based on parsed actions
                 $this->localGameState[$key] = $action;
+            }
+
+            if ($replay) {
+                $this->emitTo('game-wrapper', 'setGameState', $actions);
             }
         }
     }
@@ -393,6 +397,33 @@ class GameActOne extends Component
 
     public function watchReplay() {
         $this->showReplay = true;
+        $history = $this->gameState['action_history'];
+        $this->loadStartingActOneState();
+
+        // Loop through history and play it out
+        foreach ($history as $index => $character_history) {
+            if ($index > 0) {
+                sleep(2);
+            }
+
+            $key = array_key_first($character_history);
+
+            if ($key === 'Card') {
+                $this->playEventCard($character_history[$key]);
+            } else {
+
+                $this->setActiveCharacter($key);
+
+                foreach ($character_history[$key] as $action) {
+                    sleep(2);
+                    $space = $this->getSpace($action);
+                    $action = $this->getAction($action);
+                    $this->setActionState($action, $space, true);
+                }
+
+                $this->confirmTurn();
+            }
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
