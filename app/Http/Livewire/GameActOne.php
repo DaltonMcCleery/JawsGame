@@ -349,7 +349,6 @@ class GameActOne extends Component
                 'free_docks' => $data['free_docks'] ?? 'false',
                 'brody_relocation' => $data['brody_relocation'] ?? 0,
                 'crew_relocation' => $data['crew_relocation'] ?? 0,
-                'michael_position' => $data['michael_position'] ?? null,
                 'locked_closed_beach' => false,
                 // Abilities reset
                 'shark_hidden' => false,
