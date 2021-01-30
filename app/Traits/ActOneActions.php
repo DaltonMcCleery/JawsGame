@@ -25,6 +25,9 @@ trait ActOneActions {
                         $state_changes['in_water'][] = 'quint';
                     }
                 }
+                if ($character === 'brody' && isset($gameState['brody_relocation']) && $gameState['brody_relocation'] === 1) {
+                    $state_changes['brody_relocation'] = 0;
+                }
 
                 continue;
             }

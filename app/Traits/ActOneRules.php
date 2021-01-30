@@ -75,6 +75,9 @@ trait ActOneRules {
     private function isMoveAdjacent($character, $action, $space, $currentActionState, $gameState): array {
         if (str_contains($action, 'Move')) {
             if ($character === 'brody') {
+                if (isset($this->gameState['brody_relocation']) && $this->gameState['brody_relocation'] === 1) {
+                    return [];
+                }
                 if (!in_array($space, $this->adjacentSpaces[$gameState[$character.'_position']])) {
                     return ['Spaces not adjacent'];
                 }
