@@ -41,7 +41,7 @@ trait ActOneActions {
 
             if (str_contains($action, 'Rescue 1 Swimmer')) {
                 // Check for Michael
-                if (isset($gameState['michael_position']) && $gameState['michael_position'] === ($location.'_Swimmers')) {
+                if (isset($gameState['michael_position']) && $gameState['michael_position'] === $location) {
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
                     // Reverse changes for continued actions
                     $gameState[$location.'_Swimmers'] = $state_changes[$location.'_Swimmers'];
