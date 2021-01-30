@@ -5,7 +5,7 @@
                 <li><a disabled>{{ $action }}</a></li>
             @endforeach
         </ul>
-        <span>{{ $gameState[$gameState['active_character'].'_moves'] - count($currentActionState) }} Actions Remaining</span>
+        <span>{{ $localGameState[$gameState['active_character'].'_moves'] - count($currentActionState) }} Actions Remaining</span>
     </nav>
 
     <button class="button is-warning" wire:click="undoPreviousAction">Undo Previous Action</button>
