@@ -15,7 +15,7 @@ mix.setPublicPath('public');
  */
 
 mix.js('resources/js/app.js', 'dist/js')
-    .postCss('resources/css/app.css', 'dis/css', [
+    .postCss('resources/css/app.css', 'dist/css', [
         require("tailwindcss"),
     ]);
 
