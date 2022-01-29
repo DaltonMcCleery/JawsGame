@@ -1,7 +1,7 @@
 @extends('wrapper')
 @section('content')
 
-    <div class="w-full">
+    <section class="w-full">
         <div class="relative min-h-[400px]">
             <div class="absolute inset-0">
                 <img class="h-full w-full object-cover" src="{{ asset('images/background.jpg') }}" alt="JAWS Logo">
