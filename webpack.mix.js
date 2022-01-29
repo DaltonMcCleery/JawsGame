@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-require('laravel-mix-polyfill');
 
 // All output files/directories will be placed in the `/public` directory
 mix.setPublicPath('public');
@@ -16,16 +15,12 @@ mix.setPublicPath('public');
  */
 
 mix.js('resources/js/app.js', 'dist/js')
-    .sass('resources/css/app.scss', 'dist/css')
-;
+    .postCss('resources/css/app.css', 'dis/css', [
+        require("tailwindcss"),
+    ]);
 
 if (mix.inProduction()) {
     // Minify and use polyfills in production
     mix.version();
     mix.sourceMaps();
-    mix.polyfill({
-        enabled: true,
-        useBuiltIns: 'usage',
-        targets: {firefox: '50', ie: 11}
-    });
 }
