@@ -170,7 +170,7 @@
                 Livewire.emit('userLeavingCharacterLobby', user);
             })
             .listen('Characters.syncCharacterSelection', (data) => {
-                Livewire.emit('syncSelectedCharacters', data.characters);
+                Livewire.emit('syncSelectedCharacters', data.game);
             })
             .listen('Lobby.startGame', (data) => {
                 // Redirect the User to the Game's page

@@ -15,18 +15,18 @@ class syncCharacterSelection implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $session_id;
-    public $characters;
+    public $game;
 
     /**
      * Create a new event instance.
      *
      * @param $session_id
-     * @param $characters
+     * @param $game
      */
-    public function __construct($session_id, $characters)
+    public function __construct($session_id, $game)
     {
         $this->session_id = $session_id;
-        $this->characters = $characters;
+        $this->game = $game;
     }
 
     /**
