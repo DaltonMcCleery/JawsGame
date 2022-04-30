@@ -12,19 +12,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'password',
-        'role'
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -43,7 +30,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Stats() {
-        return $this->belongsTo('App\Models\Stats', 'user_id', 'd');
+    public function atats() {
+        return $this->belongsTo(Stats::class);
     }
 }
