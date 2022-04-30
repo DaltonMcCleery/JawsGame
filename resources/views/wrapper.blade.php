@@ -16,7 +16,9 @@
         @include('layout.navigation')
         @include('layout.flash_messages')
 
-        @yield('content')
+        <main>
+            @yield('content')
+        </main>
 
         @include('layout.footer')
 
