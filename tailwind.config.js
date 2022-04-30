@@ -4,6 +4,10 @@ module.exports = {
         './resources/**/*.js',
     ],
     theme: {
+        fontFamily: {
+            'demi': ['Souvenir Demi', 'Arial', 'sans-serif'],
+            'demi-italic': ['Souvenir DemiItalic', 'Arial', 'sans-serif'],
+        },
         extend: {
             colors: {
                 red: '#e40403',
