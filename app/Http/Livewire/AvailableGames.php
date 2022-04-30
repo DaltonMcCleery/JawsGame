@@ -4,11 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Game;
 use App\Models\Boat;
-use App\Models\Shark;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AvailableGames extends Component
 {
@@ -17,28 +14,21 @@ class AvailableGames extends Component
     public $joining_game_id = null;
 
     public function loadGames() {
-        $this->games = Game::whereColumn('max_sessions', '!=', 'current_sessions')
+        $this->games = Game::query()
             ->where('status', 'not started')
             ->latest()
             ->get();
     }
 
-    /**
-     * Create a New Game to play
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function createGame() {
         // Randomly generate Session ID
-        $session_id = Str::random();
+        $session_id = Str::random(16);
 
         // Create the New Game tied to the current authed User
         Game::create([
             'session_id'    => $session_id,
             'game_id'       => $this->game_id,
-            'host_id'       => Auth::user()->id,
-            'shark_id'      => (Shark::create())->id,
+            'host_id'       => auth()->id(),
             'boat_id'       => (Boat::create())->id
         ]);
 
@@ -57,10 +47,5 @@ class AvailableGames extends Component
         }
 
         $this->addError('joining_game_id', 'Invalid Game Password');
-    }
-
-    public function render()
-    {
-        return view('livewire.available-games');
     }
 }
