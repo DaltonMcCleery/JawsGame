@@ -20,15 +20,24 @@
            wire:click="userSelectedCharacter('player')">
             <div class="relative w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
                 <img src="{{ asset('images/player_characters.jpeg') }}" alt="Tablet Player"
-                     class="w-full h-full object-center object-cover group-hover:grayscale-0 @isset($game->player) grayscale-0 @else grayscale @endif">
-                @isset($game->player)
+                     class="w-full h-full object-center object-cover group-hover:grayscale-0 @if($game->player) grayscale-0 @else grayscale @endif">
+                @if($game->player)
                     <p class="absolute -rotate-6 top-0 left-0 w-full h-full flex justify-center items-center font-bold text-white text-2xl font-demi-italic">
                         SELECTED
                     </p>
-                @endisset
+                @endif
             </div>
         </a>
     </div>
+
+    @if(($game->monitor && $game->player) && $game->host->id === auth()->id())
+        <button type="button" class="inline-flex items-center px-6 py-3 mt-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                wire:click="startGame">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+            Start Game
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+        </button>
+    @endif
 
 </section>
 

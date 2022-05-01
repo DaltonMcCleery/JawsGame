@@ -52,11 +52,11 @@ class LobbyController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function play($session_id) {
-        $game = Game::with(['Host', 'Shark', 'Brody', 'Hooper', 'Quint', 'Boat'])
+        $game = Game::query()
             ->where('session_id', $session_id)
             ->first();
 
-        if ($game && $game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
+        if ($game && $game->status !== 'has ended') {
             return view('game', [
                 'game' => $game,
                 'event_cards' => Card::where('type', 'Event')->inRandomOrder()->get(),

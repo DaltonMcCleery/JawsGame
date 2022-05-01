@@ -25,7 +25,7 @@ class CharacterSelect extends Component
 
     public function startGame() {
 
-        if ($this->game->brody && $this->game->shark) {
+        if ($this->game->monitor && $this->game->player) {
             $this->game->update([
                 'status' => 'started'
             ]);
