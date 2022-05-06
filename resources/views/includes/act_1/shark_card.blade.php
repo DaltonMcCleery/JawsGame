@@ -1,48 +1,61 @@
 <article class="panel">
-    <p class="panel-heading shark">
-        The Shark @if($game->Shark->User->username === Auth::user()->username) <small>(You)</small>@endif
+    <p class="text-center mb-2">
+        Actions: {{ $gameState['shark_moves'] ?? 3 }}
     </p>
-    <p class="panel-tabs">
-        <span class="is-active">
-            Actions: {{ $gameState['shark_moves'] ?? 3 }}
-            |
-            Barrels: {{ $gameState['shark_barrels'] ?? 0 }}
-        </span>
-    </p>
-
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') shark @endif"
-       wire:click="switchNextAction('Move 1 Space')">
-        Move 1 Space
-    </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Eat 1 Swimmer') shark @endif"
-       wire:click="switchNextAction('Eat 1 Swimmer')">
-        Eat 1 Swimmer
-    </a>
 
     <hr/>
 
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Ability Feeding Frenzy') shark @endif"
-       wire:click="switchNextAction('Ability Feeding Frenzy')">
-        <strong>Feeding Frenzy</strong>
-        <small>Eat All Swimmers at one Beach</small>
-    </a>
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Ability Evasive Moves') shark @endif"
-       wire:click="switchNextAction('Ability Evasive Moves')">
-        <strong>Evasive Moves</strong>
-        <small>Does not trigger any Motion Sensors</small>
-    </a>
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Ability Out of Sight') shark @endif"
-       wire:click="switchNextAction('Ability Out of Sight')">
-        <strong>Out of Sight</strong>
-        <small>Undetectable from Binoculars and Fish Finder</small>
-    </a>
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_player'] === Auth::user()->username && $game->Shark->User->username === Auth::user()->username && $gameState['current_selected_action'] === 'Ability Speed Burst') shark @endif"
-       wire:click="switchNextAction('Ability Speed Burst')">
-        <strong>Speed Burst</strong>
-        <small>Move up to 3 Spaces in 1 Action</small>
-    </a>
+    <div class="grid grid-cols-1 gap-4 py-4">
+        @isset($gameState['current_selected_action'])
+            <x-action action="Move 1 Space" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Move 1 Space
+                </p>
+            </x-action>
+
+            <x-action action="Eat 1 Swimmer" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Eat 1 Swimmer
+                </p>
+            </x-action>
+
+            <hr/>
+
+            <x-action action="Ability Feeding Frenzy" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Feeding Frenzy
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Eat All Swimmers at one Beach
+                </p>
+            </x-action>
+
+            <x-action action="Ability Evasive Moves" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Evasive Moves
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Does not trigger any Motion Sensors this round
+                </p>
+            </x-action>
+
+            <x-action action="Ability Out of Sight" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Out of Sight
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Undetectable from Binoculars and Fish Finder
+                </p>
+            </x-action>
+
+            <x-action action="Ability Speed Burst" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Speed Burst
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Move up to 3 Spaces in 1 Action
+                </p>
+            </x-action>
+        @endisset
+    </div>
 </article>
