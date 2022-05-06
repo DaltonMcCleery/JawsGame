@@ -7,7 +7,6 @@ use App\Events\Game\newGameState;
 use App\Models\Card;
 use App\Models\Game;
 use App\Traits\ActOneActions;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class GameWrapper extends Component
@@ -126,33 +125,6 @@ class GameWrapper extends Component
         $this->usedCards[$type][] = $card;
 
         return $card;
-    }
-
-    public function resetGameCards($data) {
-        $this->cards = $data['cards'];
-        $this->usedCards = $data['usedCards'];
-
-        if ($this->act === 1) {
-            $this->emit('playEventCard', $data['card']);
-        }
-        elseif ($this->act === 2) {
-            $this->emit('playCard', $data['card']);
-        }
-    }
-
-    // -------------------------------------------------------------------------------------------------------------- //
-
-    public function switchNextAction($action) {
-        if ($this->gameState['active_player'] === Auth::user()->username) {
-            $this->gameState['current_selected_action'] = $action;
-
-            if ($this->act === 1) {
-                $this->emit('refreshActOneState', $this->gameState);
-            }
-            elseif ($this->act === 2) {
-                $this->emit('refreshActTwoState', $this->gameState);
-            }
-        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
