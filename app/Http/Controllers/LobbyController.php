@@ -59,10 +59,6 @@ class LobbyController extends Controller
         if ($game && $game->status !== 'has ended') {
             return view('game', [
                 'game' => $game,
-                'event_cards' => Card::where('type', 'Event')->inRandomOrder()->get(),
-                'shark_ability_cards' => Card::where('type', 'Shark Ability')->inRandomOrder()->get(),
-                'resurface_cards' => Card::where('type', 'Resurface')->inRandomOrder()->get(),
-                'crew_cards' => Card::where('type', 'Crew')->inRandomOrder()->get()
             ]);
         } else {
             // Invalid Game

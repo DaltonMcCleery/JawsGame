@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Game;
 
-use App\Models\Game;
-use Livewire\Component;
-use App\Traits\ActOneActions;
-use App\Events\Game\newGameState;
 use App\Events\Game\newGameCards;
+use App\Events\Game\newGameState;
+use App\Models\Card;
+use App\Models\Game;
+use App\Traits\ActOneActions;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class GameWrapper extends Component
 {
     use ActOneActions;
 
-    public $game;
-    public $act = 1;
+    public Game $game;
+    public int $act = 1;
 
-    public $cards = [];
-    public $usedCards = [];
+    public array $cards = [];
+    public array $usedCards = [];
 
-    public $gameState = [];
+    public array $gameState = [];
 
     protected $listeners = [
         'setGameState',
@@ -29,19 +30,15 @@ class GameWrapper extends Component
 
     /**
      * @param Game $game
-     * @param $event_cards
-     * @param $shark_ability_cards
-     * @param $resurface_cards
-     * @param $crew_cards
      */
-    public function mount(Game $game, $event_cards, $shark_ability_cards, $resurface_cards, $crew_cards) {
+    public function mount(Game $game) {
         $this->game = $game;
 
         $this->cards = [
-            'Event' => $event_cards,
-            'Shark Ability' => $shark_ability_cards,
-            'Resurface' => $resurface_cards,
-            'Crew' => $crew_cards
+            'Event' => Card::where('type', 'Event')->inRandomOrder()->get(),
+            'Shark Ability' => Card::where('type', 'Shark Ability')->inRandomOrder()->get(),
+            'Resurface' => Card::where('type', 'Resurface')->inRandomOrder()->get(),
+            'Crew' => Card::where('type', 'Crew')->inRandomOrder()->get(),
         ];
     }
 
@@ -158,21 +155,21 @@ class GameWrapper extends Component
         }
     }
 
-    public function getBackUpOnBoat() {
-        $this->emitTo('game-act-one', 'getBackUp');
-    }
-
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function loadActTwo() {
         $this->act = 2;
+
+        $this->game->update([
+            'act' => 2,
+            'shark_abilities' => '',
+            'crew_gear' => ''
+        ]);
+
+        $this->game->refresh();
+
+        $this->gameState['game'] = $this->game;
+
         $this->emit('refreshActTwoState', $this->gameState);
-    }
-
-    // -------------------------------------------------------------------------------------------------------------- //
-
-    public function render()
-    {
-        return view('livewire.game-wrapper');
     }
 }
