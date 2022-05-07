@@ -6,7 +6,13 @@
     <hr/>
 
     <div class="grid grid-cols-1 gap-4 py-4">
-        @isset($gameState['current_selected_action'])
+        @if ($gameState['current_selected_action'] == 'Starting Position')
+            <x-action action="Starting Position" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Select a Starting Position
+                </p>
+            </x-action>
+        @else
             <x-action action="Move 1 Space" :currentAction="$gameState['current_selected_action']">
                 <p class="font-bold text-gray-900">
                     Move 1 Space
@@ -56,6 +62,6 @@
                     Move up to 3 Spaces in 1 Action
                 </p>
             </x-action>
-        @endisset
+        @endif
     </div>
 </article>
