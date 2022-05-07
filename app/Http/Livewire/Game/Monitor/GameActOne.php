@@ -100,7 +100,6 @@ class GameActOne extends Component
                 'active_character' => 'shark',
                 'current_description' => 'Playing Event Card...',
                 'current_phase' => 'Event',
-                'active_player' => $this->game->Shark->User->username,
                 'play_event_card' => 'Event'
             ]);
         }
@@ -169,7 +168,7 @@ class GameActOne extends Component
                 'South_Beach_Swimmers' => $this->gameState['South_Beach_Swimmers'] + $data['South_Beach_Swimmers'],
                 'West_Beach_Swimmers' => $this->gameState['West_Beach_Swimmers'] + $data['West_Beach_Swimmers'],
                 // Event Phase is auto-followed by Shark Phase
-                'active_player' => $this->game->Shark->User->username,
+                'active_player' => 'player',
                 'active_character' => 'shark',
                 'current_description' => 'Waiting on Shark to finalize their move',
                 'current_phase' => 'Shark',

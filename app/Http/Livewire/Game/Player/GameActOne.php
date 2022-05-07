@@ -48,31 +48,11 @@ class GameActOne extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function setActiveCharacter($character, $moveDescription = null) {
-        // Find who's playing that Character
-        $active_player = null;
-        switch ($character) {
-            case 'shark':
-                $active_player = $this->game->Shark->User->username;
-                break;
-
-            case 'brody':
-                $active_player = $this->game->Brody->username;
-                break;
-
-            case 'hooper':
-                $active_player = $this->game->Hooper->username;
-                break;
-
-            case 'quint':
-                $active_player = $this->game->Quint->username;
-                break;
-        }
-
         $this->emitTo(GameWrapper::class, 'setGameState', [
             'active_character' => $character,
             ($character.'_last_position') => $this->gameState[$character.'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
-            'active_player' => $active_player,
+            'active_player' => 'player',
             'current_selected_action' => null
         ]);
     }
