@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+    protected $casts = [
+        'state' => 'array',
+    ];
+
     public function host() {
         return $this->hasOne(User::class, 'id', 'host_id');
     }
