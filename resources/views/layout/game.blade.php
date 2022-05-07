@@ -9,7 +9,6 @@
         <title>Game In Progress</title>
 
         <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}" type="text/css" media="all" />
-
         @livewireStyles
     </head>
     <body class="antialiased">
@@ -19,9 +18,9 @@
             @yield('content')
         </main>
 
+        @livewireScripts
         <script src="{{ mix('dist/js/app.js') }}"></script>
         <script src="{{ asset('imageMapResizer.min.js') }}"></script>
-        @livewireScripts
         @stack('scripts')
     </body>
 </html>
