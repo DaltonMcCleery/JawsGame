@@ -43,7 +43,7 @@
 @endif
 
 @if(isset($gameState['michael_position']) && \in_array($gameState['michael_position'], ['North_Beach', 'East_Beach', 'South_Beach', 'West_Beach']))
-    <div id="michael-swimmer" class="{{ $gameState['michael_position'] }}">
+    <div id="michael-swimmer" class="absolute w-[30px] {{ $gameState['michael_position'] }}">
         <img src="{{ asset('images/michael.jpg') }}" alt="Michael"/>
     </div>
 @endif

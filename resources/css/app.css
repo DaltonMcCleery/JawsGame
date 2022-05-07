@@ -32,5 +32,29 @@
 }
 
 @layer utilities {
+    #michael-swimmer.North_Beach {
+        @apply bottom-[70%] left-[26%]
+    }
+    #michael-swimmer.East_Beach {
+        @apply bottom-[62%] left-[69%]
+    }
+    #michael-swimmer.South_Beach {
+        @apply bottom-[16%] left-[67%]
+    }
+    #michael-swimmer.West_Beach {
+        @apply bottom-[30%] left-[13%]
+    }
 
+    #beach-closed.North_Beach {
+        @apply bottom-[66%] left-[37%]
+    }
+    #beach-closed.East_Beach {
+        @apply bottom-[55%] left-[65%]
+    }
+    #beach-closed.South_Beach {
+        @apply bottom-[25%] left-[49%]
+    }
+    #beach-closed.West_Beach {
+        @apply bottom-[37%] left-[15%]
+    }
 }
