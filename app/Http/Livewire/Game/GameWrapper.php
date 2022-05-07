@@ -94,6 +94,8 @@ class GameWrapper extends Component
 
         broadcast(new newGameState($this->game->session_id, $this->gameState));
 
+        $this->game->update(['state' => $this->gameState]);
+
         if ($play_card && $card) {
             broadcast(new newGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
         }
@@ -107,6 +109,18 @@ class GameWrapper extends Component
         }
         elseif ($this->act === 2) {
             $this->emit('refreshActTwoState', $this->gameState);
+        }
+    }
+
+    public function resetGameCards($data) {
+        $this->cards = $data['cards'];
+        $this->usedCards = $data['usedCards'];
+
+        if ($this->act === 1) {
+            $this->emit('playEventCard', $data['card']);
+        }
+        elseif ($this->act === 2) {
+            $this->emit('playCard', $data['card']);
         }
     }
 
