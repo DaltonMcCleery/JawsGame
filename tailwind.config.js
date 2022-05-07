@@ -10,7 +10,7 @@ module.exports = {
         },
         extend: {
             colors: {
-                red: '#e40403',
+                'custom-red': '#e40403',
                 quint: '#85b65b',
                 hooper: '#6b9cd1',
                 brody: '#020609',

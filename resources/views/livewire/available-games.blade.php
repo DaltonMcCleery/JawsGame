@@ -62,7 +62,7 @@
             </div>
         </div>
     @else
-        <div class="relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red">
+        <div class="relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-custom-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-red">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             <span class="mt-2 block text-sm font-medium text-gray-900">
                 Login to see available games

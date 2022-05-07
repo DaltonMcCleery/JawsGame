@@ -8,7 +8,7 @@
                 <div class="absolute inset-0 bg-black mix-blend-multiply opacity-50"></div>
             </div>
             <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 flex flex-col justify-center items-center">
-                <h1 class="text-center uppercase text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-red">
+                <h1 class="text-center uppercase text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-custom-red">
                     JAWS
                 </h1>
                 <h2 class="text-center text-xl font-extrabold tracking-tight sm:text-2xl text-white">
