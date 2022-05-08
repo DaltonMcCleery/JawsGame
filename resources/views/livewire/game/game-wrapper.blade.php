@@ -11,7 +11,7 @@
        ])
     @endif
 
-    <div class="grid grid-cols-4">
+    <div class="grid grid-cols-4 {{ app()->environment() !== 'local' ? 'hidden' : '' }}">
         @foreach(collect($gameState)->mapWithKeys(fn ($value, $key) => [strtolower($key) => $value])->sortKeys() as $key => $value)
             @if ($loop->index / 4 === 0)
             <div>
