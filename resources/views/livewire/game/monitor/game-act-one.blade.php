@@ -58,4 +58,15 @@
     </div>
 
     <x-audio :gameState="$gameState" />
+    <x-video :gameState="$gameState" />
 </div>
+
+@push('styles')
+    <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
+@endpush
+@push('scripts')
+    <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
+    <script>
+        videojs.options.autoplay = true
+    </script>
+@endpush
