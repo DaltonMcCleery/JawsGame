@@ -89,7 +89,7 @@ class GameActOne extends Component
             && $this->gameState['current_phase'] !== 'Event') {
             // No more moves left, restart phases
             $this->emitTo(GameWrapper::class, 'setGameState', [
-                'active_character' => 'shark',
+                'active_character' => null,
                 'current_description' => 'Playing Event Card...',
                 'current_phase' => 'Event',
                 'play_event_card' => 'Event'
@@ -161,7 +161,7 @@ class GameActOne extends Component
                 'West_Beach_Swimmers' => $this->gameState['West_Beach_Swimmers'] + $data['West_Beach_Swimmers'],
                 // Event Phase is auto-followed by Shark Phase
                 'active_player' => 'player',
-                'active_character' => 'shark',
+                'active_character' => null,
                 'current_description' => 'Waiting on Shark to finalize their move',
                 'current_phase' => 'Shark',
                 'current_selected_action' => null,

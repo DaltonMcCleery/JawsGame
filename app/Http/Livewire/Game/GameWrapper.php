@@ -140,22 +140,4 @@ class GameWrapper extends Component
 
         return $card;
     }
-
-    // -------------------------------------------------------------------------------------------------------------- //
-
-    public function loadActTwo() {
-        $this->act = 2;
-
-        $this->game->update([
-            'act' => 2,
-            'shark_abilities' => '',
-            'crew_gear' => ''
-        ]);
-
-        $this->game->refresh();
-
-        $this->gameState['game'] = $this->game;
-
-        $this->emit('refreshActTwoState', $this->gameState);
-    }
 }
