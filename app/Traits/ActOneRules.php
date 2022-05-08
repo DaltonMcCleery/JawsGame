@@ -15,7 +15,8 @@ trait ActOneRules {
      * @param $localGameState
      * @return array
      */
-    public function isValidAction($character, $action, $space, $currentActionState, $gameState, $localGameState): array {
+    public function isValidAction($character, $action, $space, $currentActionState, $gameState, $localGameState): array
+    {
         $characterActions = match ($character) {
             'shark' => $this->sharkActions,
             'brody' => $this->brodyActions,
@@ -25,7 +26,7 @@ trait ActOneRules {
         };
 
         if ($characterActions !== null) {
-            if (!in_array($action, $characterActions)) {
+            if (! \in_array($action, $characterActions)) {
                 return ['Invalid Action given: "'.$action.'"'];
             }
 
@@ -219,7 +220,7 @@ trait ActOneRules {
             if ($gameState[$character.'_position'] !== $space) {
                 return ['Character must be in the same Space as the Action'];
             }
-            if (!in_array($space, $this->beaches)) {
+            if (! \in_array($space, $this->beaches)) {
                 return ['Action must be done at a Beach'];
             }
             if ($localGameState[$space.'_Swimmers'] < 1) {

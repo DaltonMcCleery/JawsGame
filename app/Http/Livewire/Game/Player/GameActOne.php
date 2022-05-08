@@ -33,11 +33,7 @@ class GameActOne extends Component
 
     public function refreshActOneState($newState) {
         $this->gameState = $newState;
-
-        if ($newState['active_player'] !== 'player' || $this->localGameState === [] || $this->gameState['current_phase'] === "Event") {
-            // Refresh local state
-            $this->localGameState = $newState;
-        }
+        $this->localGameState = $newState;
 
         if (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
             // Auto-end the current Turn and display any Reply settings
@@ -140,10 +136,10 @@ class GameActOne extends Component
 
     public function undoPreviousAction() {
         $lastAction = $this->currentActionState[count($this->currentActionState) - 1];
-        if (str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')  || str_contains($lastAction, 'Ability')) {
+        if (\str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')  || str_contains($lastAction, 'Ability')) {
             $this->addError('action-error', 'Cannot Undo Ability');
         }
-        elseif (str_contains($lastAction, 'Get Back on the Boat')) {
+        elseif (\str_contains($lastAction, 'Get Back on the Boat')) {
             $this->addError('action-error', 'Cannot Undo This Action');
         }
         else {
