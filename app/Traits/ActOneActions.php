@@ -10,13 +10,14 @@ trait ActOneActions {
      * @param $gameState
      * @return array
      */
-    public function parseActions($character, $actions, $gameState) {
+    public function parseActions($character, $actions, $gameState): array
+    {
         $state_changes = [];
 
         foreach ($actions[$character] as $action) {
             $location = $this->getSpace($action);
 
-            if (str_contains($action, 'Move')) {
+            if (\str_contains($action, 'Move')) {
                 if ($character === 'shark' && isset($gameState['captain_down']) && $gameState['captain_down'] === true) {
                     if ($gameState['hooper_position'] === $location) {
                         $state_changes['in_water'][] = 'hooper';
@@ -33,7 +34,7 @@ trait ActOneActions {
             }
 
             // Swimmers
-            if (str_contains($action, 'Eat 1 Swimmer')) {
+            if (\str_contains($action, 'Eat 1 Swimmer')) {
                 // Check for Michael
                 if (isset($gameState['michael_position']) && $gameState['michael_position'] === ($location.'_Swimmers')) {
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
@@ -51,7 +52,7 @@ trait ActOneActions {
                 }
             }
 
-            if (str_contains($action, 'Rescue 1 Swimmer')) {
+            if (\str_contains($action, 'Rescue 1 Swimmer')) {
                 // Check for Michael
                 if (isset($gameState['michael_position']) && $gameState['michael_position'] === $location) {
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
@@ -67,7 +68,7 @@ trait ActOneActions {
                 }
             }
 
-            if (str_contains($action, 'Eat all Swimmers')) {
+            if (\str_contains($action, 'Eat all Swimmers')) {
                 // Remove ALL Swimmers from Beach
                 $state_changes[$location.'_Swimmers'] = 0;
                 // Reverse changes for continued actions
@@ -75,13 +76,13 @@ trait ActOneActions {
             }
 
             // Barrels
-            if (str_contains($action, 'Pick up 1 Barrel')) {
+            if (\str_contains($action, 'Pick up 1 Barrel')) {
                 $state_changes['brody_barrels'] = $gameState['brody_barrels'] + 1;
                 // Reverse changes for continued actions
                 $gameState['brody_barrels'] = $state_changes['brody_barrels'];
             }
 
-            if (str_contains($action, 'Drop 1 Barrel')) {
+            if (\str_contains($action, 'Drop 1 Barrel')) {
                 $state_changes['brody_barrels'] = $gameState['brody_barrels'] - 1;
                 $state_changes[$location.'_barrels'] = $gameState[$location.'_barrels'] + 1;
                 // Reverse changes for continued actions
@@ -89,7 +90,7 @@ trait ActOneActions {
                 $gameState[$location.'_barrels'] = $state_changes[$location.'_barrels'];
             }
 
-            if (str_contains($action, 'Pick up any or all Barrels')) {
+            if (\str_contains($action, 'Pick up any or all Barrels')) {
                 $state_changes[$character.'_barrels'] = $gameState[$character.'_barrels'] + $gameState[$location.'_barrels'];
                 $state_changes[$location.'_barrels'] = 0;
                 // Reverse changes for continued actions
@@ -97,7 +98,7 @@ trait ActOneActions {
                 $gameState[$location.'_barrels'] = 0;
             }
 
-            if (str_contains($action, 'Give all Barrels to Quint')) {
+            if (\str_contains($action, 'Give all Barrels to Quint')) {
                 $state_changes['quint_barrels'] = $gameState['quint_barrels'] + $gameState[$character.'_barrels'];
                 $state_changes[$character.'_barrels'] = 0;
                 // Reverse changes for continued actions
@@ -106,7 +107,7 @@ trait ActOneActions {
             }
 
             // Shark Abilities
-            if (str_contains($action, 'Feeding Frenzy')) {
+            if (\str_contains($action, 'Feeding Frenzy')) {
                 // Remove Swimmer from Beach
                 $state_changes[$location.'_Swimmers'] = 0;
                 $state_changes['swimmers_eaten'] = $gameState['swimmers_eaten'] + $gameState[$location.'_Swimmers'];
@@ -115,17 +116,17 @@ trait ActOneActions {
                 $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
             }
 
-            if (str_contains($action, 'Evasive Moves')) {
+            if (\str_contains($action, 'Evasive Moves')) {
                 $state_changes['ignore_motion_sensors'] = true;
                 $gameState['ignore_motion_sensors'] = $state_changes['ignore_motion_sensors'];
             }
 
-            if (str_contains($action, 'Out of Sight')) {
+            if (\str_contains($action, 'Out of Sight')) {
                 $state_changes['shark_hidden'] = true;
             }
 
             // Crew Abilities
-            if (str_contains($action, 'Use Binoculars')) {
+            if (\str_contains($action, 'Use Binoculars')) {
                 $state_changes['binoculars'] = $location;
 
                 if (!$gameState['shark_hidden']) {
@@ -135,12 +136,12 @@ trait ActOneActions {
                 }
             }
 
-            if (str_contains($action, 'Close a Beach')) {
+            if (\str_contains($action, 'Close a Beach')) {
                 $state_changes['closed_beach'] = $location;
                 $state_changes['closed_beach_open_in'] = 3;
             }
 
-            if (str_contains($action, 'Use Fish Finder')) {
+            if (\str_contains($action, 'Use Fish Finder')) {
                 $state_changes['fish_finder'] = $location;
 
                 if (!$gameState['shark_hidden']) {
@@ -153,7 +154,7 @@ trait ActOneActions {
                 }
             }
 
-            if (str_contains($action, 'Launch a Barrel')) {
+            if (\str_contains($action, 'Launch a Barrel')) {
                 if ($gameState['shark_position'] === $location) {
                     $state_changes['show_shark'] = true;
                     $state_changes['shark_barrels'] = $gameState['shark_barrels'] + 1;
@@ -172,18 +173,24 @@ trait ActOneActions {
      * @param $action
      * @return string
      */
-    private function getSpace($action) {
+    private function getSpace($action): string
+    {
         $exploded = explode('(', $action);
         return rtrim($exploded[1], ')');
     }
 
-    private function getAction($action) {
+    /**
+     * @param $action
+     * @return string
+     */
+    private function getAction($action): string
+    {
         return trim((explode('(', $action))[0]);
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    private $possibleAdjacentSpaces = [
+    private array $possibleAdjacentSpaces = [
         'Space_1' => [
             'Space_2',
             'Space_3',
