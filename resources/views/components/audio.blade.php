@@ -3,7 +3,7 @@
         <script>
             const gameAudio = new Audio('{{ asset('storage/shark.mp3') }}');
             setTimeout(function () {
-                gameAudio.volume = 0.5;
+                gameAudio.volume = 0.2;
                 gameAudio.loop = true;
                 gameAudio.play();
             }, 5000);
