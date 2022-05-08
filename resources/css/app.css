@@ -80,10 +80,10 @@
         @apply bottom-[82%] left-[88%]
     }
     #shark-position.Space_3 {
-        @apply bottom-[4%] left-[91%]
+        @apply bottom-[5%] left-[4%]
     }
     #shark-position.Space_4 {
-        @apply bottom-[5%] left-[4%]
+        @apply bottom-[4%] left-[91%]
     }
     #shark-position.Space_5 {
         @apply bottom-[64%] left-[20%]
