@@ -93,6 +93,7 @@ class GameActOne extends Component
         $this->emitTo(GameWrapper::class, 'setGameState', [
             'active_character' => $character,
             'active_player' => 'Player',
+            'current_description' => 'Waiting on '.ucwords($character).' to finalize their move',
         ]);
     }
 
