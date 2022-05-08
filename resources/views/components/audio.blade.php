@@ -1,12 +1,14 @@
 @if (($gameState['active_character'] ?? 'N/A') === 'shark')
-    <script>
-        setTimeout(function () {
-            let audio = new Audio('{{ asset('storage/shark.mp3') }}');
-            audio.volume = 0.5;
-            audio.loop = true;
-            audio.play();
-        }, 2000);
-    </script>
+    @once
+        <script>
+            const gameAudio = new Audio('{{ asset('storage/shark.mp3') }}');
+            setTimeout(function () {
+                gameAudio.volume = 0.5;
+                gameAudio.loop = true;
+                gameAudio.play();
+            }, 5000);
+        </script>
+    @endonce
 @elseif (($gameState['audio'] ?? null) !== null)
     <script>
         setTimeout(function () {
