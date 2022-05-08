@@ -8,19 +8,19 @@
     <div class="grid grid-cols-1 gap-4 py-4">
         @if ($gameState['current_selected_action'] == 'Starting Position')
             <x-action action="Starting Position" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Select a Starting Position
                 </p>
             </x-action>
         @else
             <x-action action="Move 1 Space" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Move 1 Space
                 </p>
             </x-action>
 
             <x-action action="Eat 1 Swimmer" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Eat 1 Swimmer
                 </p>
             </x-action>
@@ -28,7 +28,7 @@
             <hr/>
 
             <x-action action="Ability Feeding Frenzy" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Feeding Frenzy
                 </p>
                 <p class="text-sm text-gray-500 break-words text-center">
@@ -37,7 +37,7 @@
             </x-action>
 
             <x-action action="Ability Evasive Moves" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Evasive Moves
                 </p>
                 <p class="text-sm text-gray-500 break-words text-center">
@@ -46,7 +46,7 @@
             </x-action>
 
             <x-action action="Ability Out of Sight" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Out of Sight
                 </p>
                 <p class="text-sm text-gray-500 break-words text-center">
@@ -55,7 +55,7 @@
             </x-action>
 
             <x-action action="Ability Speed Burst" :currentAction="$gameState['current_selected_action']">
-                <p class="font-bold text-gray-900">
+                <p class="font-bold text-gray-900 text-center">
                     Speed Burst
                 </p>
                 <p class="text-sm text-gray-500 break-words text-center">
