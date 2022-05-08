@@ -39,7 +39,7 @@
 
             <hr/>
 
-            <x-action action="Pick up any or all Barrels" :currentAction="$gameState['current_selected_action']">
+            <x-action action="Launch a Barrel" :currentAction="$gameState['current_selected_action']">
                 <p class="font-bold text-gray-900">
                     Launch a Barrel
                 </p>
