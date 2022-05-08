@@ -17,7 +17,7 @@ class GameActOne extends Component
     public array $gameState;
     public array $localGameState = [];
 
-    protected $listeners = ['refreshActOneState', 'playEventCard'];
+    protected $listeners = ['refreshActOneState', 'playEventCard', 'onVideoEnd'];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
@@ -74,7 +74,10 @@ class GameActOne extends Component
             'used_feeding_frenzy' => false,
             'used_out_of_sight' => false,
             'used_speed_burst' => false,
-            'used_evasive_moves' => false
+            'used_evasive_moves' => false,
+            // Enhancements
+            'audio' => null,
+            'video' => null,
         ]);
     }
 
@@ -167,6 +170,7 @@ class GameActOne extends Component
                 'current_selected_action' => null,
                 // Custom Audio sample
                 'audio' => $this->randomAudio(),
+                'video' => isset($data['michael_position']) ? 'michael' : null,
             ]);
 
             $this->localGameState = array_merge($this->localGameState, $newGameState);
@@ -214,5 +218,12 @@ class GameActOne extends Component
             'women',
             'ignore',
         ])->random();
+    }
+
+    public function onVideoEnd(): void
+    {
+        $this->emitTo(GameWrapper::class, 'setGameState', [
+            'video' => null,
+        ]);
     }
 }

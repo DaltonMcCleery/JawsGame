@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}" type="text/css" media="all" />
         @livewireStyles
+        @stack('styles')
     </head>
     <body class="antialiased">
         @include('layout.flash_messages')
