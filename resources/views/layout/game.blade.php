@@ -20,7 +20,6 @@
 
         @livewireScripts
         <script src="{{ mix('dist/js/app.js') }}"></script>
-        <script src="{{ asset('imageMapResizer.min.js') }}"></script>
         @stack('scripts')
     </body>
 </html>
