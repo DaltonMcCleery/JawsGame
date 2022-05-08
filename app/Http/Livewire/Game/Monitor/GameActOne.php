@@ -80,17 +80,9 @@ class GameActOne extends Component
 
     public function refreshActOneState($newState) {
         $this->gameState = $newState;
+        $this->localGameState = $newState;
 
-        if ($newState['active_player'] !== 'monitor' || $this->localGameState === [] || $this->gameState['current_phase'] === "Event") {
-            // Refresh local state
-            $this->localGameState = $newState;
-        }
-
-        if (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
-            // Auto-end the current Turn and display any Reply settings
-            //
-        }
-        elseif ($this->gameState['shark_moves'] === 0
+        if ($this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
             && $this->gameState['hooper_moves'] === 0
             && $this->gameState['quint_moves'] === 0
