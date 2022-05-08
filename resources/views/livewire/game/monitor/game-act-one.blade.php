@@ -22,7 +22,7 @@
 
         @isset ($gameState['swimmers_eaten'])
             <div class="w-full bg-gray-200 h-2 text-center mt-8">
-                <div class="bg-custom-red h-2 mb-1" style="width: {{ ceil($gameState['swimmers_eaten'] / 9) }}%"></div>
+                <div class="bg-custom-red h-2 mb-1" style="width: {{ ($gameState['swimmers_eaten'] / 9) * 100 }}%"></div>
                 <p>
                     Swimmers Eaten: <strong>{{ $gameState['swimmers_eaten'] ?? 0 }}/9</strong>
                 </p>
@@ -33,7 +33,7 @@
 
         @isset ($gameState['shark_barrels'])
             <div class="w-full bg-gray-200 h-2 text-center mt-8">
-                <div class="bg-red h-2 mb-1" style="width: 0%"></div>
+                <div class="bg-quint h-2 mb-1" style="width: {{ ($gameState['shark_barrels'] / 2) * 100 }}%"></div>
                 <p>
                     Barrels Attached: <strong>{{ $gameState['shark_barrels'] ?? 0 }}/2</strong>
                 </p>
