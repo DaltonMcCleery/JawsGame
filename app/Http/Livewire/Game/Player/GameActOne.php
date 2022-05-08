@@ -49,7 +49,7 @@ class GameActOne extends Component
             ($character.'_last_position') => $this->gameState[$character.'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
             'active_player' => 'player',
-            'current_selected_action' => null
+            'current_selected_action' => null,
         ]);
     }
 
@@ -94,6 +94,7 @@ class GameActOne extends Component
             'active_character' => $character,
             'active_player' => 'Player',
             'current_description' => 'Waiting on '.ucwords($character).' to finalize their move',
+            'current_selected_action' => null,
         ]);
     }
 
@@ -108,7 +109,7 @@ class GameActOne extends Component
                     'shark_last_position' => $space,
                     'current_description' => 'Playing Event Card...',
                     'current_phase' => 'Event',
-                    'play_event_card' => 'Event'
+                    'play_event_card' => 'Event',
                 ]);
             }
         }
