@@ -165,6 +165,8 @@ class GameActOne extends Component
                 'current_description' => 'Waiting on Shark to finalize their move',
                 'current_phase' => 'Shark',
                 'current_selected_action' => null,
+                // Custom Audio sample
+                'audio' => $this->randomAudio(),
             ]);
 
             $this->localGameState = array_merge($this->localGameState, $newGameState);
@@ -201,5 +203,16 @@ class GameActOne extends Component
                 $this->confirmTurn();
             }
         }
+    }
+
+    public function randomAudio(): string
+    {
+        return collect([
+            'abuse',
+            'biggerboat',
+            'lunch',
+            'women',
+            'ignore',
+        ])->random();
     }
 }
