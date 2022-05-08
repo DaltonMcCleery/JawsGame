@@ -12,7 +12,7 @@
     @endif
 
     <div class="grid grid-cols-4">
-        @foreach($gameState as $key => $value)
+        @foreach(collect($gameState)->mapWithKeys(fn ($value, $key) => [strtolower($key) => $value])->sortKeys() as $key => $value)
             @if ($loop->index / 4 === 0)
             <div>
             @endif
