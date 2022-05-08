@@ -1,43 +1,52 @@
 <article class="panel">
-    <p class="panel-heading quint">
-        Quint @if($game->Quint->username === Auth::user()->username) <small>(You)</small>@endif
+    <p class="text-center mb-2">
+        Actions: {{ $gameState['quint_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
+        |
+        Barrels: {{ $gameState['quint_barrels'] ?? 0 }}
     </p>
-    <p class="panel-tabs">
-        <span class="is-active">
-            Actions: {{ $gameState['quint_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
-            |
-            Barrels: {{ $gameState['quint_barrels'] ?? 0 }}
-        </span>
-    </p>
-
-    @if(isset($gameState['captain_down']) && isset($gameState['in_water']) && $gameState['captain_down'] === 1 && in_array('quint', $gameState['in_water']))
-        <a class="panel-block"
-           wire:click="getBackUpOnBoat">
-            <strong>GET BACK ON BOAT</strong>
-        </a>
-
-        <hr/>
-    @else
-        <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') quint @endif"
-           wire:click="switchNextAction('Move 1 Space')">
-            Move 1 Space
-        </a>
-    @endif
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Rescue 1 Swimmer') quint @endif"
-       wire:click="switchNextAction('Rescue 1 Swimmer')">
-        Rescue 1 Swimmer
-    </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Pick up any or all Barrels') quint @endif"
-       wire:click="switchNextAction('Pick up any or all Barrels')">
-        Pick up any or all Barrels
-    </a>
 
     <hr/>
 
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_character'] === 'quint' && $gameState['active_player'] === Auth::user()->username && $game->Quint->username === Auth::user()->username && $gameState['current_selected_action'] === 'Launch a Barrel') quint @endif"
-       wire:click="switchNextAction('Launch a Barrel')">
-        <strong>Launch a Barrel</strong>
-        <small>Launches a Barrel into an adjacent Space, hoping to hit the Shark</small>
-    </a>
+    <div class="grid grid-cols-1 gap-4 py-4">
+        @if(isset($gameState['captain_down']) && isset($gameState['in_water']) && $gameState['captain_down'] === 1 && in_array('quint', $gameState['in_water']))
+            <a class="relative cursor-pointer rounded-lg border-2 bg-white px-6 py-5 shadow-sm flex flex-col items-center
+               {{ $gameState['current_selected_action'] === ($action ?? '') ? 'border-custom-red' : 'border-transparent' }}"
+               wire:click="getBackUpOnBoat">
+                <p class="font-bold text-gray-900">
+                    Get Back on the Boat
+                </p>
+            </a>
+
+            <hr/>
+        @else
+            <x-action action="Move 1 Space" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Move 1 Space
+                </p>
+            </x-action>
+
+            <x-action action="Rescue 1 Swimmer" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Rescue 1 Swimmer
+                </p>
+            </x-action>
+
+            <x-action action="Pick up any or all Barrels" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Pick up any or all Barrels
+                </p>
+            </x-action>
+
+            <hr/>
+
+            <x-action action="Pick up any or all Barrels" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900">
+                    Launch a Barrel
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Launches a Barrel into an adjacent Space
+                </p>
+            </x-action>
+        @endif
+    </div>
 </article>
