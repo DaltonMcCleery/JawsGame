@@ -89,20 +89,27 @@ class GameActOne extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function setSharkStartingPosition($position) {
+    public function setActivePlayer($character) {
         $this->emitTo(GameWrapper::class, 'setGameState', [
-            'shark_position' => $position,
-            'shark_last_position' => $position,
-            'current_description' => 'Playing Event Card...',
-            'current_phase' => 'Event',
-            'play_event_card' => 'Event'
+            'active_character' => $character,
+            'active_player' => 'Player',
         ]);
     }
 
     public function attemptAction($space) {
         if ($this->gameState['current_selected_action'] === 'Starting Position') {
             // Move on to actual play
-            $this->setSharkStartingPosition($space);
+            if ($space === 'Shop') {
+                $this->addError('action-error', 'Cannot start here');
+            } else {
+                $this->emitTo(GameWrapper::class, 'setGameState', [
+                    'shark_position' => $space,
+                    'shark_last_position' => $space,
+                    'current_description' => 'Playing Event Card...',
+                    'current_phase' => 'Event',
+                    'play_event_card' => 'Event'
+                ]);
+            }
         }
         else {
             $errors = $this->isValidAction(
@@ -147,7 +154,7 @@ class GameActOne extends Component
             unset($this->currentActionState[count($this->currentActionState) - 1]);
 
             foreach ($this->currentActionState as $prevAction) {
-                if (str_contains($prevAction, 'Move')) {
+                if (\str_contains($prevAction, 'Move')) {
                     $exploded = explode('(', $prevAction);
                     $space = rtrim($exploded[1], ')');
 
