@@ -1,25 +1,16 @@
 @if (($gameState['active_character'] ?? 'N/A') === 'shark')
-    <audio class="hidden">
-        <source src="{{ asset('storage/shark.mp3') }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
     <script>
         setTimeout(function () {
-            let audio = document.getElementsByTagName('audio')[0];
-            audio.autoplay = true;
-            audio.load();
+            let audio = new Audio('{{ asset('storage/shark.mp3') }}');
+            audio.volume = 0.5;
+            audio.loop = true;
+            audio.play();
         }, 2000);
     </script>
 @elseif (($gameState['audio'] ?? null) !== null)
-    <audio class="hidden">
-        <source src="{{ asset('storage/'.$gameState['audio'].'.mp3') }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
     <script>
         setTimeout(function () {
-            let audio = document.getElementsByTagName('audio')[0];
-            audio.autoplay = true;
-            audio.load();
+            new Audio('{{ asset('storage/'.$gameState['audio'].'.mp3') }}').play();
         }, 2000);
     </script>
 @endif
