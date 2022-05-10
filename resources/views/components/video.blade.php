@@ -2,8 +2,8 @@
     @if (($gameState['video'] ?? null) !== null)
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10"></div>
 
-        <div class="absolute top-[10%] inline-block overflow-hidden w-full z-50">
-            <video-js id="video">
+        <div class="absolute top-[10%] right-0 left-0 inline-block overflow-hidden w-full z-50">
+            <video-js id="video" class="mx-auto">
                 <source src="{{ asset('storage/'.$gameState['video'].'.mov') }}">
             </video-js>
         </div>
