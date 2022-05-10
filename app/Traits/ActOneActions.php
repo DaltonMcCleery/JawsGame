@@ -144,11 +144,11 @@ trait ActOneActions {
             if (\str_contains($action, 'Use Fish Finder')) {
                 $state_changes['fish_finder'] = $location;
 
-                if (!$gameState['shark_hidden']) {
+                if (! $gameState['shark_hidden']) {
                     if ($gameState['shark_position'] === $location) {
                         $state_changes['show_shark'] = true;
                     }
-                    elseif (in_array($gameState['shark_position'], $this->possibleAdjacentSpaces[$location])) {
+                    elseif (\in_array($gameState['shark_position'], $this->possibleAdjacentSpaces[$location])) {
                         $state_changes['shark_nearby'] = $this->possibleAdjacentSpaces[$location];
                     }
                 }
