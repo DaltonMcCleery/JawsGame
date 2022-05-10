@@ -52,6 +52,13 @@ class ImageMap extends Component
                 ];
             }
         }
+
+        if (isset($gameState['shark_nearby'])) {
+            foreach ($gameState['shark_nearby'] as $space) {
+                $this->fill[$space] = $this->red;
+                $this->class[$space] = $this->pulse;
+            }
+        }
     }
 
     public function render()

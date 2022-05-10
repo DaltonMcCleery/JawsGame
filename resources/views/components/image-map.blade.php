@@ -44,8 +44,8 @@
                   fill="{{ $fill['Space_5'] ?? 'transparent' }}"
                   points="156,135,287,212,208,288,178,269,172,257,165,259,89,207" />
 
-        <polyline title="Space_8" wire:click="attemptAction('Space_8')" class="cursor-pointer {{ $class['Space_5'] ?? '' }}"
-                  fill="{{ $fill['Space_5'] ?? 'transparent' }}"
+        <polyline title="Space_8" wire:click="attemptAction('Space_8')" class="cursor-pointer {{ $class['Space_8'] ?? '' }}"
+                  fill="{{ $fill['Space_8'] ?? 'transparent' }}"
                   points="663,209,542,209,518,219,499,233,467,241,450,228,440,243,399,287,444,316,506,334,561,446,592,442,621,420,639,397,655,369,670,333,681,299,685,271,681,241" />
     </g>
 
