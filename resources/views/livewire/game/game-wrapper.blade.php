@@ -20,6 +20,10 @@
                 <p class="col-span-1">
                     <strong>{{ $key }}</strong> => {{ $value }}
                 </p>
+            @elseif(\is_array($value))
+                <p class="col-span-1">
+                    <strong>{{ $key }}</strong> => {{ collect($value)->implode(', ') }}
+                </p>
             @endif
             @if ($loop->index / 4 === 0)
             </div>
