@@ -1,4 +1,4 @@
-<div class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12" wire:init="loadStartingActOneState">
+<div class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12">
     @if (isset($gameState['active_character']) && $gameState['active_character'] !== null)
         <div class="col-span-10 p-2 md:p-0 min-h-full">
 

@@ -48,7 +48,7 @@ class GameWrapper extends Component
         $card = null;
         $previous_character = null;
 
-        if (key_exists('action_history', $newState)) {
+        if (\key_exists('action_history', $newState) && isset($this->gameState['active_character'])) {
             $previous_character = $this->gameState['active_character'];
         }
 
