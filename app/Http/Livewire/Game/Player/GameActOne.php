@@ -59,6 +59,9 @@ class GameActOne extends Component
             'active_player' => 'player',
             'current_selected_action' => null,
             'refreshActionState' => false,
+            'show_shark' => $character === 'shark'
+                ? false
+                : ($this->gameState['show_shark'] ?? false),
         ]);
     }
 
@@ -209,7 +212,15 @@ class GameActOne extends Component
             }
         }
 
-        if (count($this->currentActionState) > 0 || $force == true) {
+        if (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true) {
+            $this->emitTo(GameWrapper::class, 'setGameState', [
+                'active_character'                                => null,
+                'current_description'                             => 'Act 1 Over',
+                'current_phase'                                   => $next_phase,
+                'active_player'                                   => 'N/A',
+            ]);
+        }
+        elseif (count($this->currentActionState) > 0 || $force == true) {
             $video = null;
 
             if ($this->gameState['active_character'] === 'shark' && ! $replay) {

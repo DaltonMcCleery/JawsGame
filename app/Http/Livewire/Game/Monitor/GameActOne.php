@@ -89,11 +89,14 @@ class GameActOne extends Component
         $this->gameState = $newState;
         $this->localGameState = $newState;
 
-        if ($this->gameState['shark_moves'] === 0
+        if (
+            (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true)
+            && $this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
             && $this->gameState['hooper_moves'] === 0
             && $this->gameState['quint_moves'] === 0
-            && $this->gameState['current_phase'] !== 'Event') {
+            && $this->gameState['current_phase'] !== 'Event'
+        ) {
             // No more moves left, restart phases
             $this->emitTo(GameWrapper::class, 'setGameState', [
                 'active_character' => null,
