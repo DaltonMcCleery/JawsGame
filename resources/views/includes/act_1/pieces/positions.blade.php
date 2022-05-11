@@ -1,7 +1,7 @@
 @if(isset($gameState['shark_position']))
     @if((auth()->id() === $game->player && $gameState['active_character'] === 'shark') || $gameState['show_shark'])))
         <div id="shark-position" class="absolute w-[50px] {{ $gameState['shark_position'] }}">
-            @if (($gameState['active_character'] === 'shark') || $gameState['show_shark'])
+            @if ($gameState['active_character'] === 'shark')
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-custom-red opacity-50"></span>
             @endif
             <img src="{{ asset('storage/shark.png') }}" alt="Shark" class="z-10"/>
