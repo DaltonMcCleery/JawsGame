@@ -27,8 +27,8 @@ class GameActOne extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function loadStartingActOneState() {
-        if (isset($this->game?->state['current_selected_action']) && $this->game->state['current_selected_action'] !== 'Starting Position') {
-            $this->emitTo(GameWrapper::class, 'setGameState', $this->game->state);
+        if ($this->game?->state['current_selected_action'] !== 'Starting Position') {
+            $this->emitTo(GameWrapper::class, 'setGameState', array_merge($this->game->state, ['refreshActionState' => true]));
         } else {
             $this->emitTo(GameWrapper::class, 'setGameState', [
                 // Crew Starting Positions & Equipped Barrels

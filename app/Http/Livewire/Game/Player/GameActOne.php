@@ -39,6 +39,14 @@ class GameActOne extends Component
             // Auto-end the current Turn and display any Reply settings
             $this->confirmTurn();
         }
+
+        if (isset($newState['refreshActionState']) && $newState['refreshActionState'] === true) {
+            $lastActions = collect($newState['action_history'][0])->last();
+            $character = array_keys($lastActions)[0];
+            if ($character === $newState['active_character']) {
+                $this->currentActionState = $lastActions[array_keys($lastActions)[0]] ?? [];
+            }
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
@@ -50,6 +58,7 @@ class GameActOne extends Component
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
             'active_player' => 'player',
             'current_selected_action' => null,
+            'refreshActionState' => false,
         ]);
     }
 
@@ -83,7 +92,8 @@ class GameActOne extends Component
 
     public function switchNextAction($action) {
         $this->emitTo(GameWrapper::class, 'setGameState', [
-            'current_selected_action' => $action
+            'current_selected_action' => $action,
+            'refreshActionState' => false,
         ]);
     }
 
@@ -97,6 +107,7 @@ class GameActOne extends Component
             'current_selected_action' => null,
             'audio' => null,
             'video' => null,
+            'refreshActionState' => false,
         ]);
     }
 
