@@ -13,12 +13,13 @@ class ImageMap extends Component
 
     public function __construct(
         public array $gameState = [],
+        public string $screen = 'player',
         public array $fill = [],
         public array $class = [],
     ) {
         if (isset($gameState['current_selected_action'])) {
             // Starting State
-            if ($gameState['current_selected_action'] === 'Starting Position') {
+            if ($gameState['current_selected_action'] === 'Starting Position' && $screen === 'player') {
                 $this->fill = [
                     'Space_1' => $this->yellow,
                     'Space_2' => $this->yellow,

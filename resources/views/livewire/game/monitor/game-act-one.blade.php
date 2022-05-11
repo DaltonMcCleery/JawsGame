@@ -4,6 +4,8 @@
             <img src="{{ asset('storage/act_one_board.jpeg') }}" alt="Act I Board: Monitor" class="w-full max-h-screen">
 
             @include('includes.act_1.pieces', ['gameState' => $gameState])
+
+            <x-image-map :gameState="$gameState" screen="monitor"/>
         </div>
     </div>
 
