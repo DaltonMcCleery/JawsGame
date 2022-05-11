@@ -60,6 +60,11 @@ class ImageMap extends Component
                 $this->class[$space] = $this->pulse;
             }
         }
+
+        if (isset($gameState['show_shark'])) {
+            $this->fill[$gameState['shark_position']] = $this->red;
+            $this->class[$gameState['shark_position']] = $this->pulse;
+        }
     }
 
     public function render()

@@ -1,5 +1,5 @@
 @if(isset($gameState['shark_position']))
-    @if((auth()->id() === $game->player && $gameState['active_character'] === 'shark') || (auth()->id() === $game->monitor && $gameState['show_shark'])))
+    @if((auth()->id() === $game->player && $gameState['active_character'] === 'shark') || $gameState['show_shark'])))
         <div id="shark-position" class="absolute w-[50px] {{ $gameState['shark_position'] }}">
             @if (($gameState['active_character'] === 'shark') || $gameState['show_shark'])
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-custom-red opacity-50"></span>
