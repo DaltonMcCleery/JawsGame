@@ -61,7 +61,7 @@ class ImageMap extends Component
             }
         }
 
-        if (isset($gameState['show_shark'])) {
+        if (isset($gameState['show_shark']) && $gameState['show_shark'] === true) {
             $this->fill[$gameState['shark_position']] = $this->red;
             $this->class[$gameState['shark_position']] = $this->pulse;
         }
