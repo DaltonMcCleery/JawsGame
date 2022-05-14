@@ -17,6 +17,8 @@ class GameActOne extends Component
     public array $gameState;
     public array $localGameState = [];
 
+    public bool $showReplay = false;
+
     protected $listeners = ['refreshActOneState', 'playEventCard', 'onVideoEnd'];
 
     public function mount(Game $game, array $gameState) {
@@ -190,28 +192,31 @@ class GameActOne extends Component
         $history = $this->gameState['action_history'];
         $this->loadStartingActOneState();
 
+        $playerClass = new \App\Http\Livewire\Game\Player\GameActOne();
+
         // Loop through history and play it out
         foreach ($history as $index => $character_history) {
             if ($index > 0) {
                 sleep(2);
             }
 
+            $playerClass->mount($this->game, $this->gameState);
+
             $key = array_key_first($character_history);
 
             if ($key === 'Card') {
                 $this->playEventCard($character_history[$key]);
             } else {
-
-                $this->setActiveCharacter($key);
+                $playerClass->setActiveCharacter($key);
 
                 foreach ($character_history[$key] as $action) {
                     sleep(2);
                     $space = $this->getSpace($action);
                     $action = $this->getAction($action);
-                    $this->setActionState($action, $space, true);
+                    $playerClass->setActionState($action, $space);
                 }
 
-                $this->confirmTurn();
+                $playerClass->confirmTurn(replay: true);
             }
         }
     }
