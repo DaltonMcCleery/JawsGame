@@ -70,7 +70,7 @@ class EventCardSeeder extends Seeder
         ],
         [
             'image' => '',
-            'title' => 'Shark Alert!',
+            'title' => 'Shark Alert! #1',
             'description' => 'S WW',
             'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: N S E'
         ],
@@ -82,19 +82,19 @@ class EventCardSeeder extends Seeder
         ],
         [
             'image' => '',
-            'title' => 'Shark Alert!',
+            'title' => 'Shark Alert! #2',
             'description' => 'SS E',
             'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: N E W'
         ],
         [
             'image' => '',
-            'title' => 'Shark Alert!',
+            'title' => 'Shark Alert! #3',
             'description' => 'NN W',
             'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: S E W'
         ],
         [
             'image' => '',
-            'title' => 'Shark Alert!',
+            'title' => 'Shark Alert! #4',
             'description' => 'N EE',
             'action' => 'If the Shark\'s Swimmer Track is at 3 or lower, also place: N S W'
         ],
