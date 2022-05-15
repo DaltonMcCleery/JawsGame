@@ -114,7 +114,7 @@ class GameActOne extends Component
     public function playEventCard($card) {
         $data = $this->parseEventCard($card, $this->gameState);
 
-        if (!$data) {
+        if (! $data) {
             $this->addError('action-error', 'Unable to parse Event Card');
         } else {
             $extra_data = [];

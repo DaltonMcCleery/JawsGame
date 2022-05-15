@@ -29,7 +29,8 @@ trait ActOneCards {
      * @param $gameState
      * @return int[]
      */
-    private function calculateSwimmerPlacement($card, $gameState) {
+    private function calculateSwimmerPlacement($card, $gameState): array
+    {
         $swimmers = [
             'North_Beach_Swimmers' => 0,
             'East_Beach_Swimmers' => 0,
@@ -107,7 +108,8 @@ trait ActOneCards {
      * @param $swimmer_placements
      * @return null[]
      */
-    private function determineExtraActions($token, $gameState, $swimmer_placements) {
+    private function determineExtraActions($token, $gameState, $swimmer_placements): array
+    {
         $possibleChanges = [];
 
         switch ($token) {
@@ -199,7 +201,8 @@ trait ActOneCards {
      * @param $new_swimmers
      * @return string[]
      */
-    private function sortBeachesBySwimmers($gameState, $new_swimmers) {
+    private function sortBeachesBySwimmers($gameState, $new_swimmers): array
+    {
         $Nkey = $gameState['North_Beach_Swimmers'] + $new_swimmers['North_Beach_Swimmers'];
         $Ekey = $gameState['East_Beach_Swimmers'] + $new_swimmers['East_Beach_Swimmers'];
         $Skey = $gameState['South_Beach_Swimmers'] + $new_swimmers['South_Beach_Swimmers'];
