@@ -86,6 +86,13 @@ class GameWrapper extends Component
                 $this->gameState['quint_moves'] = 0;
             }
 
+            if ($this->gameState['shark_barrels'] >= 2) {
+                $this->gameState['video'] = 'barrel-2';
+            }
+            elseif ($this->gameState['swimmers_eaten'] >= 9) {
+                $this->gameState['video'] = 'shark-win';
+            }
+
             $this->emit('refreshActOneState', $this->gameState);
         }
         elseif ($this->act === 2) {
