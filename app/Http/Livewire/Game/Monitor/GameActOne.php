@@ -91,8 +91,12 @@ class GameActOne extends Component
         $this->gameState = $newState;
         $this->localGameState = $newState;
 
+        if (! isset($this->gameState['act_1_over'])) {
+            $this->gameState['act_1_over'] = false;
+        }
+
         if (
-            (isset($this->gameState['act_1_over']) && $this->gameState['act_1_over'] === true)
+            $this->gameState['act_1_over'] === false
             && $this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
             && $this->gameState['hooper_moves'] === 0
