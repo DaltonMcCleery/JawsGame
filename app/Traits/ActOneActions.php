@@ -36,12 +36,14 @@ trait ActOneActions {
             // Swimmers
             if (\str_contains($action, 'Eat 1 Swimmer')) {
                 // Check for Michael
-                if (isset($gameState['michael_position']) && $gameState['michael_position'] === ($location.'_Swimmers')) {
+                if (isset($gameState['michael_position']) && $gameState['michael_position'] === $location) {
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 2;
                     $state_changes['swimmers_eaten'] = $gameState['swimmers_eaten'] + 2;
+                    $state_changes['michael_position'] = null;
                     // Reverse changes for continued actions
                     $gameState[$location.'_Swimmers'] = $state_changes[$location.'_Swimmers'];
                     $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
+                    $gameState['michael_position'] = null;
                 } else {
                     // Remove Swimmer from Beach
                     $state_changes[$location.'_Swimmers'] = $gameState[$location.'_Swimmers'] - 1;
