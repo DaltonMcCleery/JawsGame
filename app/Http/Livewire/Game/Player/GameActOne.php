@@ -268,4 +268,9 @@ class GameActOne extends Component
             }
         }
     }
+
+    public function watchReplay(): void
+    {
+        $this->emitTo(\App\Http\Livewire\Game\Monitor\GameActOne::class, 'watchReplay');
+    }
 }

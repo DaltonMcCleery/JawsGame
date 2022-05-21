@@ -1,5 +1,7 @@
 <div class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12">
-    @if (isset($gameState['active_character']) && $gameState['active_character'] !== null)
+    @if (isset($gameState['act_1_over']) && $gameState['act_1_over'] === true)
+        <x-game-over :gameState="$gameState"/>
+    @elseif (isset($gameState['active_character']) && $gameState['active_character'] !== null)
         <div class="col-span-10 p-2 md:p-0 min-h-full">
 
             @include('includes.act_1.current_action_state', ['currentActionState' => $currentActionState, 'gameState' => $gameState])

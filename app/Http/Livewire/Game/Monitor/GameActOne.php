@@ -19,7 +19,7 @@ class GameActOne extends Component
 
     public bool $showReplay = false;
 
-    protected $listeners = ['refreshActOneState', 'playEventCard', 'onVideoEnd'];
+    protected $listeners = ['refreshActOneState', 'playEventCard', 'watchReplay', 'onVideoEnd'];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
