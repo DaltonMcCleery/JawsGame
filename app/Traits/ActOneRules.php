@@ -243,7 +243,7 @@ trait ActOneRules {
                     if ($gameState['brody_position'] !== $space) {
                         return ['Character must be in the same Space as Action'];
                     }
-                    if (!in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] !== 'Shop') {
+                    if (! \in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] !== 'Shop') {
                         return ['Must be at a Dock or the Shop'];
                     }
                     if ($gameState[$gameState['brody_position'].'_barrels'] < 1) {
@@ -253,7 +253,7 @@ trait ActOneRules {
 
                 // Dropping Barrels at Docks
                 if (\str_contains($action, 'Drop 1 Barrel')) {
-                    if (!in_array($gameState['brody_position'], $this->docks)) {
+                    if (! \in_array($gameState['brody_position'], $this->docks)) {
                         return ['Must be at a Dock'];
                     }
                     if ($gameState['brody_position'] !== $space) {
