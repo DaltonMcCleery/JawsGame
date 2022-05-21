@@ -32,34 +32,6 @@
     </div>
 </div>
 
-{{--<div class="container mt-4">--}}
-    {{-- CHARACTER CARDS --}}
-{{--        <div class="column is-3-desktop is-12-mobile">--}}
-{{--            @if($act === 1)--}}
-{{--                @include('includes.act_1.brody_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @else--}}
-{{--                @include('includes.act_2.brody_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @endif--}}
-{{--        </div>--}}
-
-{{--        <div class="column is-3-desktop is-12-mobile">--}}
-{{--            @if($act === 1)--}}
-{{--                @include('includes.act_1.hooper_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @else--}}
-{{--                @include('includes.act_2.hooper_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @endif--}}
-{{--        </div>--}}
-
-{{--        <div class="column is-3-desktop is-12-mobile">--}}
-{{--            @if($act === 1)--}}
-{{--                @include('includes.act_1.quint_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @else--}}
-{{--                @include('includes.act_2.quint_card', ['game' => $game, 'gameState' => $gameState])--}}
-{{--            @endif--}}
-{{--        </div>--}}
-{{--    </div>--}}
-</div>
-
 @push('scripts')
     <script>
         Echo.join('game.{{ $game->session_id }}')
