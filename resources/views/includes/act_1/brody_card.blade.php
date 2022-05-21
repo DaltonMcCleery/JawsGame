@@ -2,7 +2,7 @@
     <p class="text-center mb-2">
         Actions: {{ $gameState['brody_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
         |
-        Barrels: {{ $gameState['brody_barrels'] ?? 0 }}
+        Barrels: {{ $localGameState['brody_barrels'] ?? $gameState['brody_barrels'] ?? 0 }}
     </p>
 
     <hr/>
