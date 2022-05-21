@@ -21,7 +21,7 @@
 @endif
 
 @if(isset($gameState['Space_5_barrels']) && $gameState['Space_5_barrels'] > 0)
-    <div id="space-8-barrels" title="{{ $gameState['Space_5_barrels'] }}" class="absolute bottom-[27%] left-[85%] w-[45px]">
+    <div id="space-5-barrels" title="{{ $gameState['Space_5_barrels'] }}" class="absolute bottom-[27%] left-[85%] w-[45px]">
         <div class="relative">
             <img src="{{ asset('images/barrel.png') }}" alt="Barrel"/>
             <span class="absolute px-2 inline-flex md:text-lg text-2xl font-bold rounded-full top-[-15px] right-[-15px] bg-gray-700 text-white">
