@@ -161,7 +161,11 @@ class GameActOne extends Component
 
     public function undoPreviousAction() {
         $lastAction = $this->currentActionState[count($this->currentActionState) - 1];
-        if (\str_contains($lastAction, 'Use') || str_contains($lastAction, 'Launch a Barrel')  || str_contains($lastAction, 'Ability')) {
+        if (
+            \str_contains($lastAction, 'Use')
+            || \str_contains($lastAction, 'Launch a Barrel')
+            || str_contains($lastAction, 'Ability')
+        ) {
             $this->addError('action-error', 'Cannot Undo Ability');
         }
         elseif (\str_contains($lastAction, 'Get Back on the Boat')) {
