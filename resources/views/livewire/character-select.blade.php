@@ -43,16 +43,7 @@
 
 @push('scripts')
     <script>
-        console.log('lobby.{{ $session_id }}');
         Echo.join('lobby.{{ $session_id }}')
-            .joining((user) => {
-                console.log(user);
-                Livewire.emit('userJoiningCharacterLobby', user);
-            })
-            .leaving((user) => {
-                console.log(user);
-                Livewire.emit('userLeavingCharacterLobby', user);
-            })
             .listen('Characters.SyncCharacterSelection', (data) => {
                 console.log(data);
                 Livewire.emit('syncSelectedCharacters', data.game);

@@ -12,12 +12,6 @@ class CharacterSelect extends Component
     public Game $game;
     public string $session_id;
 
-    protected $listeners = [
-        'userJoiningCharacterLobby',
-        'userLeavingCharacterLobby',
-        'syncSelectedCharacters'
-    ];
-
     public function mount(Game $game) {
         $this->game = $game;
         $this->session_id = $game->session_id;
@@ -34,6 +28,17 @@ class CharacterSelect extends Component
         } else {
             $this->addError('character-error', 'Not Enough Characters!');
         }
+    }
+
+    public function getListeners(): array
+    {
+        return [
+            'userJoiningCharacterLobby',
+            'userLeavingCharacterLobby',
+            'syncSelectedCharacters',
+            "echo-presence:lobby.{$this->session_id},joining" => 'userJoiningCharacterLobby',
+            "echo-presence:lobby.{$this->session_id},leaving" => 'userJoiningCharacterLobby',
+        ];
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
