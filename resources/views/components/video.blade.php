@@ -4,7 +4,7 @@
 
         <div class="absolute top-[10%] right-0 left-0 inline-block overflow-hidden w-full z-50">
             <video-js id="video" class="mx-auto">
-                <source src="{{ asset('storage/'.$gameState['video'].'.mov') }}">
+                <source src="{{ asset('videos/'.$gameState['video'].'.mov') }}">
             </video-js>
         </div>
 

@@ -22,7 +22,7 @@
                     </div>
                 @enderror
 
-                <img src="{{ asset('storage/act_one_board.jpeg') }}" alt="Act I Board" class="w-full" usemap="#act_1_map">
+                <img src="{{ asset('act_one_board.jpeg') }}" alt="Act I Board" class="w-full" usemap="#act_1_map">
 
                 @include('includes.act_1.pieces', ['gameState' => $gameState])
 

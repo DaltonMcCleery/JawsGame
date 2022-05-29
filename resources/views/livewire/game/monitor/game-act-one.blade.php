@@ -1,7 +1,7 @@
 <div class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12" wire:init="loadStartingActOneState">
     <div class="col-span-10 p-2 md:p-0 min-h-full">
         <div class="relative">
-            <img src="{{ asset('storage/act_one_board.jpeg') }}" alt="Act I Board: Monitor" class="w-full max-h-screen">
+            <img src="{{ asset('act_one_board.jpeg') }}" alt="Act I Board: Monitor" class="w-full max-h-screen">
 
             @include('includes.act_1.pieces', ['gameState' => $gameState])
 
