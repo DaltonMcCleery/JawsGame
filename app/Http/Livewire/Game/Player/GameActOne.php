@@ -94,10 +94,8 @@ class GameActOne extends Component
     }
 
     public function switchNextAction($action) {
-        $this->emitTo(GameWrapper::class, 'setGameState', [
-            'current_selected_action' => $action,
-            'refreshActionState' => false,
-        ]);
+        $this->gameState['current_selected_action'] = $action;
+        $this->localGameState['current_selected_action'] = $action;
     }
 
     // -------------------------------------------------------------------------------------------------------------- //

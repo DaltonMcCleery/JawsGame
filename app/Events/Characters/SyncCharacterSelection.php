@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Lobby;
+namespace App\Events\Characters;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,23 +10,23 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class startGame implements ShouldBroadcast
+class SyncCharacterSelection implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
     public $session_id;
+    public $game;
 
     /**
      * Create a new event instance.
      *
-     * @param $user
      * @param $session_id
+     * @param $game
      */
-    public function __construct($user, $session_id)
+    public function __construct($session_id, $game)
     {
-        $this->user = $user;
         $this->session_id = $session_id;
+        $this->game = $game;
     }
 
     /**

@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Lobby\closeLobby;
-use App\Events\Chat\lobbyChat;
-use App\Events\Lobby\startGame;
-use App\Events\Lobby\joinLobby;
-use App\Models\Card;
+use App\Events\Lobby\JoinLobby;
 use App\Models\Game;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class LobbyController extends Controller
 {
@@ -35,7 +29,7 @@ class LobbyController extends Controller
             }
 
             // Setup/Join Lobby
-            broadcast(new joinLobby(Auth::user(), $session_id));
+            broadcast(new JoinLobby(Auth::user(), $session_id));
 
             return view('lobby', ['game' => $game]);
 

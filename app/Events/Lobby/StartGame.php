@@ -1,32 +1,30 @@
 <?php
 
-namespace App\Events\Characters;
+namespace App\Events\Lobby;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class syncCharacterSelection implements ShouldBroadcast
+class StartGame implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
     public $session_id;
-    public $game;
 
     /**
      * Create a new event instance.
      *
+     * @param $user
      * @param $session_id
-     * @param $game
      */
-    public function __construct($session_id, $game)
+    public function __construct($user, $session_id)
     {
+        $this->user = $user;
         $this->session_id = $session_id;
-        $this->game = $game;
     }
 
     /**

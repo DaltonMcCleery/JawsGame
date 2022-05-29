@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Events\Lobby\startGame;
 use App\Models\Game;
 use Livewire\Component;
-use App\Events\Characters\syncCharacterSelection;
+use App\Events\Characters\SyncCharacterSelection;
 
 class CharacterSelect extends Component
 {
@@ -30,7 +30,7 @@ class CharacterSelect extends Component
                 'status' => 'started'
             ]);
 
-            broadcast(new startGame(auth()->user(), $this->session_id));
+            broadcast(new StartGame(auth()->user(), $this->session_id));
         } else {
             $this->addError('character-error', 'Not Enough Characters!');
         }
@@ -39,7 +39,7 @@ class CharacterSelect extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function userJoiningCharacterLobby() {
-        broadcast(new syncCharacterSelection($this->session_id, [
+        broadcast(new SyncCharacterSelection($this->session_id, [
             'game'  => $this->game,
         ]))->toOthers();
     }
