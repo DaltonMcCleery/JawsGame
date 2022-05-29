@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class newGameState implements ShouldBroadcast
+class NewGameState implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

@@ -35,10 +35,10 @@
 @push('scripts')
     <script>
         Echo.join('game.{{ $game->session_id }}')
-            .listen('Game.newGameState', (data) => {
+            .listen('Game.NewGameState', (data) => {
                 Livewire.emit('resetGameState', data.gameState);
             })
-            .listen('Game.newGameCards', (data) => {
+            .listen('Game.NewGameCards', (data) => {
                 Livewire.emit('resetGameCards', data);
             })
     </script>

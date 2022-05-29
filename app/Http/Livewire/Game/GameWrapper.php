@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Game;
 
-use App\Events\Game\newGameCards;
-use App\Events\Game\newGameState;
+use App\Events\Game\NewGameCards;
+use App\Events\Game\NewGameState;
 use App\Models\Card;
 use App\Models\Game;
 use App\Traits\ActOneActions;
@@ -99,12 +99,12 @@ class GameWrapper extends Component
             $this->emit('refreshActTwoState', $this->gameState);
         }
 
-        broadcast(new newGameState($this->game->session_id, $this->gameState));
+        broadcast(new NewGameState($this->game->session_id, $this->gameState));
 
         $this->game->update(['state' => $this->gameState]);
 
         if ($play_card && $card) {
-            broadcast(new newGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
+            broadcast(new NewGameCards($this->game->session_id, $card, $this->cards, $this->usedCards));
         }
     }
 

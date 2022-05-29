@@ -56,7 +56,7 @@
             })
             .listen('Characters.SyncCharacterSelection', (data) => {
                 console.log('lobby.{{ $session_id }}');
-                console.log(user);
+                console.log(data);
                 Livewire.emit('syncSelectedCharacters', data.game);
             })
             .listen('Lobby.StartGame', (data) => {
