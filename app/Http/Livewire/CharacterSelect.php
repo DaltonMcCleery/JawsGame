@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Events\Lobby\startGame;
+use App\Events\Lobby\StartGame;
 use App\Models\Game;
 use Livewire\Component;
 use App\Events\Characters\SyncCharacterSelection;

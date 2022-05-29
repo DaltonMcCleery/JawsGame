@@ -12,7 +12,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'f65d212959ca6e55ed1f',
     cluster: 'us2',
-    // wsHost: window.location.hostname,
+    wsHost: window.location.hostname,
     // wsPort: 6001,
     // wssPort: 6001,
     forceTLS: true
