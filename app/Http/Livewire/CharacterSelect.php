@@ -44,9 +44,7 @@ class CharacterSelect extends Component
     // -------------------------------------------------------------------------------------------------------------- //
 
     public function userJoiningCharacterLobby() {
-        broadcast(new SyncCharacterSelection($this->session_id, [
-            'game'  => $this->game,
-        ]))->toOthers();
+        broadcast(new SyncCharacterSelection($this->session_id, $this->game))->toOthers();
     }
 
     public function userLeavingCharacterLobby($user) {

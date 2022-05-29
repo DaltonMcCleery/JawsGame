@@ -45,11 +45,9 @@
     <script>
         Echo.join('lobby.{{ $session_id }}')
             .listen('Characters.SyncCharacterSelection', (data) => {
-                console.log(data);
                 Livewire.emit('syncSelectedCharacters', data.game);
             })
             .listen('Lobby.StartGame', (data) => {
-                console.log('starting... {{ $session_id }}');
                 // Redirect the User to the Game's page
                 window.location.href = '/play/game/{{ $session_id }}';
             });
