@@ -45,15 +45,22 @@
     <script>
         Echo.join('lobby.{{ $session_id }}')
             .joining((user) => {
+                console.log('lobby.{{ $session_id }}');
+                console.log(user);
                 Livewire.emit('userJoiningCharacterLobby', user);
             })
             .leaving((user) => {
+                console.log('lobby.{{ $session_id }}');
+                console.log(user);
                 Livewire.emit('userLeavingCharacterLobby', user);
             })
-            .listen('Characters.syncCharacterSelection', (data) => {
+            .listen('Characters.SyncCharacterSelection', (data) => {
+                console.log('lobby.{{ $session_id }}');
+                console.log(user);
                 Livewire.emit('syncSelectedCharacters', data.game);
             })
-            .listen('Lobby.startGame', (data) => {
+            .listen('Lobby.StartGame', (data) => {
+                console.log('starting... {{ $session_id }}');
                 // Redirect the User to the Game's page
                 window.location.href = '/play/game/{{ $session_id }}';
             });
