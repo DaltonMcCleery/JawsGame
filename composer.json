@@ -53,6 +53,7 @@
             "@php artisan package:discover --ansi",
             "@php artisan down",
             "@php artisan migrate --force",
+            "@php artisan db:seed",
             "@php artisan optimize:clear",
             "npm install",
             "npm run prod",
