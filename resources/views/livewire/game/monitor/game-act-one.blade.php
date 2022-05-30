@@ -8,7 +8,7 @@
             <x-image-map :gameState="$gameState" screen="monitor"/>
 
             @if($showReplay)
-                <h3 class="text-custom-red absolute top-[85px] right=[60px] animate-pulse">REPLAY</h3>
+                <h3 class="text-custom-red absolute top-[85px] right-[60px] animate-pulse">REPLAY</h3>
             @endif
         </div>
     </div>

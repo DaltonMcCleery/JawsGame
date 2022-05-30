@@ -151,7 +151,7 @@ trait ActOneCards {
                 }
                 else {
                     // Random
-                    $dock = (collect(['Space_5', 'Space_8']))->random(1);
+                    $dock = (collect(['Space_5', 'Space_8']))->random(1)?->first();
                     $possibleChanges['hooper_position'] = $dock;
                     $possibleChanges['brody_position'] = $dock;
                 }
