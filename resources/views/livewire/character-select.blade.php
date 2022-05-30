@@ -10,9 +10,13 @@
                      class="w-full h-full object-center object-cover group-hover:grayscale-0 @if($game->monitor) grayscale-0 @else grayscale @endif">
                 @if($game->monitor)
                     <p class="absolute -rotate-6 top-0 left-0 w-full h-full flex justify-center items-center font-bold text-white text-2xl font-demi-italic">
-                        SELECTED
+                        SELECTED<br/>
+                        {{ $game->monitor()->first()->username }}
                     </p>
                 @endif
+                <p class="absolute bottom-0 w-full ont-bold text-white font-demi-italic text-center">
+                    Monitor
+                </p>
             </div>
         </a>
 
@@ -23,9 +27,13 @@
                      class="w-full h-full object-center object-cover group-hover:grayscale-0 @if($game->player) grayscale-0 @else grayscale @endif">
                 @if($game->player)
                     <p class="absolute -rotate-6 top-0 left-0 w-full h-full flex justify-center items-center font-bold text-white text-2xl font-demi-italic">
-                        SELECTED
+                        SELECTED<br/>
+                        {{ $game->player()->first()->username }}
                     </p>
                 @endif
+                <p class="absolute bottom-0 w-full font-bold text-white font-demi-italic text-center">
+                    Player
+                </p>
             </div>
         </a>
     </div>
