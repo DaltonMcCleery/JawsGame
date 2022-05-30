@@ -6,6 +6,10 @@
             @include('includes.act_1.pieces', ['gameState' => $gameState])
 
             <x-image-map :gameState="$gameState" screen="monitor"/>
+
+            @if($showReplay)
+                <h3 class="text-custom-red absolute top-[85px] right=[60px] animate-pulse">REPLAY</h3>
+            @endif
         </div>
     </div>
 
@@ -57,6 +61,8 @@
                 </p>
             </div>
         @endif
+
+        <button wire:click="watchReplay()">Replay</button>
     </div>
 
     <x-audio :gameState="$gameState" />
