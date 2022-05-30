@@ -51,8 +51,9 @@ class GameActOne extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function setActiveCharacter($character, $moveDescription = null) {
-        $this->emitTo(GameWrapper::class, 'setGameState', [
+    public function setActiveCharacter($character, $moveDescription = null, $replay = false): array
+    {
+        $newState = [
             'active_character' => $character,
             ($character.'_last_position') => $this->gameState[$character.'_position'],
             'current_description' => $moveDescription ?? (ucfirst($character).'\'s Turn In progress...'),
@@ -60,42 +61,58 @@ class GameActOne extends Component
             'current_selected_action' => null,
             'refreshActionState' => false,
             'show_shark' => $character === 'shark'
-                ? false
+                ? ($replay ?? false)
                 : ($this->gameState['show_shark'] ?? false),
-        ]);
+        ];
+
+        if (! $replay) {
+            $this->emitTo(GameWrapper::class, 'setGameState', $newState);
+        }
+
+        return $newState;
     }
 
-    public function setActionState($action, $space, $replay = false) {
+    public function setActionState($action, $space, $replay = false): array
+    {
         $this->currentActionState[] = $action.' ('.$space.')';
 
         $actions = ['action_history' => [$this->gameState['active_character'] => [$action.' ('.$space.')']]];
         if (\str_contains($action, 'Move') || \str_contains($action, 'Speed Burst')) {
-            $this->emitTo(GameWrapper::class, 'setGameState', [
+            $moveActions = [
                 $this->gameState['active_character'].'_position' => $space,
                 $this->gameState['active_character'].'_last_position' => $this->gameState[$this->gameState['active_character'].'_position']
-            ]);
+            ];
+
+            if ($replay) {
+                return $moveActions;
+            } else {
+                $this->emitTo(GameWrapper::class, 'setGameState', [
+                    $this->gameState['active_character'] . '_position'      => $space,
+                    $this->gameState['active_character'] . '_last_position' => $this->gameState[$this->gameState['active_character'] . '_position']
+                ]);
+            }
         }
-        elseif (\str_contains($action, 'Use') || \str_contains($action, 'Launch a Barrel')) {
+        elseif (! $replay && (\str_contains($action, 'Use') || \str_contains($action, 'Launch a Barrel'))) {
             // Take action immediately
             $this->emitTo(GameWrapper::class, 'setGameState', $actions);
         }
-        else {
+        elseif (! $replay) {
             // Commit directly to local game state
             $actions = $this->parseActions($this->gameState['active_character'], $actions['action_history'], $this->localGameState);
             foreach($actions as $key => $action) {
                 // Modify the Game State based on parsed actions
                 $this->localGameState[$key] = $action;
             }
-
-            if ($replay) {
-                $this->emitTo(GameWrapper::class, 'setGameState', $actions);
-            }
         }
+
+        return $actions;
     }
 
     public function switchNextAction($action) {
-        $this->gameState['current_selected_action'] = $action;
-        $this->localGameState['current_selected_action'] = $action;
+        $this->emitTo(GameWrapper::class, 'setGameState', [
+            'current_selected_action' => $action,
+            'refreshActionState' => false,
+        ]);
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
@@ -195,7 +212,7 @@ class GameActOne extends Component
         }
     }
 
-    public function confirmTurn($replay = false) {
+    public function confirmTurn() {
         $next_phase = '...';
         $phase_description = 'Waiting on next Phase';
 
@@ -220,7 +237,7 @@ class GameActOne extends Component
         elseif (count($this->currentActionState) > 0 || $force == true) {
             $video = null;
 
-            if ($this->gameState['active_character'] === 'shark' && ! $replay) {
+            if ($this->gameState['active_character'] === 'shark') {
                 $video = collect([
                     'attack_1',
                     'attack_2',
