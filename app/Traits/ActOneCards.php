@@ -2,10 +2,8 @@
 
 namespace App\Traits;
 
-use App\Models\Card;
-
-trait ActOneCards {
-
+trait ActOneCards
+{
     public function parseEventCard($card, $gameState) {
         if ($card['type'] === 'Event') {
             $swimmer_placements = $this->calculateSwimmerPlacement($card, $gameState);

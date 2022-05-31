@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-trait ActOneActions {
-
+trait ActOneActions
+{
     /**
      * @param $character
      * @param $actions

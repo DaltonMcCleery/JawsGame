@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-trait ActOneRules {
-
+trait ActOneRules
+{
     /**
      * Determine if a move was valid based on Character rules + Game's State at time of Action
      *
