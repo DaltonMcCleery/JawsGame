@@ -28,11 +28,12 @@ class GameActOne extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function loadStartingActOneState() {
-        if ($this->game?->state && $this->game?->state['current_selected_action'] !== 'Starting Position') {
+    public function loadStartingActOneState($replay = false): array
+    {
+        if (! $replay && $this->game?->state && $this->game?->state['current_selected_action'] !== 'Starting Position') {
             $this->emitTo(GameWrapper::class, 'setGameState', array_merge($this->game->state, ['refreshActionState' => true]));
         } else {
-            $this->emitTo(GameWrapper::class, 'setGameState', [
+            $startingState = [
                 // Crew Starting Positions & Equipped Barrels
                 'quint_barrels'           => 2,
                 'quint_moves'             => 4,
@@ -74,7 +75,7 @@ class GameActOne extends Component
                 'shark_hidden'            => false,
                 'binoculars'              => null,
                 'fish_finder'             => null,
-                'show_shark'              => false,
+                'show_shark'              => $replay,
                 'shark_nearby'            => [],
                 'used_feeding_frenzy'     => false,
                 'used_out_of_sight'       => false,
@@ -83,11 +84,20 @@ class GameActOne extends Component
                 // Enhancements
                 'audio'                   => null,
                 'video'                   => null,
-            ]);
+            ];
+
+            if (! $replay) {
+                $this->emitTo(GameWrapper::class, 'setGameState', $startingState);
+            }
+
+            return $startingState;
         }
+
+        return [];
     }
 
-    public function refreshActOneState($newState) {
+    public function refreshActOneState($newState, $replayEvent = null): void
+    {
         $this->gameState = $newState;
         $this->localGameState = $newState;
 
@@ -96,7 +106,8 @@ class GameActOne extends Component
         }
 
         if (
-            $this->gameState['act_1_over'] === false
+            ! $this->showReplay
+            && $this->gameState['act_1_over'] === false
             && $this->gameState['shark_moves'] === 0
             && $this->gameState['brody_moves'] === 0
             && $this->gameState['hooper_moves'] === 0
@@ -111,11 +122,16 @@ class GameActOne extends Component
                 'play_event_card' => 'Event'
             ]);
         }
+
+        if ($replayEvent) {
+            $this->emit($replayEvent);
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function playEventCard($card) {
+    public function playEventCard($card, $replay = false): array
+    {
         $data = $this->parseEventCard($card, $this->gameState);
 
         if (! $data) {
@@ -182,47 +198,20 @@ class GameActOne extends Component
                 'current_phase' => 'Shark',
                 'current_selected_action' => null,
                 // Custom Audio sample
-                'audio' => $this->randomAudio(),
+                'audio' => ! $replay ? $this->randomAudio() : null,
                 'video' => isset($data['michael_position']) ? 'michael' : null,
             ]);
 
             $this->localGameState = array_merge($this->localGameState, $newGameState);
-            $this->emitTo(GameWrapper::class, 'setGameState', $newGameState);
-        }
-    }
 
-    public function watchReplay() {
-        $this->showReplay = true;
-        $history = $this->gameState['action_history'];
-        $this->loadStartingActOneState();
-
-        $playerClass = new \App\Http\Livewire\Game\Player\GameActOne();
-
-        // Loop through history and play it out
-        foreach ($history as $index => $character_history) {
-            if ($index > 0) {
-                sleep(2);
+            if (! $replay) {
+                $this->emitTo(GameWrapper::class, 'setGameState', $newGameState);
             }
 
-            $playerClass->mount($this->game, $this->gameState);
-
-            $key = array_key_first($character_history);
-
-            if ($key === 'Card') {
-                $this->playEventCard($character_history[$key]);
-            } else {
-                $playerClass->setActiveCharacter($key);
-
-                foreach ($character_history[$key] as $action) {
-                    sleep(2);
-                    $space = $this->getSpace($action);
-                    $action = $this->getAction($action);
-                    $playerClass->setActionState($action, $space);
-                }
-
-                $playerClass->confirmTurn(replay: true);
-            }
+            return $newGameState;
         }
+
+        return [];
     }
 
     public function randomAudio(): string
