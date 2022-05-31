@@ -5,21 +5,28 @@ namespace App\Http\Livewire\Game\Monitor;
 use App\Http\Livewire\Game\GameWrapper;
 use App\Models\Game;
 use App\Traits\ActOneActions;
+use App\Traits\ActOneReplay;
 use Livewire\Component;
 use App\Traits\ActOneRules;
 use App\Traits\ActOneCards;
 
 class GameActOne extends Component
 {
-    use ActOneRules, ActOneCards, ActOneActions;
+    use ActOneRules, ActOneCards, ActOneActions, ActOneReplay;
 
     public Game $game;
     public array $gameState;
     public array $localGameState = [];
 
-    public bool $showReplay = false;
-
-    protected $listeners = ['refreshActOneState', 'playEventCard', 'watchReplay', 'onVideoEnd'];
+    protected $listeners = [
+        'refreshActOneState',
+        'playEventCard',
+        'watchReplay',
+        'onVideoEnd',
+        'nextReplayAction',
+        'nextCharacterAction',
+        'confirmReplayTurn',
+    ];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
@@ -124,6 +131,7 @@ class GameActOne extends Component
         }
 
         if ($replayEvent) {
+            sleep(2);
             $this->emit($replayEvent);
         }
     }
