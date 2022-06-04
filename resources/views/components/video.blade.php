@@ -10,14 +10,14 @@
 
         <script>
             setTimeout(function () {
-                let player = videojs('video', {
-                    muted: false
-                });
+                let player = videojs('video', {}, function onPlayerReady() {
+                    // In this context, `this` is the player that was created by Video.js.
+                    this.play();
 
-                player.play();
-
-                player.on('ended', function() {
-                    window.livewire.emit('onVideoEnd');
+                    // How about an event listener?
+                    this.on('ended', function() {
+                        window.livewire.emit('onVideoEnd');
+                    });
                 });
             }, 1000);
         </script>

@@ -61,8 +61,6 @@
                 </p>
             </div>
         @endif
-
-        <button wire:click="watchReplay()">Replay</button>
     </div>
 
     <x-audio :gameState="$gameState" />
