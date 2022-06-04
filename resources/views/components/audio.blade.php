@@ -4,8 +4,10 @@
             const gameAudio = new Audio('{{ asset('audio/shark.mp3') }}');
             setTimeout(function () {
                 gameAudio.volume = 0.2;
-                gameAudio.loop = true;
-                gameAudio.play();
+                @if(isset($gameState['act_1_over']) && $gameState['act_1_over'] === false)
+                    gameAudio.loop = true;
+                    gameAudio.play();
+                @endif
             }, 5000);
         </script>
     @endonce
@@ -19,7 +21,7 @@
 
 @if(isset($gameState['act_1_over']) && $gameState['act_1_over'] === true)
     <script>
-        if (gameAudio) {
+        if (typeof gameAudio !== 'undefined') {
             gameAudio.loop = false;
             gameAudio.pause();
         }
