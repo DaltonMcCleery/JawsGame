@@ -63,8 +63,10 @@
         @endif
     </div>
 
-    <x-audio :gameState="$gameState" />
-    <x-video :gameState="$gameState" />
+    @if(! $showReplay)
+        <x-audio :gameState="$gameState" />
+        <x-video :gameState="$gameState" />
+    @endif
 </div>
 
 @push('styles')
