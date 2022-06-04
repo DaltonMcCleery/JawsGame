@@ -24,7 +24,8 @@ class GameWrapper extends Component
     protected $listeners = [
         'setGameState',
         'resetGameState',
-        'resetGameCards'
+        'resetGameCards',
+        'checkForPlayerStart',
     ];
 
     /**
@@ -150,5 +151,13 @@ class GameWrapper extends Component
         $this->usedCards[$type][] = $card;
 
         return $card;
+    }
+
+    public function checkForPlayerStart(): void
+    {
+        if ($this->game->state) {
+            $this->gameState = $this->game->state;
+            $this->emit('refreshActOneState', $this->gameState);
+        }
     }
 }

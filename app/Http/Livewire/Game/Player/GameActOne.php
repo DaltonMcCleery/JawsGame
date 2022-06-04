@@ -23,7 +23,7 @@ class GameActOne extends Component
      */
     public array $currentActionState = [];
 
-    protected $listeners = ['refreshActOneState'];
+    protected $listeners = ['refreshActOneState', 'checkForPlayerStart'];
 
     public function mount(Game $game, array $gameState) {
         $this->game = $game;
@@ -48,6 +48,11 @@ class GameActOne extends Component
                 $this->currentActionState = $lastActions[array_keys($lastActions)[0]] ?? [];
             }
         }
+    }
+
+    public function checkForPlayerStart(): void
+    {
+        $this->emitTo(GameWrapper::class, 'checkForPlayerStart');
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
