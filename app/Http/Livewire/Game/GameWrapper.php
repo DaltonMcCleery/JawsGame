@@ -47,6 +47,7 @@ class GameWrapper extends Component
         $play_card = null;
         $card = null;
         $previous_character = null;
+        $previous_state = $this->gameState;
 
         if (\key_exists('action_history', $newState) && isset($this->gameState['active_character'])) {
             $previous_character = $this->gameState['active_character'];
@@ -91,6 +92,9 @@ class GameWrapper extends Component
                 elseif ($this->gameState['swimmers_eaten'] >= 9) {
                     $this->gameState['video'] = 'shark-win';
                 }
+            }
+            elseif ($this->gameState['shark_barrels'] === 1 && $previous_state['shark_barrels'] === 0) {
+                $this->gameState['video'] = 'barrel-1';
             }
 
             $this->emit('refreshActOneState', $this->gameState);
