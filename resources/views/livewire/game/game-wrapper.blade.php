@@ -41,5 +41,8 @@
             .listen('Game.NewGameCards', (data) => {
                 Livewire.emit('resetGameCards', data);
             })
+            .listen('Game.WatchReplay', (data) => {
+                Livewire.emit('watchReplay', data);
+            });
     </script>
 @endpush

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Game\Player;
 
+use App\Events\Game\WatchReplay;
 use App\Http\Livewire\Game\GameWrapper;
 use App\Models\Game;
 use App\Traits\ActOneActions;
@@ -290,6 +291,6 @@ class GameActOne extends Component
 
     public function watchReplay(): void
     {
-        $this->emitTo(\App\Http\Livewire\Game\Monitor\GameActOne::class, 'watchReplay');
+        broadcast(new WatchReplay($this->game->session_id))->toOthers();
     }
 }
