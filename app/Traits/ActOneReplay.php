@@ -29,7 +29,6 @@ trait ActOneReplay
     protected function updateReplayState($newState, $replayEvent): void
     {
         $parsedReplayState = $this->gameState;
-        $parsedReplayState['show_shark'] = true;
         $previous_character = null;
 
         if (\key_exists('action_history', $newState) && isset($this->gameState['active_character'])) {
@@ -51,6 +50,7 @@ trait ActOneReplay
         }
 
         // Simulate the GameWrapper event "refresh" event
+        $parsedReplayState['show_shark'] = true;
         $this->emitSelf('refreshActOneState', $parsedReplayState, $replayEvent);
     }
 
