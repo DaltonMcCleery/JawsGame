@@ -51,6 +51,8 @@ trait ActOneReplay
 
         // Simulate the GameWrapper event "refresh" event
         $parsedReplayState['show_shark'] = true;
+        $parsedReplayState['video'] = null;
+        $parsedReplayState['audio'] = null;
         $this->emitSelf('refreshActOneState', $parsedReplayState, $replayEvent);
     }
 
@@ -110,6 +112,9 @@ trait ActOneReplay
         $this->updateReplayState([
             'active_character' => null,
             'active_player' => 'N/A',
+            'show_shark' => true,
+            'video' => null,
+            'audio' => null,
             $this->replayCharacter.'_moves' => 0,
         ], 'nextReplayAction');
     }

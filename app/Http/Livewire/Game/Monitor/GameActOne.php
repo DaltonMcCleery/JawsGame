@@ -35,7 +35,7 @@ class GameActOne extends Component
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    public function loadStartingActOneState($replay = false): array
+    public function loadStartingActOneState(bool $replay = false): array
     {
         if (! $replay && $this->game?->state && $this->game?->state['current_selected_action'] !== 'Starting Position') {
             $this->emitTo(GameWrapper::class, 'setGameState', array_merge($this->game->state, ['refreshActionState' => true]));
@@ -82,7 +82,7 @@ class GameActOne extends Component
                 'shark_hidden'            => false,
                 'binoculars'              => null,
                 'fish_finder'             => null,
-                'show_shark'              => $replay,
+                'show_shark'              => (bool) $replay,
                 'shark_nearby'            => [],
                 'used_feeding_frenzy'     => false,
                 'used_out_of_sight'       => false,
