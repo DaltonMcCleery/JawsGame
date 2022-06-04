@@ -61,6 +61,14 @@
                 </p>
             </div>
         @endif
+
+        @if ($showReplay && $actionReplay)
+            <br/>
+            <hr class="mb-6"/>
+            <h3 class="text-center text-lg">
+                {{ $actionReplay }}
+            </h3>
+        @endif
     </div>
 
     @if(! $showReplay)
