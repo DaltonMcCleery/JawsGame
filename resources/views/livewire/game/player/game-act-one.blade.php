@@ -1,4 +1,4 @@
-<div class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12">
+<div id="game-player" class="{{ app()->environment() !== 'local' ? 'flex-1' : '' }} grid grid-cols-12" data-ready="{{ isset($gameState['active_character']) ? 'yes' : 'no' }}">
     @if (isset($gameState['act_1_over']) && $gameState['act_1_over'] === true)
         <x-game-over :gameState="$gameState"/>
     @elseif (isset($gameState['active_character']) && $gameState['active_character'] !== null)
@@ -51,3 +51,22 @@
         <x-turn-selector :gameState="$gameState"/>
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        function checkIfReady() {
+            Livewire.emit('checkForPlayerStart');
+            if (document.getElementById('game-player').dataset.ready === 'no') {
+                loopCheck();
+            }
+        }
+
+        function loopCheck() {
+            setTimeout(function () {
+                checkIfReady();
+            }, 2000);
+        }
+
+        loopCheck();
+    </script>
+@endpush
