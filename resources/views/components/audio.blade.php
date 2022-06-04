@@ -4,7 +4,7 @@
             const gameAudio = new Audio('{{ asset('audio/shark.mp3') }}');
             setTimeout(function () {
                 gameAudio.volume = 0.2;
-                gameAudio.loop = {{ $gameState['act_1_over'] ? 'false' : 'true' }};
+                gameAudio.loop = true;
                 gameAudio.play();
             }, 5000);
         </script>
