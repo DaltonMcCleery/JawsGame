@@ -1,12 +1,12 @@
 <article id="chat-window" class="p-4">
-    <div id="lobbyChat" class="overflow-y-auto scrolling-height">
-        @foreach($lobbyMessages as $message)
-            <p class="mb-3">
-                <strong>{{ $message['username'] }}</strong><br/>
-                {{ $message['message'] }}
-            </p>
-        @endforeach
-    </div>
+{{--    <div id="lobbyChat" class="overflow-y-auto scrolling-height">--}}
+{{--        @foreach($lobbyMessages as $message)--}}
+{{--            <p class="mb-3">--}}
+{{--                <strong>{{ $message['username'] }}</strong><br/>--}}
+{{--                {{ $message['message'] }}--}}
+{{--            </p>--}}
+{{--        @endforeach--}}
+{{--    </div>--}}
 
     @if ($isUsernameSet)
         <div class="min-w-0 flex-1">
@@ -19,7 +19,6 @@
 
                     <!-- Spacer element to match the height of the toolbar -->
                     <div class="py-2" aria-hidden="true">
-                        <!-- Matches height of button in toolbar (1px border + 36px content height) -->
                         <div class="py-px">
                             <div class="h-9"></div>
                         </div>
@@ -66,15 +65,13 @@
                 (messages[messages.length - 1]).scrollIntoView()
             }
         })
-        Echo.join('lobby.{{ $session_id }}')
-            .joining((user) => {
-                Livewire.emit('userJoiningChatLobby', user);
-            })
-            .listen('Chat.LobbyChat', (data) => {
-                Livewire.emit('newLobbyMessage', data);
-            })
-            .listen('Chat.SyncLobbyChat', (data) => {
-                Livewire.emit('syncChatMessages', data.messages);
-            })
+
+        {{--Echo.join('lobby.{{ $session_id }}')--}}
+        {{--    .listen('Chat.LobbyChat', (data) => {--}}
+        {{--        Livewire.emit('newLobbyMessage', data);--}}
+        {{--    })--}}
+            // .listen('Chat.SyncLobbyChat', (data) => {
+            //     Livewire.emit('syncChatMessages', data.messages);
+            // })
     </script>
 @endpush

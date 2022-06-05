@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\LoginController;
 Route::redirect('/home', '/', 301);
 Route::view('/', 'index')->name('home');
 Route::view('/how-to-play', 'how_to')->name('how_to_play');
+Route::view('/chat/{session_id}', 'chat')->name('chat');
 
 // --- Authenticated Customer --- //
 Route::middleware('players')->group(function () {

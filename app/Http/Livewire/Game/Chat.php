@@ -18,7 +18,6 @@ class Chat extends Component
     public array $lobbyMessages = [];
 
     protected $listeners = [
-        'userJoiningChatLobby',
         'newLobbyMessage',
         'syncChatMessages'
     ];
@@ -27,10 +26,6 @@ class Chat extends Component
         $this->session_id = Game::where('session_id', Str::after(request()->path(), 'chat/'))->firstOrFail()->session_id;
         $this->username = session('chatUsername');
         $this->isUsernameSet = isset($this->username);
-    }
-
-    public function userJoiningChatLobby($user) {
-        broadcast(new SyncLobbyChat($this->session_id, $this->lobbyMessages))->toOthers();
     }
 
     public function setUsername(): void
@@ -44,7 +39,7 @@ class Chat extends Component
     public function chat() {
         if ($this->message !== null && $this->message !== '') {
             // Send message via broadcast
-            broadcast(new LobbyChat($this->session_id, $this->username, $this->message));
+            broadcast(new LobbyChat($this->session_id, $this->username, $this->message))->toOthers();
         }
 
         $this->reset(['message']);
