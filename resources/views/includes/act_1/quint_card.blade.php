@@ -7,7 +7,7 @@
 
     <hr/>
 
-    <div class="grid grid-cols-1 gap-4 py-4">
+    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto scrolling-height">
         @if(isset($gameState['captain_down']) && isset($gameState['in_water']) && $gameState['captain_down'] === 1 && in_array('quint', $gameState['in_water']))
             <a class="relative cursor-pointer rounded-lg border-2 bg-white px-6 py-5 shadow-sm flex flex-col items-center
                {{ $gameState['current_selected_action'] === ($action ?? '') ? 'border-custom-red' : 'border-transparent' }}"

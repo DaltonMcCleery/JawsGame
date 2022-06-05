@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="col-span-2 p-4 bg-gray-700 min-h-full">
+        <div class="col-span-2 p-4 pb-0 bg-gray-700 min-h-full">
             <h2 class="text-center mb-4">
                 {{ ucwords($gameState['active_character'] ?? 'N/A') }}
             </h2>

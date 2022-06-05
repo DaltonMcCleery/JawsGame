@@ -7,7 +7,7 @@
 
     <hr/>
 
-    <div class="grid grid-cols-1 gap-4 py-4">
+    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto scrolling-height">
         @if(isset($gameState['brody_relocation']) && $gameState['brody_relocation'] === 1)
             <x-action action="Move Relocation" :currentAction="$gameState['current_selected_action']">
                 <p class="font-bold text-gray-900 text-center">

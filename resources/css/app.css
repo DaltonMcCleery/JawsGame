@@ -32,6 +32,10 @@
 }
 
 @layer utilities {
+    .scrolling-height {
+        max-height: calc(100vh - 8rem);
+    }
+
     /* Michael */
     #michael-swimmer.North_Beach {
         @apply bottom-[70%] left-[26%]

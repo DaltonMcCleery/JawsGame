@@ -5,7 +5,7 @@
 
     <hr/>
 
-    <div class="grid grid-cols-1 gap-4 py-4">
+    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto scrolling-height">
         @if ($gameState['current_selected_action'] == 'Starting Position')
             <x-action action="Starting Position" :currentAction="$gameState['current_selected_action']">
                 <p class="font-bold text-gray-900 text-center">
