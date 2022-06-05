@@ -14,7 +14,7 @@
                 <div class="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
                     <label for="comment" class="sr-only">Add your comment</label>
                     <textarea rows="3" name="comment" id="comment" class="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
-                              placeholder="Add your comment..."
+                              placeholder="Add your comment..." autofocus
                               wire:model="message" wire:keydown.enter="chat"></textarea>
 
                     <!-- Spacer element to match the height of the toolbar -->
@@ -43,7 +43,8 @@
                 <form class="mt-5 sm:flex sm:items-center" wire:submit.prevent="setUsername">
                     <div class="w-full sm:max-w-xs">
                         <label for="username" class="sr-only">Username</label>
-                        <input type="text" name="username" id="username" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" wire:model="username">
+                        <input type="text" name="username" id="username" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                               wire:model="username" autofocus>
                     </div>
                     <button type="submit" class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                             wire:click="setUsername()">
