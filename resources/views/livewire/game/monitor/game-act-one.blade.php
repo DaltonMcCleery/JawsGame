@@ -74,16 +74,15 @@
             <h3 class="text-center text-lg">
                 The Townsfolk Chat
             </h3>
-            @forelse($chatMessages as $message)
-                <p class="mb-2 text-xs">
-                    <strong>{{ $message['username'] }}</strong><br/>
-                    {{ $message['message'] }}
+            <p class="text-center text-sm mb-3">
+                https://jaws.daltonmccleery.com<br/>/chat/{{ $game->session_id }}
+            </p>
+            @foreach($chatMessages as $message)
+                <p class="mb-2">
+                    <strong class="block text-sm -mb-2">{{ $message['username'] }}</strong>
+                    <span class="text-xs">{{ $message['message'] }}</span>
                 </p>
-            @empty
-                <p class="text-center">
-                    Enter the Chat here: <small>https://jaws.daltonmccleery.com<br/>/chat/{{ $game->session_id }}</small>
-                </p>
-            @endforelse
+            @endforeach
         @endif
     </div>
 
