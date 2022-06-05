@@ -18,6 +18,8 @@ class GameActOne extends Component
     public array $gameState;
     public array $localGameState = [];
 
+    public array $chatMessages = [];
+
     protected $listeners = [
         'refreshActOneState',
         'playEventCard',
@@ -26,6 +28,7 @@ class GameActOne extends Component
         'nextReplayAction',
         'nextCharacterAction',
         'confirmReplayTurn',
+        'newLobbyMessage',
     ];
 
     public function mount(Game $game, array $gameState) {
@@ -238,5 +241,15 @@ class GameActOne extends Component
         $this->emitTo(GameWrapper::class, 'setGameState', [
             'video' => null,
         ]);
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    public function newLobbyMessage($message) {
+        $this->chatMessages[] = $message;
+
+        if (count($this->chatMessages) > 3) {
+            array_shift($this->chatMessages);
+        }
     }
 }

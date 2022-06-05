@@ -68,6 +68,22 @@
             <h3 class="text-center text-lg">
                 {{ $actionReplay }}
             </h3>
+        @else
+            <br/>
+            <hr class="mb-6"/>
+            <h3 class="text-center text-lg">
+                The Townsfolk Chat
+            </h3>
+            @forelse($chatMessages as $message)
+                <p class="mb-2 text-xs">
+                    <strong>{{ $message['username'] }}</strong><br/>
+                    {{ $message['message'] }}
+                </p>
+            @empty
+                <p class="text-center">
+                    Enter the Chat here: <small>https://jaws.daltonmccleery.com<br/>/chat/{{ $game->session_id }}</small>
+                </p>
+            @endforelse
         @endif
     </div>
 
@@ -84,5 +100,12 @@
     <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
     <script>
         videojs.options.autoplay = true
+    </script>
+
+    <script>
+        Echo.join('lobby.{{ $game->session_id }}')
+            .listen('Chat.LobbyChat', (data) => {
+                Livewire.emit('newLobbyMessage', data);
+            })
     </script>
 @endpush
