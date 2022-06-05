@@ -116,22 +116,29 @@ trait ActOneActions
                 // Reverse changes for continued actions
                 $gameState[$location.'_Swimmers'] = 0;
                 $gameState['swimmers_eaten'] = $state_changes['swimmers_eaten'];
+                $state_changes['used_feeding_frenzy'] = true;
             }
 
             if (\str_contains($action, 'Evasive Moves')) {
                 $state_changes['ignore_motion_sensors'] = true;
                 $gameState['ignore_motion_sensors'] = $state_changes['ignore_motion_sensors'];
+                $state_changes['used_evasive_moves'] = true;
             }
 
             if (\str_contains($action, 'Out of Sight')) {
                 $state_changes['shark_hidden'] = true;
+                $state_changes['used_out_of_sight'] = true;
+            }
+
+            if (\str_contains($action, 'Speed Burst')) {
+                $state_changes['used_speed_burst'] = true;
             }
 
             // Crew Abilities
             if (\str_contains($action, 'Use Binoculars')) {
                 $state_changes['binoculars'] = $location;
 
-                if (!$gameState['shark_hidden']) {
+                if (! $gameState['shark_hidden']) {
                     if ($gameState['shark_position'] === $location) {
                         $state_changes['show_shark'] = true;
                     }
