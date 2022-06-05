@@ -5,7 +5,7 @@
 
     <hr/>
 
-    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto scrolling-height">
+    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto overflow-x-hidden scrolling-height">
         @if ($gameState['current_selected_action'] == 'Starting Position')
             <x-action action="Starting Position" :currentAction="$gameState['current_selected_action']">
                 <p class="font-bold text-gray-900 text-center">
@@ -27,49 +27,41 @@
 
             <hr/>
 
-            @if(! $gameState['used_feeding_frenzy'] ?? true)
-                <x-action action="Ability Feeding Frenzy" :currentAction="$gameState['current_selected_action']">
-                    <p class="font-bold text-gray-900 text-center">
-                        Feeding Frenzy
-                    </p>
-                    <p class="text-sm text-gray-500 break-words text-center">
-                        Eat All Swimmers at one Beach
-                    </p>
-                </x-action>
-            @endif
+            <x-action :action="(! $gameState['used_feeding_frenzy'] ?? true) ? 'Ability Feeding Frenzy' : false" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900 text-center">
+                    Feeding Frenzy
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Eat All Swimmers at one Beach
+                </p>
+            </x-action>
 
-            @if(! $gameState['used_evasive_moves'] ?? true)
-                <x-action action="Ability Evasive Moves" :currentAction="$gameState['current_selected_action']">
-                    <p class="font-bold text-gray-900 text-center">
-                        Evasive Moves
-                    </p>
-                    <p class="text-sm text-gray-500 break-words text-center">
-                        Does not trigger any Motion Sensors this round
-                    </p>
-                </x-action>
-            @endif
+            <x-action :action="(! $gameState['used_evasive_moves'] ?? true) ? 'Ability Evasive Moves' : false" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900 text-center">
+                    Evasive Moves
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Does not trigger any Motion Sensors this round
+                </p>
+            </x-action>
 
-            @if(! $gameState['used_out_of_sight'] ?? true)
-                <x-action action="Ability Out of Sight" :currentAction="$gameState['current_selected_action']">
-                    <p class="font-bold text-gray-900 text-center">
-                        Out of Sight
-                    </p>
-                    <p class="text-sm text-gray-500 break-words text-center">
-                        Undetectable from Binoculars and Fish Finder
-                    </p>
-                </x-action>
-            @endif
+            <x-action :action="(! $gameState['used_out_of_sight'] ?? true) ? 'Ability Out of Sight' : false" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900 text-center">
+                    Out of Sight
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Undetectable from Binoculars and Fish Finder
+                </p>
+            </x-action>
 
-            @if(! $gameState['used_speed_burst'] ?? true)
-                <x-action action="Ability Speed Burst" :currentAction="$gameState['current_selected_action']">
-                    <p class="font-bold text-gray-900 text-center">
-                        Speed Burst
-                    </p>
-                    <p class="text-sm text-gray-500 break-words text-center">
-                        Move up to 3 Spaces in 1 Action
-                    </p>
-                </x-action>
-            @endif
+            <x-action :action="(! $gameState['used_speed_burst'] ?? true) ? 'Ability Speed Burst' : false" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900 text-center">
+                    Speed Burst
+                </p>
+                <p class="text-sm text-gray-500 break-words text-center">
+                    Move up to 3 Spaces in 1 Action
+                </p>
+            </x-action>
         @endif
     </div>
 </article>

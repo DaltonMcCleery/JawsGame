@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Action extends Component
 {
    public function __construct(
-       public string $action,
+       public ?string $action = null,
        public ?string $currentAction = null,
    ) {
        //
