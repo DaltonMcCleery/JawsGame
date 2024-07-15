@@ -1,12 +1,6 @@
-@extends('wrapper')
+@extends('layout.game')
 @section('content')
 
-    @livewire('game-wrapper', [
-        'game' => $game,
-        'event_cards' => $event_cards,
-        'shark_ability_cards' => $shark_ability_cards,
-        'resurface_cards' => $resurface_cards,
-        'crew_cards' => $crew_cards
-    ])
+    @livewire('game.game-wrapper', ['game' => $game])
 
 @endsection

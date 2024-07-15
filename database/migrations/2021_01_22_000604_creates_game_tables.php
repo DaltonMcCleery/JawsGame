@@ -15,15 +15,6 @@ class CreatesGameTables extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('shark', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->integer('health')->default(18);
-            $table->integer('swimmers_ate')->default(0);
-            $table->integer('barrels')->default(0);
-            $table->unsignedBigInteger('user_id')->nullable()->references('id')->on('users');;
-            $table->timestamps();
-        });
-
         Schema::create('stats', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->integer('games_won')->default(0);
@@ -51,7 +42,7 @@ class CreatesGameTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('boat', function (Blueprint $table) {
+        Schema::create('boats', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->integer('tile_1_health')->default(1);
             $table->integer('tile_2_health')->default(1);
@@ -61,6 +52,8 @@ class CreatesGameTables extends Migration
             $table->integer('tile_6_health')->default(1);
             $table->integer('tile_7_health')->default(1);
             $table->integer('tile_8_health')->default(1);
+            $table->integer('shark_target')->nullable();
+            $table->integer('shark_position')->default(0);
             $table->integer('brody_target')->nullable();
             $table->integer('brody_position')->default(0);
             $table->integer('hooper_target')->nullable();
@@ -75,21 +68,20 @@ class CreatesGameTables extends Migration
             $table->string('session_id');
             $table->string('game_id')->nullable();
             $table->unsignedBigInteger('host_id')->references('id')->on('users');
-            $table->integer('max_sessions')->default(4);
-            $table->integer('current_sessions')->default(1);
+            $table->unsignedBigInteger('boat_id')->nullable()->references('id')->on('boats');
+            $table->integer('monitor')->nullable();
+            $table->integer('player')->nullable();
             $table->string('status')->default('not started');
             $table->integer('act')->default(1);
-            $table->unsignedBigInteger('winner')->nullable()->references('id')->on('users');
-            $table->string('shark_abilities')->default(0);
-            $table->string('crew_gear')->default(0);
-            $table->unsignedBigInteger('shark_id')->nullable()->references('id')->on('shark');
-            $table->unsignedBigInteger('boat_id')->nullable()->references('id')->on('boat');
-            $table->unsignedBigInteger('brody')->nullable()->references('id')->on('users');
+            $table->string('winner')->nullable();
+            $table->string('number_of_shark_abilities')->default(0);
+            $table->string('number_of_crew_gear')->default(0);
             $table->integer('brody_health')->default(6);
-            $table->unsignedBigInteger('hooper')->nullable()->references('id')->on('users');
             $table->integer('hooper_health')->default(6);
-            $table->unsignedBigInteger('quint')->nullable()->references('id')->on('users');
             $table->integer('quint_health')->default(6);
+            $table->integer('shark_health')->default(18);
+            $table->integer('swimmers_ate')->default(0);
+            $table->integer('attached_barrels')->default(0);
             $table->timestamps();
         });
 
@@ -105,10 +97,9 @@ class CreatesGameTables extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::dropIfExists('shark');
         Schema::dropIfExists('cards');
         Schema::dropIfExists('stats');
-        Schema::dropIfExists('boat');
+        Schema::dropIfExists('boats');
         Schema::dropIfExists('games');
 
         Schema::enableForeignKeyConstraints();

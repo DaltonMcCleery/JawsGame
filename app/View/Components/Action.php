@@ -1,0 +1,20 @@
+<?php
+
+namespace App\View\Components;
+
+use Illuminate\View\Component;
+
+class Action extends Component
+{
+   public function __construct(
+       public ?string $action = null,
+       public ?string $currentAction = null,
+   ) {
+       //
+   }
+
+    public function render()
+    {
+        return view('components.action');
+    }
+}

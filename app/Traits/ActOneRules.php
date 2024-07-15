@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-trait ActOneRules {
-
+trait ActOneRules
+{
     /**
      * Determine if a move was valid based on Character rules + Game's State at time of Action
      *
@@ -15,30 +15,18 @@ trait ActOneRules {
      * @param $localGameState
      * @return array
      */
-    public function isValidAction($character, $action, $space, $currentActionState, $gameState, $localGameState): array {
-        switch ($character) {
-            case 'shark':
-                $characterActions = $this->sharkActions;
-                break;
-
-            case 'brody':
-                $characterActions = $this->brodyActions;
-                break;
-
-            case 'hooper':
-                $characterActions = $this->hooperActions;
-                break;
-
-            case 'quint':
-                $characterActions = $this->quintActions;
-                break;
-
-            default:
-                $characterActions = null;
-        }
+    public function isValidAction($character, $action, $space, $currentActionState, $gameState, $localGameState): array
+    {
+        $characterActions = match ($character) {
+            'shark' => $this->sharkActions,
+            'brody' => $this->brodyActions,
+            'hooper' => $this->hooperActions,
+            'quint' => $this->quintActions,
+            default => null,
+        };
 
         if ($characterActions !== null) {
-            if (!in_array($action, $characterActions)) {
+            if (! \in_array($action, $characterActions)) {
                 return ['Invalid Action given: "'.$action.'"'];
             }
 
@@ -59,7 +47,7 @@ trait ActOneRules {
         if ($character !== 'shark' && $gameState['free_docks'] === "true") {
             foreach ($currentActionState as $key => $action) {
                 // Remove any Dock actions temporarily
-                if (str_contains($action, 'Drop 1 Barrel') || str_contains($action, 'Pick up any or all Barrels')) {
+                if (\str_contains($action, 'Drop 1 Barrel') || \str_contains($action, 'Pick up any or all Barrels')) {
                     unset($currentActionState[$key]);
                 }
             }
@@ -73,18 +61,18 @@ trait ActOneRules {
     }
 
     private function isMoveAdjacent($character, $action, $space, $currentActionState, $gameState): array {
-        if (str_contains($action, 'Move')) {
+        if (\str_contains($action, 'Move')) {
             if ($character === 'brody') {
                 if (isset($this->gameState['brody_relocation']) && $this->gameState['brody_relocation'] === 1) {
                     return [];
                 }
-                if (!in_array($space, $this->adjacentSpaces[$gameState[$character.'_position']])) {
+                if (! \in_array($space, $this->adjacentSpaces[$gameState[$character.'_position']])) {
                     return ['Spaces not adjacent'];
                 }
             }
             else {
                 // Everyone else is on Water spaces
-                if (!in_array($space, $this->adjacentWaterSpaces[$gameState[$character.'_position']])) {
+                if (! \in_array($space, $this->adjacentWaterSpaces[$gameState[$character.'_position']])) {
                     if ($character === 'hooper') {
                         // Check if 2 spaces were moved
                         $last_position_adjacent_spaces = $this->adjacentWaterSpaces[$gameState['hooper_position']];
@@ -113,7 +101,7 @@ trait ActOneRules {
     public function isAbilityMove($character, $action, $space, $currentActionState, $gameState): array {
         // Shark
         if ($character === 'shark') {
-            if (str_contains($action, 'Feeding Frenzy')) {
+            if (\str_contains($action, 'Feeding Frenzy')) {
                 // Only can be used once per game
                 if ($gameState['used_feeding_frenzy'] === true) {
                     return ['Already used Ability'];
@@ -127,21 +115,21 @@ trait ActOneRules {
                 }
             }
 
-            if (str_contains($action, 'Evasive Moves')) {
+            if (\str_contains($action, 'Evasive Moves')) {
                 // Only can be used once per game
                 if ($gameState['used_evasive_moves'] === true) {
                     return ['Already used Ability'];
                 }
             }
 
-            if (str_contains($action, 'Out of Sight')) {
+            if (\str_contains($action, 'Out of Sight')) {
                 // Only can be used once per game
                 if ($gameState['used_out_of_sight'] === true) {
                     return ['Already used Ability'];
                 }
             }
 
-            if (str_contains($action, 'Speed Burst')) {
+            if (\str_contains($action, 'Speed Burst')) {
                 // Only can be used once per game
                 if ($gameState['used_speed_burst'] === true) {
                     return ['Already used Ability'];
@@ -164,7 +152,7 @@ trait ActOneRules {
         // Crew
         else {
 
-            if (str_contains($action, 'Close a Beach')) {
+            if (\str_contains($action, 'Close a Beach')) {
                 // Must be at HQ and in the space the character is currently in
                 if (!in_array($gameState['brody_position'], $this->hq)) {
                     return ['Must be at Space 6 or 7 to use Ability'];
@@ -185,7 +173,7 @@ trait ActOneRules {
                 }
             }
 
-            if (str_contains($action, 'Use Binoculars')) {
+            if (\str_contains($action, 'Use Binoculars')) {
                 // Must be at a beach and in the space the character is currently in
                 if (!in_array($gameState['brody_position'], $this->beaches)) {
                     return ['Must be at a Beach to use Ability'];
@@ -199,7 +187,7 @@ trait ActOneRules {
                 }
             }
 
-            if (str_contains($action, 'Use Fish Finder')) {
+            if (\str_contains($action, 'Use Fish Finder')) {
                 // Must be used in the space the character is currently in
                 if ($gameState['hooper_position'] !== $space) {
                     return ['Must use Ability in Character\'s Space'];
@@ -210,7 +198,7 @@ trait ActOneRules {
                 }
             }
 
-            if (str_contains($action, 'Launch a Barrel')) {
+            if (\str_contains($action, 'Launch a Barrel')) {
                 // Must have a barrel in inventory
                 if ($gameState['quint_barrels'] < 1) {
                     return ['No barrels in Inventory'];
@@ -228,17 +216,17 @@ trait ActOneRules {
     }
 
     public function isSwimmerAction($character, $action, $space, $gameState, $localGameState): array {
-        if (str_contains($action, 'Swimmer')) {
+        if (\str_contains($action, 'Swimmer')) {
             if ($gameState[$character.'_position'] !== $space) {
                 return ['Character must be in the same Space as the Action'];
             }
-            if (!in_array($space, $this->beaches)) {
+            if (! \in_array($space, $this->beaches)) {
                 return ['Action must be done at a Beach'];
             }
             if ($localGameState[$space.'_Swimmers'] < 1) {
                 return ['No Swimmers left at Beach'];
             }
-            if ($localGameState[$space.'_Swimmers'] === 2 && isset($gameState['michael_position']) && $gameState['michael_position'] === $space && $character !== 'brody') {
+            if ($localGameState[$space.'_Swimmers'] === 2 && isset($gameState['michael_position']) && $gameState['michael_position'] === $space && ($character !== 'brody' && $character !== 'shark')) {
                 return ['Only Brody may save Michael'];
             }
         }
@@ -251,11 +239,11 @@ trait ActOneRules {
         if ($character !== 'shark') {
             if ($character === 'brody') {
                 // Picking up Barrels at Shop or Docks
-                if (str_contains($action, 'Pick up 1 Barrel')) {
+                if (\str_contains($action, 'Pick up 1 Barrel')) {
                     if ($gameState['brody_position'] !== $space) {
                         return ['Character must be in the same Space as Action'];
                     }
-                    if (!in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] !== 'Shop') {
+                    if (! \in_array($gameState['brody_position'], $this->docks) && $gameState['brody_position'] !== 'Shop') {
                         return ['Must be at a Dock or the Shop'];
                     }
                     if ($gameState[$gameState['brody_position'].'_barrels'] < 1) {
@@ -264,8 +252,8 @@ trait ActOneRules {
                 }
 
                 // Dropping Barrels at Docks
-                if (str_contains($action, 'Drop 1 Barrel')) {
-                    if (!in_array($gameState['brody_position'], $this->docks)) {
+                if (\str_contains($action, 'Drop 1 Barrel')) {
+                    if (! \in_array($gameState['brody_position'], $this->docks)) {
                         return ['Must be at a Dock'];
                     }
                     if ($gameState['brody_position'] !== $space) {
@@ -282,7 +270,7 @@ trait ActOneRules {
 
             if ($character === 'hooper') {
                 // Picking up Barrels at Docks
-                if (str_contains($action, 'Pick up any or all Barrels')) {
+                if (\str_contains($action, 'Pick up any or all Barrels')) {
                     if (!in_array($gameState['hooper_position'], $this->docks)) {
                         // Pick up barrels from the water
                         if (isset($gameState[$gameState['hooper_position'].'_barrels'])) {
@@ -307,7 +295,7 @@ trait ActOneRules {
                 }
 
                 // Giving Barrels to Quint
-                if (str_contains($action, 'Give all Barrels to Quint')) {
+                if (\str_contains($action, 'Give all Barrels to Quint')) {
                     if ($gameState['hooper_position'] !== $gameState['quint_position']) {
                         return ['Must be in the same Space as Quint'];
                     }
@@ -319,7 +307,7 @@ trait ActOneRules {
 
             if ($character === 'quint') {
                 // Picking up Barrels from Docks
-                if (str_contains($action, 'Pick up any or all Barrels')) {
+                if (\str_contains($action, 'Pick up any or all Barrels')) {
                     if (!in_array($gameState['quint_position'], $this->docks)) {
                         if (isset($gameState[$gameState['quint_position'].'_barrels'])) {
                             if ($gameState[$gameState['quint_position'].'_barrels'] > 0) {
@@ -366,7 +354,7 @@ trait ActOneRules {
 
     // -------------------------------------------------------------------------------------------------------------- //
 
-    private $sharkActions = [
+    private array $sharkActions = [
         'Starting Position',
         'Move 1 Space',
         'Eat 1 Swimmer',
@@ -376,7 +364,7 @@ trait ActOneRules {
         'Ability Speed Burst'
     ];
 
-    private $brodyActions = [
+    private array $brodyActions = [
         'Move 1 Space',
         'Move Relocation',
         'Rescue 1 Swimmer',
@@ -386,7 +374,7 @@ trait ActOneRules {
         'Close a Beach'
     ];
 
-    private $hooperActions = [
+    private array $hooperActions = [
         'Move 1-2 Spaces',
         'Rescue 1 Swimmer',
         'Pick up any or all Barrels',
@@ -394,31 +382,31 @@ trait ActOneRules {
         'Use Fish Finder'
     ];
 
-    private $quintActions = [
+    private array $quintActions = [
         'Move 1 Space',
         'Rescue 1 Swimmer',
         'Pick up any or all Barrels',
         'Launch a Barrel'
     ];
 
-    private $beaches = [
+    private array $beaches = [
         'North_Beach',
         'East_Beach',
         'South_Beach',
         'West_Beach'
     ];
 
-    private $docks = [
+    private array $docks = [
         'Space_5',
         'Space_8'
     ];
 
-    private $hq = [
+    private array $hq = [
         'Space_6',
         'Space_7'
     ];
 
-    private $adjacentWaterSpaces = [
+    private array $adjacentWaterSpaces = [
         'Space_1' => [
             'Space_2',
             'Space_3',
@@ -485,7 +473,7 @@ trait ActOneRules {
         ]
     ];
 
-    private $adjacentSpaces = [
+    private array $adjacentSpaces = [
         'Space_5' => [
             'North_Beach',
             'West_Beach',

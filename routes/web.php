@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LobbyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
@@ -19,8 +18,9 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::redirect('/home', '/', 301);
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/how-to-play', [HomeController::class, 'howToPlay'])->name('how_to_play');
+Route::view('/', 'index')->name('home');
+Route::view('/how-to-play', 'how_to')->name('how_to_play');
+Route::view('/chat/{session_id}', 'chat')->name('chat');
 
 // --- Authenticated Customer --- //
 Route::middleware('players')->group(function () {

@@ -1,53 +1,63 @@
 <article class="panel">
-    <p class="panel-heading brody">
-        Brody @if($game->Brody->username === Auth::user()->username) <small>(You)</small>@endif
+    <p class="text-center mb-2">
+        Actions: {{ $gameState['brody_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
+        |
+        Barrels: {{ $localGameState['brody_barrels'] ?? $gameState['brody_barrels'] ?? 0 }}
     </p>
-    <p class="panel-tabs">
-        <span class="is-active">
-            Actions: {{ $gameState['brody_moves'] ?? 4 }} @if(isset($gameState['extra_crew_move']) && $gameState['extra_crew_move'] === 1) + 1 @endif
-            |
-            Barrels: {{ $gameState['brody_barrels'] ?? 0 }}
-        </span>
-    </p>
-
-    @if(isset($gameState['brody_relocation']) && $gameState['brody_relocation'] === 1)
-        <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move Relocation') brody @endif"
-           wire:click="switchNextAction('Move Relocation')">
-            <strong>Relocation</strong>
-        </a>
-
-        <hr/>
-    @endif
-
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Move 1 Space') brody @endif"
-       wire:click="switchNextAction('Move 1 Space')">
-        Move 1 Space
-    </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Rescue 1 Swimmer') brody @endif"
-       wire:click="switchNextAction('Rescue 1 Swimmer')">
-        Rescue 1 Swimmer
-    </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Pick up 1 Barrel') brody @endif"
-       wire:click="switchNextAction('Pick up 1 Barrel')">
-        Pick up 1 Barrel
-    </a>
-    <a class="panel-block @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Drop 1 Barrel') brody @endif"
-       wire:click="switchNextAction('Drop 1 Barrel')">
-        Drop 1 Barrel
-    </a>
 
     <hr/>
 
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Use Binoculars') brody @endif"
-       wire:click="switchNextAction('Use Binoculars')">
-        <strong>Binoculars</strong>
-        <small>See if the Shark is at a Beach</small>
-    </a>
-    <a class="panel-block is-flex-direction-column has-text-centered
-       @if(isset($gameState['active_player']) && $gameState['active_character'] === 'brody' && $gameState['active_player'] === Auth::user()->username && $game->Brody->username === Auth::user()->username && $gameState['current_selected_action'] === 'Close a Beach') brody @endif"
-       wire:click="switchNextAction('Close a Beach')">
-        <strong>Close a Beach</strong>
-        <small>Closing a Beach will prevent Swimmers from being placed there for 2 Rounds</small>
-    </a>
+    <div class="grid grid-cols-1 gap-4 py-4 overflow-y-auto scrolling-height">
+        @if(isset($gameState['brody_relocation']) && $gameState['brody_relocation'] === 1)
+            <x-action action="Move Relocation" :currentAction="$gameState['current_selected_action']">
+                <p class="font-bold text-gray-900 text-center">
+                    Relocation
+                </p>
+            </x-action>
+        @endif
+
+        <x-action action="Move 1 Space" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Move 1 Space
+            </p>
+        </x-action>
+
+        <x-action action="Rescue 1 Swimmer" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Rescue 1 Swimmer
+            </p>
+        </x-action>
+
+        <x-action action="Pick up 1 Barrel" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Pick up 1 Barrel
+            </p>
+        </x-action>
+
+        <x-action action="Drop 1 Barrel" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Drop 1 Barrel
+            </p>
+        </x-action>
+
+        <hr/>
+
+        <x-action action="Use Binoculars" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Binoculars
+            </p>
+            <p class="text-sm text-gray-500 break-words text-center">
+                See if the Shark is at a Beach
+            </p>
+        </x-action>
+
+        <x-action action="Close a Beach" :currentAction="$gameState['current_selected_action']">
+            <p class="font-bold text-gray-900 text-center">
+                Close a Beach
+            </p>
+            <p class="text-sm text-gray-500 break-words text-center">
+                Will prevent Swimmers from being placed there for 2 Rounds
+            </p>
+        </x-action>
+    </div>
 </article>

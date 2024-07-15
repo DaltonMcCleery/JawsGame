@@ -2,10 +2,8 @@
 
 namespace App\Traits;
 
-use App\Models\Card;
-
-trait ActOneCards {
-
+trait ActOneCards
+{
     public function parseEventCard($card, $gameState) {
         if ($card['type'] === 'Event') {
             $swimmer_placements = $this->calculateSwimmerPlacement($card, $gameState);
@@ -29,7 +27,8 @@ trait ActOneCards {
      * @param $gameState
      * @return int[]
      */
-    private function calculateSwimmerPlacement($card, $gameState) {
+    private function calculateSwimmerPlacement($card, $gameState): array
+    {
         $swimmers = [
             'North_Beach_Swimmers' => 0,
             'East_Beach_Swimmers' => 0,
@@ -107,7 +106,8 @@ trait ActOneCards {
      * @param $swimmer_placements
      * @return null[]
      */
-    private function determineExtraActions($token, $gameState, $swimmer_placements) {
+    private function determineExtraActions($token, $gameState, $swimmer_placements): array
+    {
         $possibleChanges = [];
 
         switch ($token) {
@@ -149,7 +149,7 @@ trait ActOneCards {
                 }
                 else {
                     // Random
-                    $dock = (collect(['Space_5', 'Space_8']))->random(1);
+                    $dock = (collect(['Space_5', 'Space_8']))->random(1)?->first();
                     $possibleChanges['hooper_position'] = $dock;
                     $possibleChanges['brody_position'] = $dock;
                 }
@@ -199,7 +199,8 @@ trait ActOneCards {
      * @param $new_swimmers
      * @return string[]
      */
-    private function sortBeachesBySwimmers($gameState, $new_swimmers) {
+    private function sortBeachesBySwimmers($gameState, $new_swimmers): array
+    {
         $Nkey = $gameState['North_Beach_Swimmers'] + $new_swimmers['North_Beach_Swimmers'];
         $Ekey = $gameState['East_Beach_Swimmers'] + $new_swimmers['East_Beach_Swimmers'];
         $Skey = $gameState['South_Beach_Swimmers'] + $new_swimmers['South_Beach_Swimmers'];

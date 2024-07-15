@@ -1,17 +1,22 @@
 @extends('wrapper')
 @section('content')
 
-    <section id="index-hero" class="hero is-dark is-large" style="background: url('{{ asset('images/background.jpg') }}')">
-{{--        <iframe id="homepage-video" src="https://www.youtube.com/embed/2I91DJZKRxs?autoplay=1&modestbranding=1&rel=0"--}}
-{{--                allowTransparency="true" frameborder="0" allow="autoplay; muted" volume="0" allowfullscreen></iframe>--}}
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    You're gonna need a bigger boat...
+    <section class="w-full">
+        <div class="relative min-h-[400px]">
+            <div class="absolute inset-0">
+                <img class="h-full w-full object-cover" src="{{ asset('images/background.jpg') }}" alt="JAWS Logo">
+                <div class="absolute inset-0 bg-black mix-blend-multiply opacity-50"></div>
+            </div>
+            <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 flex flex-col justify-center items-center">
+                <h1 class="text-center uppercase text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-custom-red">
+                    JAWS
                 </h1>
+                <h2 class="text-center text-xl font-extrabold tracking-tight sm:text-2xl text-white">
+                    We're gonna need a bigger boat
+                </h2>
             </div>
         </div>
-    </section>
+    </div>
 
     <livewire:available-games />
 

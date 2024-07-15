@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Lobby\closeLobby;
-use App\Events\Chat\lobbyChat;
-use App\Events\Lobby\startGame;
-use App\Events\Lobby\joinLobby;
-use App\Models\Card;
+use App\Events\Lobby\JoinLobby;
 use App\Models\Game;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class LobbyController extends Controller
 {
@@ -35,7 +29,7 @@ class LobbyController extends Controller
             }
 
             // Setup/Join Lobby
-            broadcast(new joinLobby(Auth::user(), $session_id));
+            broadcast(new JoinLobby(Auth::user(), $session_id));
 
             return view('lobby', ['game' => $game]);
 
@@ -52,17 +46,13 @@ class LobbyController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function play($session_id) {
-        $game = Game::with(['Host', 'Shark', 'Brody', 'Hooper', 'Quint', 'Boat'])
+        $game = Game::query()
             ->where('session_id', $session_id)
             ->first();
 
-        if ($game && $game->current_sessions <= $game->max_sessions && $game->status !== 'has ended') {
+        if ($game && $game->status !== 'has ended') {
             return view('game', [
                 'game' => $game,
-                'event_cards' => Card::where('type', 'Event')->inRandomOrder()->get(),
-                'shark_ability_cards' => Card::where('type', 'Shark Ability')->inRandomOrder()->get(),
-                'resurface_cards' => Card::where('type', 'Resurface')->inRandomOrder()->get(),
-                'crew_cards' => Card::where('type', 'Crew')->inRandomOrder()->get()
             ]);
         } else {
             // Invalid Game
