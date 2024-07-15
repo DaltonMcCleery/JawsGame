@@ -1,5 +1,7 @@
 # Jaws Game
 
+Inspired by the [Jaws Board Game](https://ravensburger.us/discover/games/jaws-game/index.html). This is a recreation of the game digitally to play online with friends.
+
 ## Local Development
 
 Set up the default database
